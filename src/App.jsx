@@ -15,35 +15,11 @@
 
 // export default App;
 
-import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap';
 import './App.css';
-import {} from '../components/'
 
 const App = () => {
-
-  const [user, userState] = useState()
-  const [receipt, receiptState] = userState()
-
-  useEffect(() => {
-
-
-
-
-
-  }, [user]);
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <Container>
