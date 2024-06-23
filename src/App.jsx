@@ -1,7 +1,6 @@
 
 import './App.css'
 import ExpensesTable from './components/expensestable'
-import { Container, Row, Col, Button } from 'react-bootstrap';
 import CameraFunction from "./scripts/CameraFunction.jsx";
 import LandingComponent from "./components/LandingComponent.jsx";
 import {useEffect, useState} from "react";
