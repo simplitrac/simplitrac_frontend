@@ -1,9 +1,9 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import ExpensesTable from "./expensestable.jsx";
-import CameraFunction from "../scripts/CameraFunction.jsx";
 
 const LandingComponent = (props) => {
 
+    // eslint-disable-next-line react/prop-types
     const setScreen = props.setScreen
 
     const renderNewScreen = (screen) =>{
@@ -29,7 +29,7 @@ const LandingComponent = (props) => {
             </Row>
             <Row className="mt-3">
                 <Col className="d-flex justify-content-around">
-                    <Button variant="primary" onClick={() => {renderNewScreen("expenses")}}>Expense</Button>
+                    <Button variant="primary" onClick={() => renderNewScreen("landing")}>Expense</Button>
                     <Button variant="primary" onClick={() => renderNewScreen("camera")}>Camera</Button>
                     <Button variant="primary" onClick={() =>renderNewScreen("chart")}>Chart</Button>
                 </Col>
