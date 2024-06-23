@@ -2,38 +2,35 @@
 import './App.css'
 import ExpensesTable from './components/expensestable'
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import CameraFunction from "./scripts/CameraFunction.jsx";
+import LandingComponent from "./components/LandingComponent.jsx";
+import {useEffect, useState} from "react";
 
 function App() {
-  // [user, userState] = useState()
-  // [transaction, transactionState] = useState()
+  const [screen, setScreen] = useState("landing")
+    const [back, setBack] = useState(false)
 
-  // useEffect (() => {
+    useEffect(() => {
+        renderComponent()
+    }, [screen]);
 
-  // },[user, transaction])
+    const renderComponent = () => {
+        switch(screen) {
+            case "landing":
+                return <LandingComponent setScreen={setScreen}/>
+            case "expenses":
+                return <ExpensesTable />
+            case "camera":
+                return <CameraFunction setScreen={setScreen}  back={back} setBack={setBack}/>
+            default:
+                return <LandingComponent setScreen={setScreen}/>
+        }
 
-  return (
-    <Container>
-      <Row className="mt-3">
-        <Col>
-          <h1 className="text-center">
-            SimpliTrac
-          </h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <ExpensesTable />
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col className="d-flex justify-content-around">
-          <Button variant="primary">Expense</Button>
-          <Button variant="primary">Camera</Button>
-          <Button variant="primary">Chart</Button>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+    }
+
+
+  return renderComponent()
+}
 
 export default App
+
