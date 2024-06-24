@@ -5,6 +5,7 @@ const LandingComponent = (props) => {
 
     // eslint-disable-next-line react/prop-types
     const setScreen = props.setScreen
+    const user = props.user;
 
     const renderNewScreen = (screen) =>{
         if (screen === undefined){
@@ -15,6 +16,9 @@ const LandingComponent = (props) => {
 
     return (
         <Container>
+            <>
+            {`Welcome ${user.displayName}`}
+            </>
             <Row className="mt-3">
                 <Col>
                     <h1 className="text-center">

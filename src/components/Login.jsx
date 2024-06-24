@@ -7,6 +7,7 @@ import {
 
 export const Login = (props) => {
     const setScreen = props.setScreen
+    const setUser = props.setUser
     //
     // const [email, setEmail] = useState("");
     // const [password, setPassword] = useState("");
@@ -20,7 +21,10 @@ export const Login = (props) => {
     // };
     const signInWithGoogle = async () => {
         try {
-            await signInWithPopup(auth,googleProvider);
+            const result = await signInWithPopup(auth,googleProvider);
+            const user = result.user;
+            setUser(user)
+            console.log(result)
             setScreen("landing")
         } catch (err){
             console.error(err);
@@ -28,7 +32,8 @@ export const Login = (props) => {
     };
     const logOut = async () => {
         try {
-            await signOut(auth);
+            const result = await signOut(auth);
+            console.log(result)
         } catch (err){
             console.error(err);
         }
