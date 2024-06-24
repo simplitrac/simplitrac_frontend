@@ -1,5 +1,5 @@
 // CameraFunction.jsx
-import { useState, useEffect, useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 const CameraFunction = ({ onBack }) => {
     const [hasPermission, setHasPermission] = useState(false);
@@ -12,8 +12,14 @@ const CameraFunction = ({ onBack }) => {
         (async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoRef.current = document.createElement('video');
                 if (videoRef.current) {
-                    videoRef.current.srcObject = stream;
+                    console.log(videoRef)
+                    videoRef.current.srcObject = stream
+                    // videoRef.addEventListener("loadedmetadata", ()=>{
+                    //     videoRef.play()
+                    // })
+                    console.log('Camera access granted')
                     setHasPermission(true);
                 }
             } catch (err) {
@@ -21,7 +27,7 @@ const CameraFunction = ({ onBack }) => {
                 setHasPermission(false);
             }
         })();
-    }, []);
+    }, [videoRef]);
 
     const capturePhoto = () => {
         if (videoRef.current && canvasRef.current) {
