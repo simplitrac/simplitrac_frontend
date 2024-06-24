@@ -9,21 +9,22 @@ import Login from "./components/Login.jsx";
 function App() {
   const [screen, setScreen] = useState()
     const [back, setBack] = useState(false)
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         renderComponent()
-    }, [screen]);
+    }, [screen, user]);
 
     const renderComponent = () => {
         switch(screen) {
             case "landing":
-                return <LandingComponent setScreen={setScreen}/>
+                return <LandingComponent setScreen={setScreen} user={user}/>
             case "chart":
                 return <ExpensesTable />
             case "camera":
                 return <CameraFunction setScreen={setScreen}  back={back} setBack={setBack}/>
             default:
-                return <Login setScreen={setScreen}/>
+                return <Login setScreen={setScreen} setUser = {setUser}/>
         }
 
     }
