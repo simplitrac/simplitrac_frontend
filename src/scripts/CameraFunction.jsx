@@ -14,8 +14,10 @@ const CameraFunction = ({ onBack }) => {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 videoRef.current = document.createElement('video');
                 if (videoRef.current) {
-                    console.log(videoRef)
-                    videoRef.current.srcObject = stream
+                    videoRef.current.srcObject = stream;
+                    videoRef.current.play();
+                    // console.log(videoRef)
+                    // videoRef.current.srcObject = stream
                     // videoRef.addEventListener("loadedmetadata", ()=>{
                     //     videoRef.play()
                     // })
