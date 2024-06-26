@@ -36,7 +36,6 @@ const LandingComponent = (props) => {
                     <Button variant="primary" onClick={() => renderNewScreen("landing")}>Expense</Button>
                     <Button variant="primary" onClick={() => renderNewScreen("camera")}>Camera</Button>
                     <Button variant="primary" onClick={() =>renderNewScreen("chart")}>Chart</Button>
-                    {/* <button onClick={logOut}> logOut</button> */}
                 </Col>
             </Row>
         </Container>
