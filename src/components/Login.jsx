@@ -48,7 +48,7 @@ export const Login = (props) => {
             {/*/>*/}
             {/*<button onClick={signIn}> Signin</button>*/}
             <button onClick={signInWithGoogle}> Signin with Google</button>
-            {/* <button onClick={logOut}> logOut</button> */}
+            <button onClick={logOut}> logOut</button>
             {/*<button onClick={signInWithGoogle}> Signin with Google</button>*/}
             {/*<button onClick={logOut}> logOut</button>*/}
         </div>
