@@ -2,7 +2,9 @@ import {initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth,  GoogleAuthProvider } from "firebase/auth";
 // Can't use dotenv for frontend
-
+export {
+    // createUserWithEmailAndPassword,
+    signInWithPopup, signOut } from "firebase/auth";
 let app;
 
 (() => {
@@ -19,5 +21,6 @@ const db = getFirestore();
 
 export const auth =  getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+
 
 export default db;
