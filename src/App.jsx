@@ -26,7 +26,7 @@ function App() {
             case "chart":
                 return <ExpensesTable />
             case "camera":
-                return <CameraFunction setScreen={setScreen}  back={back} setBack={setBack}/>
+                return <CameraFunction setScreen={setScreen} />
             default:
                 return <Login setScreen={setScreen} setUser = {setUser}/>
         }
