@@ -1,5 +1,6 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import ExpensesTable from "./expensestable.jsx";
+import {useEffect} from "react";
 
 const LandingComponent = (props) => {
 
@@ -14,10 +15,16 @@ const LandingComponent = (props) => {
         setScreen(screen)
     }
 
+    useEffect(() => {
+
+
+
+    }, [user])
+
     return (
         <Container>
             <>
-            {`Welcome ${user.displayName}`}
+            {`Welcome ${user.first_name} ${user.last_name}`}
             </>
             <Row className="mt-3">
                 <Col>

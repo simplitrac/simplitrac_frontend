@@ -4,6 +4,7 @@ import { auth , googleProvider} from "../config/initializeFirestore.js";
 import {
     // createUserWithEmailAndPassword,
     signInWithPopup, signOut } from "firebase/auth";
+import User from "../models/User.js";
 
 export const Login = (props) => {
     const setScreen = props.setScreen
@@ -22,9 +23,9 @@ export const Login = (props) => {
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth,googleProvider);
-            const user = result.user;
+            const user = new User(result.user);
+            await createNewUser(user)
             setUser(user)
-            console.log(result)
             setScreen("landing")
         } catch (err){
             console.error(err);
@@ -38,6 +39,24 @@ export const Login = (props) => {
             console.error(err);
         }
     };
+
+
+    async function createNewUser(user){
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(user)
+        };
+        // In order to run locally, you need to change the endpoint to your local endpoint:
+        // This should be in your .env file
+        const endpoint = import.meta.env.VITE_PROD_CREATE_USER_ENDPOINT
+        const result = await fetch(endpoint, init)
+        console.log(result)
+    }
+
     return (
         <div>
             {/*<input placeholder="Email.." onChange={(e) => setEmail(e.target.value)} />*/}
