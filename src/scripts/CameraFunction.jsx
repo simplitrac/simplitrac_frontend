@@ -14,6 +14,7 @@ const CameraFunction = ({ onBack }) => {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 videoRef.current = document.createElement('video');
                 if (videoRef.current) {
+                    // input type of select image or take a picture, this will bypass authorization by passing to camera app
                     videoRef.current.srcObject = stream;
                     videoRef.current.play();
                     // console.log(videoRef)
