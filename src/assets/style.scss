@@ -1,0 +1,17 @@
+.source-type {
+  position: relative;
+}
+
+.source-type-modal {
+  position: absolute;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__list-item {
+    &:focus-within {
+      background: lightblue;
+    }
+  }
+}
