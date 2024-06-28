@@ -1,38 +1,59 @@
-// CameraFunction.jsx
-import {useEffect, useRef, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
+import {AppContext} from "../context/AppContext.jsx";
 
 const CameraFunction = ({ onBack }) => {
-    const [hasPermission, setHasPermission] = useState(false);
-    const [capturedPhoto, setCapturedPhoto] = useState(null);
+    const {capturedPhoto, setCapturedPhoto} = useContext(AppContext);
+
+    const [hasPermission, setHasPermission] = useState(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
     useEffect(() => {
-        // Request camera access
-        (async () => {
+
+
+        const requestCameraAccess = async () => {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                videoRef.current = document.createElement('video');
-                if (videoRef.current) {
-                    // input type of select image or take a picture, this will bypass authorization by passing to camera app
-                    videoRef.current.srcObject = stream;
-                    videoRef.current.play();
-                    // console.log(videoRef)
-                    // videoRef.current.srcObject = stream
-                    // videoRef.addEventListener("loadedmetadata", ()=>{
-                    //     videoRef.play()
-                    // })
-                    console.log('Camera access granted')
-                    setHasPermission(true);
-                }
+                navigator.mediaDevices.getUserMedia({
+                    video: true,
+                })
+                    .then( (stream) => {
+                        if (!videoRef.current) {
+                            // Create a video element if it doesn't already exist
+                            videoRef.current = document.createElement('video');
+                            videoRef.current.style.width = '100%';
+                            videoRef.current.style.height = '100%';
+                            videoRef.current.autoplay = true;
+                        } else {
+                            // Set the video stream and play
+                            videoRef.current.srcObject = stream;
+                            console.log('Camera access granted');
+                        }
+                        setHasPermission(true);
+                    })
+                    .catch((err) => {
+                        console.error('Error accessing camera:', err);
+                        setHasPermission(false);
+                    })
             } catch (err) {
                 console.error('Error accessing camera:', err);
                 setHasPermission(false);
             }
-        })();
-    }, [videoRef]);
+        };
+
+        requestCameraAccess();
+
+        // Cleanup function to stop the video stream when component unmounts
+        return () => {
+            if (videoRef.current && videoRef.current.srcObject) {
+                let tracks = videoRef.current.srcObject.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+        };
+    }, [hasPermission]);
 
     const capturePhoto = () => {
+        console.log(videoRef)
+        console.log(canvasRef)
         if (videoRef.current && canvasRef.current) {
             const context = canvasRef.current.getContext('2d');
             context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -47,12 +68,13 @@ const CameraFunction = ({ onBack }) => {
     if (!hasPermission) {
         return <p>No access to camera</p>
     }
+    if(hasPermission && videoRef.current && videoRef.current.srcObject) {
+        document.getElementById("video-container").appendChild(videoRef.current);
+    }
 
     return (
         <div style={styles.container}>
-            <div style={styles.cameraContainer}>
-                <video ref={videoRef} style={styles.camera} autoPlay />
-            </div>
+            <div id={"video-container"} />
             <button onClick={capturePhoto}>Capture Photo</button>
             <button onClick={onBack}>Back</button>
             {capturedPhoto && (
@@ -81,10 +103,6 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-    },
-    camera: {
-        width: '100%',
-        height: '100%',
     },
     imageContainer: {
         marginTop: '10px',

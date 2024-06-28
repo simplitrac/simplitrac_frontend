@@ -10,7 +10,7 @@ import { AppContext } from './context/AppContext.jsx';
 
 
 function App() {
-    const { screen, setScreen, user, setUser } = useContext(AppContext);
+    const { screen, setScreen, user } = useContext(AppContext);
   // const [screen, setScreen] = useState()
   //   const [back, setBack] = useState(false)
   //   const [user, setUser] = useState(null)
@@ -22,13 +22,13 @@ function App() {
     const renderComponent = () => {
         switch(screen) {
             case "landing":
-                return <LandingComponent setScreen={setScreen} user={user} setUser = {setUser}/>
+                return <LandingComponent />
             case "chart":
                 return <ExpensesTable />
             case "camera":
-                return <CameraFunction setScreen={setScreen} />
+                return <CameraFunction />
             default:
-                return <Login setScreen={setScreen} setUser = {setUser}/>
+                return <Login />
         }
 
     }
