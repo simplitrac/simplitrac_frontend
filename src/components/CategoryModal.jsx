@@ -1,5 +1,5 @@
 import {useState, useRef, useContext} from "react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
 
 const categories = [

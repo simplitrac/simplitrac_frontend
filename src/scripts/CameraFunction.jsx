@@ -71,6 +71,13 @@ const CameraFunction = ({ onBack }) => {
     if(hasPermission && videoRef.current && videoRef.current.srcObject) {
         document.getElementById("video-container").appendChild(videoRef.current);
     }
+    const retakePhoto = () => {
+        setCapturedPhoto(null);
+    };
+    const submitPhoto = () => {
+        // Logic to submit the photo to the database
+        submitPhotoToDatabase(capturedPhoto);
+    };
 
     return (
         <div style={styles.container}>
@@ -78,9 +85,13 @@ const CameraFunction = ({ onBack }) => {
             <button onClick={capturePhoto}>Capture Photo</button>
             <button onClick={onBack}>Back</button>
             {capturedPhoto && (
+                <div>
                 <div style={styles.imageContainer}>
                     <p>Captured Photo:</p>
                     <img src={capturedPhoto} alt="Captured" style={styles.image} />
+                </div>
+                <button onClick={submitPhoto}>Submit</button>
+                <button onClick={retakePhoto}>Retake</button>
                 </div>
             )}
             <canvas ref={canvasRef} style={styles.hiddenCanvas}></canvas>
@@ -108,7 +119,7 @@ const styles = {
         marginTop: '10px',
     },
     image: {
-        width: '200px',
+        width: '300px',
         height: '200px',
     },
     hiddenCanvas: {
