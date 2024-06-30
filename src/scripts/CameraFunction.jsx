@@ -1,5 +1,6 @@
 import {useContext, useEffect, useRef, useState} from 'react';
 import {AppContext} from "../context/AppContext.jsx";
+import BackButton from "../components/BackButton.jsx";
 
 // const CameraFunction = ({ onBack }) => {
 //     const {capturedPhoto, setCapturedPhoto} = useContext(AppContext);
@@ -104,8 +105,8 @@ import {AppContext} from "../context/AppContext.jsx";
 //     );
 // };
 
-const CameraFunction = ({ onBack }) => {
-    const { capturedPhoto, setCapturedPhoto } = useContext(AppContext);
+const CameraFunction = () => {
+    const { capturedPhoto, setCapturedPhoto, setScreen} = useContext(AppContext);
 
     const [hasPermission, setHasPermission] = useState(null);
     const [stream, setStream] = useState(null);
@@ -189,7 +190,7 @@ const CameraFunction = ({ onBack }) => {
                     <button onClick={capturePhoto}>Capture Photo</button>
                 </div>
             )}
-            <button onClick={onBack}>Back</button>
+            <BackButton setScreen={setScreen} />
             {capturedPhoto && (
                 <div>
                     <div style={styles.imageContainer}>
