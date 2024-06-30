@@ -58,7 +58,7 @@ const LandingComponent = (props) => {
             </Row>
             <Row className="mt-3">
                 <Col className="d-flex justify-content-around">
-                    <Button variant="primary" onClick={() => renderNewScreen("landing")}>Expense</Button>
+                    {/*<Button variant="primary" onClick={() => renderNewScreen("landing")}>Expense</Button>*/}
                     <Button variant="primary" onClick={() => renderNewScreen("camera")}>Camera</Button>
                     <Button variant="primary" onClick={() =>renderNewScreen("chart")}>Chart</Button>
                 </Col>
