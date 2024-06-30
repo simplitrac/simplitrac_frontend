@@ -12,9 +12,18 @@ const AppProvider = ({ children }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [show, setShow] = useState(false);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
+    const [ocrData, setOcrData] = useState(null);
+    const value = {
+        screen, setScreen,
+        user, setUser,
+        modalIsOpen, setModalIsOpen,
+        show, setShow,
+        capturedPhoto, setCapturedPhoto,
+        ocrData, setOcrData
+    };
 
     return (
-        <AppContext.Provider value={{ screen, setScreen, user, setUser, modalIsOpen, setModalIsOpen, show, setShow, capturedPhoto, setCapturedPhoto}}>
+        <AppContext.Provider value={value}>
             {children}
         </AppContext.Provider>
     );

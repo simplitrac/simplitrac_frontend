@@ -1,7 +1,7 @@
 
 import './App.css'
 import ExpensesTable from './components/expensestable'
-import CameraFunction from "./scripts/CameraFunction.jsx";
+import Camera from "./components/Camera.jsx";
 import LandingComponent from "./components/LandingComponent.jsx";
 import {useEffect, useState} from "react";
 import Login from "./components/Login.jsx";
@@ -27,7 +27,7 @@ function App() {
             case "chart":
                 return <Chart />
             case "camera":
-                return <CameraFunction />
+                return <Camera />
             default:
                 return <Login />
         }
