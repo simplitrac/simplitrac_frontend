@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import Login from "./components/Login.jsx";
 import { useContext } from 'react';
 import { AppContext } from './context/AppContext.jsx';
+import Chart from "./components/Chart.jsx";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
             case "landing":
                 return <LandingComponent />
             case "chart":
-                return <ExpensesTable />
+                return <Chart />
             case "camera":
                 return <CameraFunction />
             default:
