@@ -1,5 +1,11 @@
 // eslint-disable-next-line react/prop-types
-const BackButton = ({ setScreen }) => {
+import {useContext} from "react";
+import {AppContext} from "../context/AppContext.jsx";
+
+const BackButton = () => {
+
+    const {setScreen} = useContext(AppContext)
+
     const onBack = () => {
         // if (videoRef.current.srcObject) {
         //     const stream = videoRef.current.srcObject;

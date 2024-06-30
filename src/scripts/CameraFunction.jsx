@@ -106,7 +106,7 @@ import BackButton from "../components/BackButton.jsx";
 // };
 
 const CameraFunction = () => {
-    const { capturedPhoto, setCapturedPhoto, setScreen} = useContext(AppContext);
+    const { capturedPhoto, setCapturedPhoto } = useContext(AppContext);
 
     const [hasPermission, setHasPermission] = useState(null);
     const [stream, setStream] = useState(null);
@@ -190,7 +190,7 @@ const CameraFunction = () => {
                     <button onClick={capturePhoto}>Capture Photo</button>
                 </div>
             )}
-            <BackButton setScreen={setScreen} />
+            <BackButton />
             {capturedPhoto && (
                 <div>
                     <div style={styles.imageContainer}>
