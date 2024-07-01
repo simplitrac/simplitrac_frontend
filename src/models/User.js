@@ -24,14 +24,16 @@ class User {
     }
 
     isNewUser() {
-        const url = import.meta.env.VITE_DEV_GET_USER_ENDPOINT
+        const endPoint = import.meta.env.VITE_DEV_GET_USER_ENDPOINT
         const init = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
             }
-        }; // Specify your init object here
+        };
+
+        const url = `${endPoint}?user_id=${this.user_id}`;
 
         try {
             let response;
