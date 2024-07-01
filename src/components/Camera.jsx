@@ -12,7 +12,7 @@ const Camera = () => {
     const videoContainerRef = useRef(null);
 
     useEffect(() => {
-        const requestCameraAccess = async () => {
+        (async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: true,
@@ -27,9 +27,7 @@ const Camera = () => {
                 console.error('Error accessing camera:', err);
                 setHasPermission(false);
             }
-        };
-
-        requestCameraAccess();
+        })();
 
         // Cleanup function to stop the video stream when component unmounts
         return () => {
@@ -157,7 +155,7 @@ const styles = {
 
 function imageToBlob(image){
     // Convert base64 string to Blob
-    const byteCharacters = atob(capturedPhoto);
+    const byteCharacters = atob(image);
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);

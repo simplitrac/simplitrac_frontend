@@ -5,10 +5,10 @@ import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
 import {AppContext} from "../context/AppContext.jsx";
 
-const LandingComponent = (props) => {
+const LandingComponent = () => {
 
     // eslint-disable-next-line react/prop-types
-    const {user, setUser, screen, setScreen, modalIsOpen, setModalIsOpen} = useContext(AppContext);
+    const {user, setUser, setScreen, modalIsOpen, setModalIsOpen} = useContext(AppContext);
     // const setScreen = props.setScreen
     // const user = props.user
     // const setUser = props.setUser
@@ -28,6 +28,8 @@ const LandingComponent = (props) => {
     // }, [user])
 
     return (
+        //EXECUTE MODAL CODE HERE
+
         <Container>
             {user.first_name && (
                 <>
