@@ -14,7 +14,12 @@ export const Login = () => {
         try {
             const result = await signInWithPopup(auth,googleProvider);
             const user = new User(result.user);
-            await createNewUser(user)
+            if(user.isNewUser()){
+                await createNewUser(user)
+            } else {
+                console.log("User already exists")
+            }
+
             setUser(user)
             setScreen("landing")
         } catch (err){
