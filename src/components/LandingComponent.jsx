@@ -29,7 +29,7 @@ const LandingComponent = () => {
 
     return (
         //EXECUTE MODAL CODE HERE
-
+        
         //update user is user.update()
 
         <Container>
