@@ -104,7 +104,7 @@ const Camera = () => {
             {!capturedPhoto && (
                 <div>
                     <div ref={videoContainerRef}>
-                        <video ref={videoRef} style={{ width: '100%', height: '100%' }} />\
+                        <video ref={videoRef} style={{ width: '100%', height: '100%' }} />
                     </div>
                     <button onClick={capturePhoto}>Capture Photo</button>
                 </div>

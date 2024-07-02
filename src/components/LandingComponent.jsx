@@ -30,6 +30,8 @@ const LandingComponent = () => {
     return (
         //EXECUTE MODAL CODE HERE
 
+        //update user is user.update()
+
         <Container>
             {user.first_name && (
                 <>
@@ -60,7 +62,7 @@ const LandingComponent = () => {
             </Row>
             <Row className="mt-3">
                 <Col className="d-flex justify-content-around">
-                    {/*<Button variant="primary" onClick={() => renderNewScreen("landing")}>Expense</Button>*/}
+                    <Button variant="primary" onClick={() => renderNewScreen("landing")}>Submit</Button>
                     <Button variant="primary" onClick={() => renderNewScreen("camera")}>Camera</Button>
                     <Button variant="primary" onClick={() =>renderNewScreen("chart")}>Chart</Button>
                 </Col>
