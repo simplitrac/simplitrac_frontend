@@ -29,6 +29,7 @@ const CategoryModal = () => {
     Modal.setAppElement("#root");
     const firstInputRef = useRef();
     const {user, setUser, modalIsOpen, setModalIsOpen} = useContext(AppContext);
+    const [selectedItems, setSelectedItems] = useState([]);
     // const {user, setUser} = {props};
     // const {modalIsOpen, setModalIsOpen} = {props};
 
@@ -37,15 +38,33 @@ const CategoryModal = () => {
         handleOnChange()
     };
 
-    const handleOnChange = () => {
-        setUser(user)
+    const handleOnChange = (event) => {
+        const tempArray = selectedItems
+        tempArray.push({
+            name: event.target.name,
+            id: event.target.id
+        })
+        setSelectedItems(tempArray)
     };
+
+    const submitCategories = () => {
+        console.log("applying source types");
+
+        console.log(
+            JSON.stringify(selectedItems)
+        );
+
+        user.categories = selectedItems;
+        setUser(user);
+        toggleModalOpenState(modalIsOpen);
+    }
+
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
     return (
         <div className="source-type">
             <Modal
+                style={customStyles}
                 isOpen={modalIsOpen}
-                onRequestClose={() => toggleModalOpenState(modalIsOpen)}
                 className="source-type-modal"
                 aria-labelledby="source-type-dialog-label"
                 onAfterOpen={() => {
@@ -62,10 +81,10 @@ const CategoryModal = () => {
                             <label>
                                 <input
                                     type="checkbox"
-                                    checked={selectedItems[item.name] || false}
                                     onChange={handleOnChange}
                                     name={item.name}
                                     ref={index === 0 ? firstInputRef : null}
+                                    id={item.id}
                                 />
                                 {item.name}
                             </label>
@@ -73,34 +92,10 @@ const CategoryModal = () => {
                     ))}
                 </ul>
                 <div className="source-type-modal__controls">
-                    {/*<button*/}
-                    {/*    value="cancel"*/}
-                    {/*    className="source-type-modal__control-btn source-type-modal__control-btn--cancel"*/}
-                    {/*    onClick={toggleModalOpenState}*/}
-                    {/*>*/}
-                    {/*    Cancel*/}
-                    {/*</button>*/}
                     <button
                         value="apply"
                         className="source-type-modal__control-btn source-type-modal__control-btn--apply"
-                        onClick={() => {
-                            // console.log("applying source types");
-                            // console.log(
-                            //     JSON.stringify(
-                            //         Object.keys(selectedItems).reduce((items, key) => {
-                            //             if (selectedItems[key]) {
-                            //                 return [...items, key];
-                            //             }
-                            //             return items;
-                            //         }, [])
-                            //     )
-                            // );
-
-                            user.categories = Object.entries(selectedItems).map(([key, value]) =>{
-                                return { [key]: value}
-                            })
-                            toggleModalOpenState();
-                        }}
+                        onClick={submitCategories}
                     >
                         Apply
                     </button>
@@ -109,5 +104,25 @@ const CategoryModal = () => {
         </div>
     );
 }
+
+const customStyles = {
+    content: {
+        position: 'relative',
+        width: '300px', /* Adjust the width as needed */
+        maxWidth: '80%',
+        padding: '20px',
+        background: '#fff',
+        borderRadius: '8px',
+        outline: 'none',
+        margin: 'auto',
+        inset: 'auto'
+    },
+    overlay: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)' /* Adjust the overlay color and opacity */
+    }
+};
 
 export default CategoryModal;

@@ -1,6 +1,6 @@
 
 import './App.css'
-import ExpensesTable from './components/expensestable'
+import ExpensesTable from './components/ExpensesTable.jsx'
 import Camera from "./components/Camera.jsx";
 import LandingComponent from "./components/LandingComponent.jsx";
 import {useEffect, useState} from "react";
