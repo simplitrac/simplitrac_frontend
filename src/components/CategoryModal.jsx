@@ -21,6 +21,14 @@ const categories = [
     },
     {
         "id": 5,
+        "name": "Supplies"
+    },
+    {
+        "id": 6,
+        "name": "Marketing"
+    },
+    {
+        "id": 7,
         "name": "Miscellaneous"
     }
 ]

@@ -18,6 +18,7 @@ export const Login = () => {
                 await createNewUser(user)
             } else {
                 console.log("User already exists")
+                await updateInFirestore(user)
             }
 
             setUser(user)
@@ -28,6 +29,22 @@ export const Login = () => {
     };
 
     async function createNewUser(user){
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(user)
+        };
+        // In order to run locally, you need to change the endpoint to your local endpoint:
+        // This should be in your .env file
+        const endpoint = import.meta.env.VITE_PROD_CREATE_USER_ENDPOINT
+        const result = await fetch(endpoint, init)
+        console.log(result)
+    }
+
+    async function updateInFirestore(user){
         const init = {
             method: "POST",
             headers: {
