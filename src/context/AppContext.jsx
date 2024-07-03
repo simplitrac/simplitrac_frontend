@@ -9,7 +9,7 @@ const AppProvider = ({ children }) => {
         last_name: '',
         categories: []
     });
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(true);
     const [show, setShow] = useState(false);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
     const [ocrData, setOcrData] = useState(null);

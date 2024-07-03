@@ -1,5 +1,5 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
-import ExpensesTable from "./expensestable.jsx";
+import ExpensesTable from "./ExpensesTable.jsx";
 import {useContext, useState} from "react";
 import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
@@ -38,7 +38,7 @@ const LandingComponent = () => {
                     <p>
                         Welcome {user.first_name} {user.last_name}
                     </p>
-                    {user.categories.length === 0 || user.categories.length === undefined && (
+                    {user.isNewUser() && (
                         <CategoryModal
                             user={user}
                             setUser={setUser}

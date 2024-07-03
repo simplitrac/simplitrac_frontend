@@ -3,13 +3,13 @@ import Category from "./Category.js";
 
 class User {
     constructor(googleAuth) {
-        this.user_id = googleAuth.uid;
-        this.access_token = googleAuth.accessToken;
-        this.email = googleAuth.email;
-        this.first_name = googleAuth.displayName.split(" ")[0];
-        this.last_name = googleAuth.displayName.split(" ").slice(1).join(" ");
-        this.created_at = googleAuth.metadata?.createdAt || new Date().getTime();
-        this.last_login = googleAuth.metadata?.lastLoginAt || new Date().getTime();
+        this.user_id = googleAuth?.uid;
+        this.access_token = googleAuth?.accessToken;
+        this.email = googleAuth?.email;
+        this.first_name = googleAuth?.displayName.split(" ")[0];
+        this.last_name = googleAuth?.displayName.split(" ").slice(1).join(" ");
+        this.created_at = googleAuth?.metadata?.createdAt || new Date().getTime();
+        this.last_login = googleAuth?.metadata?.lastLoginAt || new Date().getTime();
         this.admin = null;
         this.transactions = [];
         this.categories = [];
@@ -24,26 +24,27 @@ class User {
     }
 
     isNewUser() {
-        const endPoint = import.meta.env.VITE_DEV_GET_USER_ENDPOINT
-        const init = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            }
-        };
-
-        const url = `${endPoint}?user_id=${this.user_id}`;
-
-        try {
-            let response;
-            fetch(url, init)
-                .then(res => response = res.json())
-            return response.ok; // Return true if the response is ok, otherwise false
-        } catch (error) {
-            console.error("Error checking if new user:", error);
-            return false;
-        }
+        // const endPoint = import.meta.env.VITE_PROD_GET_USER_ENDPOINT
+        // const init = {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         Accept: "application/json",
+        //     }
+        // };
+        //
+        // const url = `${endPoint}?user_id=${this.user_id}`;
+        //
+        // try {
+        //     let response;
+        //     fetch(url, init)
+        //         .then(res => response = res.json())
+        //     return response?.length === 0 || response?.length === undefined
+        // } catch (error) {
+        //     console.error("Error checking if new user:", error);
+        //     return false;
+        // }
+        return this.categories?.length === 0 || this.categories?.length === undefined
     }
 
     serialize() {
