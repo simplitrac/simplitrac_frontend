@@ -76,21 +76,28 @@ const Camera = () => {
         }
     };
 
-    // Placeholder for now - need to wire to send to OCR
-    const submitPhoto = async () =>{
-        const blob = imageToBlob(capturedPhoto);
-        const url = "";
-        const init = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/octet-stream',
-            },
-            body: blob
-        };
-        const ocrResult = await fetch(url, init)
-        setOcrData(ocrResult);
-        setScreen("landing")
-    }
+    const submitPhoto = async () => {
+        try {
+            const url = "https://us-central1-simplitracapp.cloudfunctions.net/process_receipt";
+            const init = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/octet-stream',
+                },
+                body: imageToBlob(capturedPhoto)
+            };
+            const response = await fetch(url, init);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const ocrResult = await response.json();
+            setOcrData(ocrResult);
+            setScreen("landing");
+        } catch (error) {
+            console.error('Error submitting photo:', error);
+        }
+    };
+
 
     if (hasPermission === null) {
         return <div>Requesting camera permission...</div>
