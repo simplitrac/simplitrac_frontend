@@ -79,6 +79,7 @@ const Camera = () => {
 
     const submitPhoto = async () => {
         try {
+
             const url = import.meta.env.VITE_PROD_OCR_ENDPOINT;
             const formData = imageToFormData(capturedPhoto);
             const init = {
@@ -90,9 +91,15 @@ const Camera = () => {
                 throw new Error('Network response was not ok');
             }
             const ocrResult = await response.json();
+
             const transaction = new Transaction(ocrResult);
             setOcrData(transaction);
             setScreen("landing");
+        } catch (error) {
+            console.error('Error submitting photo:', error);
+        }
+    };
+
 
         } catch (error) {
             console.error('Error submitting photo:', error);
