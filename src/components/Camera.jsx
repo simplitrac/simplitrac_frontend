@@ -84,7 +84,7 @@ const Camera = () => {
             const formData = imageToFormData(capturedPhoto);
             const init = {
                 method: 'POST',
-                body: formData
+                body: formData,
             };
             const response = await fetch(url, init);
             if (!response.ok) {
@@ -99,12 +99,6 @@ const Camera = () => {
             console.error('Error submitting photo:', error);
         }
     };
-
-
-        } catch (error) {
-            console.error('Error submitting photo:', error);
-        }
-    }
     if (hasPermission === null) {
         return <div>Requesting camera permission...</div>
     }
@@ -183,7 +177,7 @@ function imageToBlob(image) {
 function imageToFormData(image) {
     const formData = new FormData();
     const blob = imageToBlob(image);
-    formData.append('file', blob, 'captured_photo.png');
+    formData.append('file', blob, 'image.png');
     return formData;
 }
 export default Camera;
