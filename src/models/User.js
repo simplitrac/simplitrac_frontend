@@ -65,6 +65,32 @@ class User {
     toString(){
         return JSON.stringify(this.serialize())
     }
+
+    addTransaction(transaction) {
+        if (transaction instanceof Transaction) {
+            this.transactions.push(transaction);
+        } else {
+            console.error('Invalid transaction provided:', transaction);
+        }
+    }
+
+    updateFirebase(){
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(this.serialize())
+        };
+        const endPoint = import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT
+        let result;
+        fetch(endPoint, init)
+            .then( res => {
+                result = res.json()
+            })
+        return result
+    }
 }
 
 export default User;

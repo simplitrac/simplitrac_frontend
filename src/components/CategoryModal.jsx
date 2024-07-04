@@ -40,11 +40,15 @@ const CategoryModal = () => {
 
     const handleOnChange = (event) => {
         const tempArray = selectedItems
-        tempArray.push({
-            name: event.target.name,
-            id: event.target.id
-        })
-        setSelectedItems(tempArray)
+
+        if(event?.target){
+            tempArray.push({
+                name: event.target.name,
+                id: event.target.id
+            })
+            setSelectedItems(tempArray)
+        }
+
     };
 
     const submitCategories = () => {
