@@ -1,6 +1,7 @@
 import {useContext, useEffect, useRef, useState} from 'react';
 import {AppContext} from "../context/AppContext.jsx";
 import BackButton from "./BackButton.jsx";
+import Transaction from "../models/Transaction.js";
 
 const Camera = () => {
     const { capturedPhoto, setCapturedPhoto, setScreen, setOcrData } = useContext(AppContext);
@@ -14,10 +15,10 @@ const Camera = () => {
     useEffect(() => {
         (async () => {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({
+                const liveStream = await navigator.mediaDevices.getUserMedia({
                     video: true,
                 });
-                setStream(stream);
+                setStream(liveStream);
                 if (videoRef.current) {
                     videoRef.current.srcObject = stream;
                     videoRef.current.play();
@@ -78,20 +79,21 @@ const Camera = () => {
 
     const submitPhoto = async () => {
         try {
-            const url = "https://us-central1-simplitracapp.cloudfunctions.net/process_receipt";
+
+            const url = import.meta.env.VITE_PROD_OCR_ENDPOINT;
+            const formData = imageToFormData(capturedPhoto);
             const init = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/octet-stream',
-                },
-                body: imageToBlob(capturedPhoto)
+                body: formData
             };
             const response = await fetch(url, init);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const ocrResult = await response.json();
-            setOcrData(ocrResult);
+
+            const transaction = new Transaction(ocrResult);
+            setOcrData(transaction);
             setScreen("landing");
         } catch (error) {
             console.error('Error submitting photo:', error);
@@ -99,6 +101,10 @@ const Camera = () => {
     };
 
 
+        } catch (error) {
+            console.error('Error submitting photo:', error);
+        }
+    }
     if (hasPermission === null) {
         return <div>Requesting camera permission...</div>
     }
@@ -160,15 +166,24 @@ const styles = {
     },
 };
 
-function imageToBlob(image){
-    // Convert base64 string to Blob
-    const byteCharacters = atob(image);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
+
+function imageToBlob(image) {
+    const byteString = atob(image.split(',')[1]);
+    const mimeString = image.split(',')[0].split(':')[1].split(';')[0];
+
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
     }
-    const byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], { type: 'image/png' });
+
+    return new Blob([ab], { type: mimeString });
 }
 
+function imageToFormData(image) {
+    const formData = new FormData();
+    const blob = imageToBlob(image);
+    formData.append('file', blob, 'captured_photo.png');
+    return formData;
+}
 export default Camera;

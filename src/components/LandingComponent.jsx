@@ -4,11 +4,12 @@ import {useContext, useState} from "react";
 import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
 import {AppContext} from "../context/AppContext.jsx";
+import ConfirmationModel from "./ConfirmationModal.jsx";
 
 const LandingComponent = () => {
 
     // eslint-disable-next-line react/prop-types
-    const {user, setUser, setScreen, modalIsOpen, setModalIsOpen} = useContext(AppContext);
+    const {user, setUser, setScreen, modalIsOpen, setModalIsOpen, ocrData } = useContext(AppContext);
     // const setScreen = props.setScreen
     // const user = props.user
     // const setUser = props.setUser
@@ -45,6 +46,9 @@ const LandingComponent = () => {
                             modalIsOpen={modalIsOpen}
                             setModalIsOpen={setModalIsOpen}
                         />
+                    )}
+                    {ocrData && (
+                        <ConfirmationModel />
                     )}
                 </>
             )}
