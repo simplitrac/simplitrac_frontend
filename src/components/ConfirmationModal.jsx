@@ -1,4 +1,4 @@
-import {useState, useRef, useContext} from "react";
+import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
 
@@ -6,41 +6,53 @@ import {AppContext} from "../context/AppContext.jsx";
 const ConfirmationModal = () => {
     Modal.setAppElement("#root");
     const firstInputRef = useRef();
-    const {ocrData, user, modalIsOpen, setModalIsOpen} = useContext(AppContext);
-
+    const {ocrData, user, setScreen} = useContext(AppContext);
+    const [confirmationModelOpen, setConfirmationModelOpen] = useState(true);
 
     const toggleModalOpenState = (state) => {
-        setModalIsOpen(!state);
+        setConfirmationModelOpen(!state);
     };
 
     const submitTransaction = (data) => {
-        user.transactions.addTransaction(data)
+        user.addTransaction(data)
         return user.updateFirebase()
     }
 
     const handleOnClick = (e) => {
         const button = e.target.value;
-
         switch(button){
             case "edit":
                 //Need to populate datafields from Expenses Table
                 break;
             case "submit":
+                submitTransaction(ocrData)
                 break;
         }
-
-        let updateResult = submitTransaction(ocrData)
-
-        if (updateResult) toggleModalOpenState(modalIsOpen)
-
+        toggleModalOpenState(confirmationModelOpen)
     }
+
+    const displayConfirmation = (transaction) => {
+        return Object.entries(transaction)
+            .filter(entry => entry[1] !== null && entry[1] !== undefined)
+            .map((entry, index) => (
+                <li key={index} className="source-type-modal__list-item">
+                    <label>
+                        {entry[0]}
+                    </label>
+                    <div>
+                        {entry[1]}
+                    </div>
+                </li>
+            ));
+    }
+
 
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
     return (
         <div className="source-type">
             <Modal
                 style={customStyles}
-                isOpen={modalIsOpen}
+                isOpen={confirmationModelOpen}
                 className="source-type-modal"
                 aria-labelledby="source-type-dialog-label"
                 onAfterOpen={() => {
@@ -52,18 +64,7 @@ const ConfirmationModal = () => {
                     role="group"
                     aria-labelledby="source-type-dialog-label"
                 >
-                    {Object.entries(ocrData).map((entry, index) => (
-                        <li key={index} className="source-type-modal__list-item">
-                            <li>
-                                <label>
-                                    {entry[0]}
-                                </label>
-                                <li>
-                                    {entry[1]}
-                                </li>
-                            </li>
-                        </li>
-                    ))}
+                    {displayConfirmation(ocrData)}
                 </ul>
                 <div className="source-type-modal__controls">
                     <button

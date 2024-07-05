@@ -4,39 +4,28 @@ import BackButton from "./BackButton.jsx";
 import Transaction from "../models/Transaction.js";
 
 const Camera = () => {
-    const { capturedPhoto, setCapturedPhoto, setScreen, setOcrData } = useContext(AppContext);
+    const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData } = useContext(AppContext);
 
     const [hasPermission, setHasPermission] = useState(null);
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
-    const videoContainerRef = useRef(null);
+    // const videoContainerRef = useRef(null);
 
     useEffect(() => {
-        (async () => {
-            try {
-                const liveStream = await navigator.mediaDevices.getUserMedia({
-                    video: true,
-                });
-                setStream(liveStream);
-                if (videoRef.current) {
-                    videoRef.current.srcObject = stream;
-                    videoRef.current.play();
-                }
-                setHasPermission(true);
-            } catch (err) {
-                console.error('Error accessing camera:', err);
-                setHasPermission(false);
-            }
-        })();
-
+        if (screen !== "landing") {
+            retakePhoto()
+                .then(() => {
+                    console.log('Camera light turned on')
+                })
+        }
         // Cleanup function to stop the video stream when component unmounts
         return () => {
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
             }
         };
-    }, []);
+    }, [ocrData, videoRef]);
 
     const capturePhoto = () => {
         if (videoRef.current && canvasRef.current) {
@@ -49,8 +38,8 @@ const Camera = () => {
             stream.getTracks().forEach(( track) => {
                 track.stop()
                 stream.removeTrack(track)
-                videoContainerRef.current.remove()
-                videoContainerRef.current = null;
+                // videoContainerRef.current.remove()
+                // videoContainerRef.current = null;
                 setStream(null)
                 console.log('Camera access stopped')
             });
@@ -62,12 +51,23 @@ const Camera = () => {
         setCapturedPhoto(null);
         // Reinitialize the camera
         try {
-            const newStream = await navigator.mediaDevices.getUserMedia({
-                video: true,
-            });
-            setStream(newStream);
+                    let liveStream;
+                    let numInputDevices = await navigator.mediaDevices.enumerateDevices()
+
+                    // Needed to access the back camera on mobile devices, but front camera on desktop
+                    if (numInputDevices > 1){
+                        liveStream = await navigator.mediaDevices.getUserMedia({
+                            video: true,
+                            facingMode: 'environment'
+                        });
+                    } else {
+                        liveStream = await navigator.mediaDevices.getUserMedia({
+                            video: true,
+                        });
+                    }
+            setStream(liveStream);
             if (videoRef.current) {
-                videoRef.current.srcObject = newStream;
+                videoRef.current.srcObject = liveStream;
                 videoRef.current.play();
             }
             setHasPermission(true);
@@ -110,9 +110,7 @@ const Camera = () => {
         <div style={styles.container}>
             {!capturedPhoto && (
                 <div>
-                    <div ref={videoContainerRef}>
-                        <video ref={videoRef} style={{ width: '100%', height: '100%' }} />
-                    </div>
+                    <video ref={videoRef} style={{ width: '100%', height: '100%' }} />
                     <button onClick={capturePhoto}>Capture Photo</button>
                 </div>
             )}
