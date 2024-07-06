@@ -2,6 +2,7 @@ import {useContext, useEffect, useRef, useState} from 'react';
 import {AppContext} from "../context/AppContext.jsx";
 import BackButton from "./BackButton.jsx";
 import Transaction from "../models/Transaction.js";
+import {Button, Spinner} from "react-bootstrap";
 
 const Camera = () => {
     const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData } = useContext(AppContext);
@@ -100,10 +101,25 @@ const Camera = () => {
         }
     };
     if (hasPermission === null) {
-        return <div>Requesting camera permission...</div>
+        return <>
+            <Button variant="primary" disabled>
+                <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                />
+                <span className="visually-hidden">Loading...</span>
+            </Button>{' '}
+        </>
     }
     if (!hasPermission) {
-        return <p>No access to camera</p>
+        return <>
+            <p>No access to camera</p>
+            <BackButton />
+            </>
+
     }
 
     return (
