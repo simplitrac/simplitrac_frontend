@@ -1,6 +1,6 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import ExpensesTable from "./ExpensesTable.jsx";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
 import {AppContext} from "../context/AppContext.jsx";
@@ -22,11 +22,7 @@ const LandingComponent = () => {
         setScreen(screen)
     }
 
-    // useEffect(() => {
-    //
-    //
-    //
-    // }, [user])
+
 
     return (
         //EXECUTE MODAL CODE HERE

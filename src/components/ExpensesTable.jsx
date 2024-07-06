@@ -1,12 +1,28 @@
 
 import { Table,} from 'react-bootstrap';
 
-import DateField from "./DataField.jsx";
+import DateField from "./DateField.jsx";
 import DynamicDropdown from "./DynamicDropdown.jsx";
 import CostField from "./CostField.jsx"
+import {useContext, useEffect} from "react";
+import {AppContext} from "../context/AppContext.jsx";
 
 // ExpensesTable Component
 const ExpensesTable = () => {
+  const {user, ocrData} = useContext(AppContext);
+
+  const getListOfVendors = () =>{
+    let vendors = [];
+    if (user.transactions){
+      vendors = user.transactions.map(transaction => transaction.vendor);
+    }
+    return vendors;
+  }
+
+  useEffect(() => {
+
+  }, [user, ocrData]);
+
 
 
   return (
@@ -22,21 +38,21 @@ const ExpensesTable = () => {
           <td>Date</td>
           <td><DateField /></td>
         </tr>
+        {/*<tr>*/}
+        {/*  <td>Item</td>*/}
+        {/*  <td><DynamicDropdown /></td>*/}
+        {/*</tr>*/}
         <tr>
-          <td>Item</td>
-          <td><DynamicDropdown options={["Food", "Gas", "Paper"]} /></td>
+          <td>Vendor</td>
+          <td><DynamicDropdown options={getListOfVendors()}/></td>
         </tr>
         <tr>
-          <td>Retailer</td>
-          <td><DynamicDropdown options={["ShopRite", "Sunoco", "Staples"]} /></td>
-        </tr>
-        <tr>
-          <td>Cost</td>
-          <td><CostField /></td>
+          <td>Total</td>
+          <td><CostField amount={ocrData?.amount}/></td>
         </tr>
         <tr>
           <td>Category</td>
-          <td><DynamicDropdown options={["Food & Entertainment", "Travel Expense", "Office Supplies"]} /></td>
+          <td><DynamicDropdown options={user?.categories.map(category => category.name) ?? ["Select Category"]} /></td>
         </tr>
       </tbody>
     </Table>

@@ -1,4 +1,4 @@
-import {useState, useRef, useContext} from "react";
+import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
 
@@ -62,6 +62,12 @@ const CategoryModal = () => {
         setUser(user);
         toggleModalOpenState(modalIsOpen);
     }
+
+    useEffect(() => {
+
+        console.log(user)
+
+    }, [user, modalIsOpen])
 
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
     return (
