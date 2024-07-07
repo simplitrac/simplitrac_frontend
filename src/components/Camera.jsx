@@ -6,26 +6,25 @@ import { Button, Spinner } from "react-bootstrap";
 
 const Camera = () => {
     const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device } = useContext(AppContext);
-
     const [hasPermission, setHasPermission] = useState(null);
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const fileInputRef = useRef(null);
 
+
+
     useEffect(() => {
-        if (screen !== "landing" && device !== "mobile") {
-            retakePhoto()
-                .then(() => {
-                    console.log('Camera light turned on');
-                });
+        if (!capturedPhoto && device === 'mobile') {
+            fileInputRef.current.click();
         }
-        return () => {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
+
+        (async () => {
+            if(!videoRef.current?.srcObject){
+                await activateDesktopCamera()
             }
-        };
-    }, [screen]);
+        })()
+    }, [capturedPhoto, videoRef, hasPermission]);
 
     const capturePhoto = () => {
         if (videoRef.current && canvasRef.current) {
@@ -43,7 +42,7 @@ const Camera = () => {
         }
     };
 
-    const retakePhoto = async () => {
+    const activateDesktopCamera = async () => {
         setCapturedPhoto(null);
         try {
             let liveStream;
@@ -56,8 +55,8 @@ const Camera = () => {
             if (videoRef.current) {
                 videoRef.current.srcObject = liveStream;
                 videoRef.current.play();
+                setHasPermission(true);
             }
-            setHasPermission(true);
         } catch (err) {
             console.error('Error accessing camera:', err);
             setHasPermission(false);
@@ -96,27 +95,27 @@ const Camera = () => {
         }
     };
 
-    if (device === 'desktop'){
-        if(hasPermission){
-            return <>
-                <Button variant="primary" disabled>
-                    <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                    <span className="visually-hidden">Loading...</span>
-                </Button>
-            </>;
-        } else {
-            return <>
-                <p>No access to camera</p>
-                <BackButton />
-            </>;
-        }
-    }
+    // if (device === 'desktop'){
+    //     if(hasPermission && !videoRef.current?.srcObject){
+    //         return (<>
+    //             <Button variant="primary" disabled>
+    //                 <Spinner
+    //                     as="span"
+    //                     animation="border"
+    //                     size="sm"
+    //                     role="status"
+    //                     aria-hidden="true"
+    //                 />
+    //                 <span className="visually-hidden">Loading...</span>
+    //             </Button>
+    //         </>)
+    //     } else if (!hasPermission && !videoRef.current?.srcObject) {
+    //         return (<>
+    //             <p>No access to camera</p>
+    //             <BackButton />
+    //         </>)
+    //     }
+    // }
 
     return (
         <div style={styles.container}>
@@ -132,13 +131,12 @@ const Camera = () => {
                     />
                 </div>
             )}
-            {device !== 'mobile' && !capturedPhoto && (
+            {device === 'desktop' && !capturedPhoto && (
                 <div>
                     <video ref={videoRef} style={styles.video} />
                     <button onClick={capturePhoto} style={styles.button}>Capture Photo</button>
                 </div>
             )}
-            <BackButton />
             {capturedPhoto && (
                 <div>
                     <div style={styles.imageContainer}>
@@ -146,9 +144,11 @@ const Camera = () => {
                         <img src={capturedPhoto} alt="Captured" style={styles.image} />
                     </div>
                     <button onClick={submitPhoto} style={styles.button}>Submit</button>
-                    <button onClick={retakePhoto} style={styles.button}>Retake</button>
+                    <button onClick={activateDesktopCamera} style={styles.button}>Retake</button>
                 </div>
             )}
+            <BackButton />
+
             <canvas ref={canvasRef} style={styles.hiddenCanvas}></canvas>
         </div>
     );
@@ -165,7 +165,6 @@ const styles = {
     },
     video: {
         width: '100%',
-        maxWidth: '400px',
         height: 'auto',
     },
     button: {
@@ -184,9 +183,7 @@ const styles = {
         display: 'none',
     },
     fileInput: {
-        marginTop: '10px',
-        padding: '10px 20px',
-        fontSize: '16px',
+        display: 'none'
     },
 };
 
