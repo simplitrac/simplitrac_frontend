@@ -3,11 +3,9 @@ import { Form, InputGroup } from "react-bootstrap";
 import {AppContext} from "../context/AppContext.jsx";
 
 const DynamicDropdown = (props) => {
-    const {user} = useContext(AppContext)
-    const [options, setOptions] = useState([])
-    const [selectedOption, setSelectedOption] = useState(options[0]);
+    const [options, setOptions] = useState(props.options)
+    const [selectedOption, setSelectedOption] = useState(props.options[0]);
     const [customOption, setCustomOption] = useState("");
-    const [initialLoad, setInitialLoad] = useState(true);
 
     const handleSelectChange = (e) => {
         const value = e.target.value;
@@ -25,24 +23,16 @@ const DynamicDropdown = (props) => {
         }
     }
 
-    useEffect(() => {
-        if (initialLoad){
-            setOptions(props.options);
-            setSelectedOption(props.options[0])
-            setInitialLoad(false)
-        } else {
-            if(customOption !== ""){
-                setCustomOption("")
-            }
-        }
-    }, [ options, selectedOption]);
+    const mapOptions = (opts) => {
+        return (opts.map((option, index) => (
+            <option key={index} value={option}>{option}</option>
+        )))
+    }
 
     return (
         <InputGroup>
             <Form.Control as="select" value={selectedOption} onChange={handleSelectChange}>
-                {options.map((option, index) => (
-                    <option key={index} value={option}>{option}</option>
-                ))}
+                {mapOptions(options)}
                 <option value="Custom">Custom...</option>
             </Form.Control>
             {selectedOption === "Custom" && (

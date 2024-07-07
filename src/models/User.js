@@ -2,17 +2,21 @@ import Transaction from "./Transaction.js";
 import Category from "./Category.js";
 
 class User {
-    constructor(googleAuth) {
-        this.user_id = googleAuth?.uid;
-        this.access_token = googleAuth?.accessToken;
-        this.email = googleAuth?.email;
-        this.first_name = googleAuth?.displayName.split(" ")[0];
-        this.last_name = googleAuth?.displayName.split(" ").slice(1).join(" ");
-        this.created_at = googleAuth?.metadata?.createdAt || new Date().getTime();
-        this.last_login = googleAuth?.metadata?.lastLoginAt || new Date().getTime();
-        this.admin = null;
-        this.transactions = [];
-        this.categories = [];
+    constructor(data) {
+        if(data instanceof User){
+            Object.assign(this, data)
+        } else {
+            this.user_id = data?.uid;
+            this.access_token = data?.accessToken;
+            this.email = data?.email;
+            this.first_name = data?.displayName.split(" ")[0];
+            this.last_name = data?.displayName.split(" ").slice(1).join(" ");
+            this.created_at = data?.metadata?.createdAt || new Date().getTime();
+            this.last_login = data?.metadata?.lastLoginAt || new Date().getTime();
+            this.admin = null;
+            this.transactions = [];
+            this.categories = [];
+        }
     }
 
     getCreatedAtString() {

@@ -1,6 +1,7 @@
 import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
+import User from "../models/User.js";
 
 const categories = [
     {
@@ -28,7 +29,8 @@ const categories = [
 const CategoryModal = () => {
     Modal.setAppElement("#root");
     const firstInputRef = useRef();
-    const {user, setUser, modalIsOpen, setModalIsOpen} = useContext(AppContext);
+    const {user, setUser } = useContext(AppContext);
+    const [modalIsOpen, setModalIsOpen] = useState(true)
     const [selectedItems, setSelectedItems] = useState([]);
     // const {user, setUser} = {props};
     // const {modalIsOpen, setModalIsOpen} = {props};
@@ -39,7 +41,7 @@ const CategoryModal = () => {
     };
 
     const handleOnChange = (event) => {
-        const tempArray = selectedItems
+        const tempArray = [...selectedItems]
 
         if(event?.target){
             tempArray.push({
@@ -52,22 +54,12 @@ const CategoryModal = () => {
     };
 
     const submitCategories = () => {
-        console.log("applying source types");
-
-        console.log(
-            JSON.stringify(selectedItems)
-        );
-
-        user.categories = selectedItems;
-        setUser(user);
+        const tempUser = new User(user)
+        tempUser.categories = selectedItems
+        setUser(tempUser);
         toggleModalOpenState(modalIsOpen);
     }
 
-    useEffect(() => {
-
-        console.log(user)
-
-    }, [user, modalIsOpen])
 
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
     return (

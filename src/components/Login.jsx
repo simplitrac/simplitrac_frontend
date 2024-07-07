@@ -2,7 +2,7 @@
 // https://blog.bitsrc.io/firebase-authentication-with-react-for-beginners-implementing-email-password-and-google-sign-in-e62d9094e22
 import { auth , googleProvider, signInWithPopup } from "../config/initializeFirestore.js";
 import User from "../models/User.js";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {AppContext} from "../context/AppContext.jsx";
 import {Col, Container, Row, Image} from "react-bootstrap";
 import logo from './../assets/simplitrac.webp';
