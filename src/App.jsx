@@ -16,9 +16,9 @@ function App() {
   //   const [back, setBack] = useState(false)
   //   const [user, setUser] = useState(null)
 
-    useEffect(() => {
-        renderComponent()
-    }, [screen, user]);
+    // useEffect(() => {
+    //     renderComponent()
+    // }, [screen, user]);
 
     const renderComponent = () => {
         switch(screen) {
@@ -33,7 +33,6 @@ function App() {
         }
 
     }
-
 
   return renderComponent()
 }

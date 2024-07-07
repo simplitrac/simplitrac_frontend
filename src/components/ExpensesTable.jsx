@@ -13,10 +13,18 @@ const ExpensesTable = () => {
 
   const getListOfVendors = () =>{
     let vendors = [];
-    if (user.transactions){
+    if (user.transactions.length !== 0){
       vendors = user.transactions.map(transaction => transaction.vendor);
+      return vendors;
     }
-    return vendors;
+  }
+
+  const getListOfCategories = () =>{
+    let categories = [];
+    if (user.categories.length !== 0){
+      categories = user.categories.map(category => category.name);
+      return categories;
+    }
   }
 
   useEffect(() => {
@@ -44,7 +52,7 @@ const ExpensesTable = () => {
         {/*</tr>*/}
         <tr>
           <td>Vendor</td>
-          <td><DynamicDropdown options={getListOfVendors()}/></td>
+          <td><DynamicDropdown options={getListOfVendors() ?? ["Choose Vendor"] }/></td>
         </tr>
         <tr>
           <td>Total</td>
@@ -52,7 +60,7 @@ const ExpensesTable = () => {
         </tr>
         <tr>
           <td>Category</td>
-          <td><DynamicDropdown options={user?.categories.map(category => category.name) ?? ["Select Category"]} /></td>
+          <td><DynamicDropdown options={ getListOfCategories() ?? ["Select Category"]} /></td>
         </tr>
       </tbody>
     </Table>

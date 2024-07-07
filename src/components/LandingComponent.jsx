@@ -9,7 +9,7 @@ import ConfirmationModel from "./ConfirmationModal.jsx";
 const LandingComponent = () => {
 
     // eslint-disable-next-line react/prop-types
-    const {user, setUser, setScreen, modalIsOpen, setModalIsOpen, ocrData } = useContext(AppContext);
+    const {user, setUser, screen, setScreen, modalIsOpen, setModalIsOpen, ocrData } = useContext(AppContext);
     // const setScreen = props.setScreen
     // const user = props.user
     // const setUser = props.setUser
@@ -22,12 +22,7 @@ const LandingComponent = () => {
         setScreen(screen)
     }
 
-
-
     return (
-        //EXECUTE MODAL CODE HERE
-        
-        //update user is user.update()
 
         <Container>
             {user.first_name && (
@@ -36,12 +31,7 @@ const LandingComponent = () => {
                         Welcome {user.first_name} {user.last_name}
                     </p>
                     {user.isNewUser() && (
-                        <CategoryModal
-                            user={user}
-                            setUser={setUser}
-                            modalIsOpen={modalIsOpen}
-                            setModalIsOpen={setModalIsOpen}
-                        />
+                        <CategoryModal />
                     )}
                     {ocrData && (
                         <ConfirmationModel />
