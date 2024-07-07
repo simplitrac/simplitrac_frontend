@@ -35,7 +35,7 @@ const App = () => {
 };
 
 const LookerStudioChart = ({ userId }) => {
-  const reportUrl = `https://lookerstudio.google.com/embed/reporting/1bf3befc-bd02-43b9-a217-cd1f35ddda0a/page/EO64D?user_id=${userId}`;
+  const reportUrl = `https://lookerstudio.google.com/embed/reporting/fe5a072c-9afe-464c-9cef-2e04f351ff78/page/SVN5D?user_id=${userId}`;
 
   return (
     <div className="report-container">
