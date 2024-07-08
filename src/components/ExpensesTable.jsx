@@ -76,7 +76,7 @@ const ExpensesTable = () => {
         </tr>
         <tr>
           <td>Total</td>
-          <td><CostField amount={ocrData?.amount}/></td>
+          <td><CostField /></td>
         </tr>
         <tr>
           <td>Category</td>

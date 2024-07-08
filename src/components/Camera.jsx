@@ -5,7 +5,7 @@ import Transaction from "../models/Transaction.js";
 import { Button, Spinner } from "react-bootstrap";
 
 const Camera = () => {
-    const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device } = useContext(AppContext);
+    const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device, setOcrModalOpen } = useContext(AppContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
@@ -93,6 +93,7 @@ const Camera = () => {
             setOcrData(transaction);
             setScreen("landing");
             setCapturedPhoto(false)
+            setOcrModalOpen(true)
         } catch (error) {
             console.error('Error submitting photo:', error);
         }

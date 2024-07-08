@@ -7,7 +7,7 @@ import Transaction from "../models/Transaction.js";
 
 const CostField = (props) => {
     const {ocrData, setOcrData} = useContext(AppContext)
-    const [amount, setAmount] = useState(props.amount);
+    // const [amount, setAmount] = useState(props.amount);
 
     const handleBlur = (e) => {
         const amount = e.target.value;
@@ -19,7 +19,7 @@ const CostField = (props) => {
     return (
       <>
         <Form.Control
-          value={amount}
+          value={ocrData.amount}
           placeholder="Total amount spent..."
           inputMode="numeric"
           // onClick={handleShow}

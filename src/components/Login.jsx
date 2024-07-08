@@ -13,11 +13,13 @@ export const Login = () => {
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth,googleProvider);
-            const user = new User(result.user);
+            const id = result.user.uid;
+
+            let user = await User.getUserFromFirestore(id)
+
             if(user.isNewUser()){
-                await createNewUser(user)
-            } else {
-                console.log("User already exists")
+                user = new User(result.user)
+                await createNewUser(new User(result.user))
             }
 
             setUser(user)
