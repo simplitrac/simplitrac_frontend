@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
 class Category{
-    constructor(){
-        this.id = uuidv4();
-        this.name = "";
+    constructor(data){
+        this.id = data.id;
+        this.name = data.name;
     }
 
     serialize(){

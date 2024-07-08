@@ -2,6 +2,7 @@ import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
 import User from "../models/User.js";
+import Category from "../models/Category.js";
 
 const categories = [
     {
@@ -44,10 +45,11 @@ const CategoryModal = () => {
         const tempArray = [...selectedItems]
 
         if(event?.target){
-            tempArray.push({
+            tempArray.push(new Category({
                 name: event.target.name,
                 id: event.target.id
             })
+            )
             setSelectedItems(tempArray)
         }
 
@@ -55,7 +57,7 @@ const CategoryModal = () => {
 
     const submitCategories = () => {
         const tempUser = new User(user)
-        tempUser.categories = selectedItems
+        tempUser.categories = selectedItems.map(item => new Category(item))
         setUser(tempUser);
         toggleModalOpenState(modalIsOpen);
     }

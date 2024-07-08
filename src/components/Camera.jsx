@@ -19,11 +19,13 @@ const Camera = () => {
             fileInputRef.current.click();
         }
 
-        (async () => {
-            if(!videoRef.current?.srcObject){
-                await activateDesktopCamera()
-            }
-        })()
+        if (device === 'desktop' && !capturedPhoto){
+            (async () => {
+                if(!videoRef.current?.srcObject){
+                    await activateDesktopCamera()
+                }
+            })()
+        }
     }, [capturedPhoto, videoRef, hasPermission]);
 
     const capturePhoto = () => {
@@ -90,6 +92,7 @@ const Camera = () => {
             const transaction = new Transaction(ocrResult);
             setOcrData(transaction);
             setScreen("landing");
+            setCapturedPhoto(false)
         } catch (error) {
             console.error('Error submitting photo:', error);
         }

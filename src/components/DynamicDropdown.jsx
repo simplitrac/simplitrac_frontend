@@ -1,10 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import {AppContext} from "../context/AppContext.jsx";
+import Transaction from "../models/Transaction.js";
 
 const DynamicDropdown = (props) => {
+    const {ocrData, setOcrData} = useContext(AppContext)
     const [options, setOptions] = useState(props.options)
-    const [selectedOption, setSelectedOption] = useState(props.options[0]);
+    const [selectedOption, setSelectedOption] = useState(null);
     const [customOption, setCustomOption] = useState("");
 
     const handleSelectChange = (e) => {
@@ -16,18 +18,46 @@ const DynamicDropdown = (props) => {
     };
 
     const handleCustomBlur = (e) => {
-        if(e.target.value !== ""){
-            setOptions([...options, e.target.value])
+        if(e.target.value !== "") {
+            const newOptions = {
+                type: options.type,
+                list: [...options.list, e.target.value]
+            }
+            setOptions(newOptions)
             setCustomOption(e.target.value)
             setSelectedOption(e.target.value)
+
+            const newOCR = new Transaction(ocrData)
+            if (options.type === "vendors") {
+                newOCR.vendor = e.target.value
+            } else if (options.type === "categories") {
+                newOCR.category = e.target.value
+            }
+            setOcrData(newOCR)
         }
     }
 
     const mapOptions = (opts) => {
-        return (opts.map((option, index) => (
+        if(!opts.list) return
+
+        return (opts.list.map((option, index) => (
             <option key={index} value={option}>{option}</option>
         )))
     }
+
+    useEffect(() => {
+        // if(!props.options?.list){
+        //
+        // }
+
+        if(options?.list){
+            setOptions(options);
+            setSelectedOption(selectedOption ?? options.list[0]);
+        } else if (props.options?.list){
+            setOptions(props.options);
+            setSelectedOption(selectedOption ?? props.options.list[0]);
+        }
+    }, [props.options]);
 
     return (
         <InputGroup>

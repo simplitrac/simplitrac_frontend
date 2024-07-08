@@ -15,11 +15,14 @@ class Transaction {
                 data = {};
             }
         }
+        if (data instanceof Transaction){
+            Object.assign(this, data)
+        }
         this.transactionId = data.transactionId || this.#generateUUID();
         this.createdAt = data.createdAt || null;
         this.amount = data.amount || null;
         this.vendor = data.vendor || null;
-        this.categoryId = data.categoryId || null;
+        this.category = data.category || null;
         this.pictureId = data.pictureId || null;
         this.isSuccessful = data.isSuccessful || null;
     }
@@ -29,13 +32,17 @@ class Transaction {
         return uuidv4()
     }
 
+    isEmpty(){
+        return this.vendor === null || this.vendor === undefined
+    }
+
     serialize() {
         return {
             transactionId: this.transactionId,
             createdAt: this.createdAt,
             amount: this.amount,
             vendor: this.vendor,
-            categoryId: this.categoryId,
+            category: this.category,
             pictureId: this.pictureId,
             isSuccessful: this.isSuccessful,
         };

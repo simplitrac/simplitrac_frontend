@@ -1,5 +1,6 @@
 import Transaction from "./Transaction.js";
 import Category from "./Category.js";
+import ServerResponse from "./ServerResponse.js";
 
 class User {
     constructor(data) {
@@ -87,11 +88,16 @@ class User {
             },
             body: JSON.stringify(this.serialize())
         };
-        const endPoint = import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT
+        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`
         let result;
         fetch(endPoint, init)
             .then( res => {
-                result = res.json()
+                console.log(res)
+                result = new ServerResponse(res.json())
+            })
+            .catch(reason => {
+                console.log(reason)
+                result = new ServerResponse(reason.json())
             })
         return result
     }

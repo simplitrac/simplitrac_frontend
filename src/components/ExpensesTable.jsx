@@ -4,43 +4,63 @@ import { Table,} from 'react-bootstrap';
 import DateField from "./DateField.jsx";
 import DynamicDropdown from "./DynamicDropdown.jsx";
 import CostField from "./CostField.jsx"
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AppContext} from "../context/AppContext.jsx";
 
 // ExpensesTable Component
 const ExpensesTable = () => {
   const {user, ocrData} = useContext(AppContext);
+  const [vendors, setVendors] = useState(null);
+  const [categories, setCategories ] = useState(null);
 
   const getListOfVendors = () =>{
-    let vendors = [];
     if (user.transactions.length !== 0){
-      vendors = user.transactions.map(transaction => transaction.vendor);
-      return vendors;
+      setVendors(["Select Vendor", ... user.transactions.map(transaction => transaction.vendor)]);
+    } else {
+      setVendors(["Select Vendor"])
     }
   }
 
   const getListOfCategories = () =>{
-    let categories = [];
     if (user.categories.length !== 0){
-      categories = user.categories.map(category => category.name);
-      return categories;
+      setCategories(["Select Category", ...user.categories.map(category => category.name)])
+    }else {
+      setCategories(["Select Category"])
+    }
+  }
+
+  const setOptions = (type, list) => {
+    if(list?.length === 1){
+      if(type === 'categories' && list.length < user.categories.length){
+        getListOfCategories()
+        return
+      } else if (type === 'vendors' && list.length < user.transactions.length){
+        getListOfVendors()
+        return
+      }
+    }
+    return {
+      type,
+      list
     }
   }
 
   useEffect(() => {
+    if(ocrData.isEmpty()){
+      getListOfVendors()
+    } else {
+      setVendors([ocrData.vendor])
+    }
 
-  }, [user, ocrData]);
+    if(!categories){
+      getListOfCategories()
+    }
 
-
+  }, [ocrData])
 
   return (
     <Table bordered>
-      <thead>
-        <tr>
-          <th>Expenses</th>
-          <th>Userfields</th>
-        </tr>
-      </thead>
+
       <tbody>
         <tr>
           <td>Date</td>
@@ -52,7 +72,7 @@ const ExpensesTable = () => {
         {/*</tr>*/}
         <tr>
           <td>Vendor</td>
-          <td><DynamicDropdown options={getListOfVendors() ?? ["Choose Vendor"] }/></td>
+          <td><DynamicDropdown options={setOptions("vendors", vendors) }/></td>
         </tr>
         <tr>
           <td>Total</td>
@@ -60,7 +80,7 @@ const ExpensesTable = () => {
         </tr>
         <tr>
           <td>Category</td>
-          <td><DynamicDropdown options={ getListOfCategories() ?? ["Select Category"]} /></td>
+          <td><DynamicDropdown options={ setOptions("categories", categories) } /></td>
         </tr>
       </tbody>
     </Table>
