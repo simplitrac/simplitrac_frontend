@@ -5,7 +5,7 @@ import Transaction from "../models/Transaction.js";
 
 const DateField = () => {
     const {ocrData, setOcrData} = useContext(AppContext);
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState("");
 
     useEffect(() => {
         if(!date){

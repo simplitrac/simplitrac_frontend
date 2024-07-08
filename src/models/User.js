@@ -1,22 +1,26 @@
 import Transaction from "./Transaction.js";
-import Category from "./Category.js";
-import ServerResponse from "./ServerResponse.js";
 
 class User {
     constructor(data) {
         if(data instanceof User){
-            Object.assign(this, data)
+            Object.assign(this, data);
         } else {
-            this.user_id = data?.uid;
+            this.user_id = data?.uid ?? data.user_id;
             this.access_token = data?.accessToken;
             this.email = data?.email;
-            this.first_name = data?.displayName.split(" ")[0];
-            this.last_name = data?.displayName.split(" ").slice(1).join(" ");
+            if(data?.displayName){
+                this.first_name = data?.displayName.split(" ")[0];
+                this.last_name = data?.displayName.split(" ").slice(1).join(" ");
+            } else {
+                this.first_name = data?.first_name;
+                this.last_name = data?.last_name;
+            }
+
             this.created_at = data?.metadata?.createdAt || new Date().getTime();
             this.last_login = data?.metadata?.lastLoginAt || new Date().getTime();
             this.admin = null;
-            this.transactions = [];
-            this.categories = [];
+            this.transactions = data.transactions || [];
+            this.categories = data.categories || [];
         }
     }
 
@@ -29,27 +33,7 @@ class User {
     }
 
     isNewUser() {
-        // const endPoint = import.meta.env.VITE_PROD_GET_USER_ENDPOINT
-        // const init = {
-        //     method: "GET",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         Accept: "application/json",
-        //     }
-        // };
-        //
-        // const url = `${endPoint}?user_id=${this.user_id}`;
-        //
-        // try {
-        //     let response;
-        //     fetch(url, init)
-        //         .then(res => response = res.json())
-        //     return response?.length === 0 || response?.length === undefined
-        // } catch (error) {
-        //     console.error("Error checking if new user:", error);
-        //     return false;
-        // }
-        return this.categories?.length === 0 || this.categories?.length === undefined
+        return this.categories?.length === 0 || this.categories?.length === undefined;
     }
 
     serialize() {
@@ -67,8 +51,8 @@ class User {
         };
     }
 
-    toString(){
-        return JSON.stringify(this.serialize())
+    toString() {
+        return JSON.stringify(this.serialize());
     }
 
     addTransaction(transaction) {
@@ -79,7 +63,7 @@ class User {
         }
     }
 
-    updateFirebase(){
+    async updateFirebase(){
         const init = {
             method: "POST",
             headers: {
@@ -88,18 +72,37 @@ class User {
             },
             body: JSON.stringify(this.serialize())
         };
-        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`
+        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`;
+        const response = await fetch(endPoint, init);
         let result;
-        fetch(endPoint, init)
-            .then( res => {
-                console.log(res)
-                result = new ServerResponse(res.json())
-            })
-            .catch(reason => {
-                console.log(reason)
-                result = new ServerResponse(reason.json())
-            })
-        return result
+        result = await response.text();
+
+
+        return result;
+    }
+
+    static async getUserFromFirestore(user_id){
+        const init = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        };
+        const endPoint = `${import.meta.env.VITE_PROD_GET_USER_ENDPOINT}?user_id=${user_id}`;
+
+        try {
+            const res = await fetch(endPoint, init);
+            const json = await res.json();
+            if (json instanceof Object) {
+                return new User(json);
+            } else {
+                return new User();
+            }
+        } catch (e) {
+            console.log(e);
+            return new User();
+        }
     }
 }
 

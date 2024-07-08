@@ -25,6 +25,7 @@ const AppProvider = ({ children }) => {
     const [ocrData, setOcrData] = useState(new Transaction());
     const [device, setDevice ] = useState(detectDevice())
     const [serverResponse, setServerResponse] = useState();
+    const [ocrModalOpen, setOcrModalOpen] = useState(false);
 
     const value = {
         screen, setScreen,
@@ -34,7 +35,8 @@ const AppProvider = ({ children }) => {
         capturedPhoto, setCapturedPhoto,
         ocrData, setOcrData,
         device, setDevice,
-        serverResponse, setServerResponse
+        serverResponse, setServerResponse,
+        ocrModalOpen, setOcrModalOpen
     };
 
 

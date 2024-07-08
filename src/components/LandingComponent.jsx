@@ -4,10 +4,9 @@ import {useContext, useEffect, useState} from "react";
 import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
 import {AppContext} from "../context/AppContext.jsx";
-import ConfirmationModel from "./ConfirmationModal.jsx";
+import OCRModal from "./OCRModal.jsx";
 import User from "../models/User.js";
-import Transaction from "../models/Transaction.js";
-import transaction from "../models/Transaction.js";
+import ConfirmationModal from "./ConfirmationModal.jsx";
 
 const LandingComponent = () => {
 
@@ -21,10 +20,11 @@ const LandingComponent = () => {
         setScreen(screen)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const userWithUpdates = new User(user)
         userWithUpdates.transactions.push(ocrData)
-        setServerResponse(user.updateFirebase())
+        const result = await user.updateFirebase()
+        setServerResponse( result )
     }
 
     return (
@@ -39,7 +39,10 @@ const LandingComponent = () => {
                         <CategoryModal />
                     )}
                     {ocrData && (
-                        <ConfirmationModel />
+                        <OCRModal />
+                    )}
+                    {serverResponse && (
+                        <ConfirmationModal />
                     )}
                 </>
             )}

@@ -1,35 +1,46 @@
 import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
-import Transaction from "../models/Transaction.js";
 
 
-const ConfirmationModal = () => {
+const OCRModal = () => {
     Modal.setAppElement("#root");
     const firstInputRef = useRef();
-    const {serverResponse, setServerResponse, setOcrData} = useContext(AppContext);
-    const [modalOpen, setModalOpen] = useState(serverResponse ? true : false)
+    const {ocrData, user, setScreen, ocrModalOpen, setOcrModalOpen} = useContext(AppContext);
 
     const toggleModalOpenState = (state) => {
-        setModalOpen(!state);
+        setOcrModalOpen(!state);
     };
 
-
-    const handleOnClick = (e) => {
-        toggleModalOpenState(modalOpen)
-        setServerResponse("")
-        setOcrData(new Transaction())
+    const submitTransaction = (data) => {
+        user.addTransaction(data)
+        return user.updateFirebase()
     }
 
-    const displayConfirmation = () => {
-        const list = [serverResponse]
-        return list
-            // .filter(entry => entry[1] !== null && entry[1] !== undefined)
+    const handleOnClick = (e) => {
+        const button = e.target.value;
+        switch(button){
+            case "edit":
+                //Need to populate datafields from Expenses Table
+                break;
+            case "submit":
+                submitTransaction(ocrData)
+                break;
+        }
+        toggleModalOpenState(ocrModalOpen)
+    }
+
+    const displayConfirmation = (transaction) => {
+        return Object.entries(transaction)
+            .filter(entry => entry[1] !== null && entry[1] !== undefined)
             .map((entry, index) => (
                 <li key={index} className="source-type-modal__list-item">
                     <label>
-                        {entry}
+                        {entry[0]}
                     </label>
+                    <div>
+                        {entry[1]}
+                    </div>
                 </li>
             ));
     }
@@ -40,7 +51,7 @@ const ConfirmationModal = () => {
         <div className="source-type">
             <Modal
                 style={customStyles}
-                isOpen={modalOpen}
+                isOpen={ocrModalOpen}
                 className="source-type-modal"
                 aria-labelledby="source-type-dialog-label"
                 onAfterOpen={() => {
@@ -52,15 +63,20 @@ const ConfirmationModal = () => {
                     role="group"
                     aria-labelledby="source-type-dialog-label"
                 >
-                    {displayConfirmation(serverResponse)}
+                    {displayConfirmation(ocrData)}
                 </ul>
                 <div className="source-type-modal__controls">
                     <button
-                        value="Okay"
+                        value="edit"
                         className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                         onClick={handleOnClick}
-
-                    >Okay
+                    >Edit Info
+                    </button>
+                    <button
+                        value="submit"
+                        className="source-type-modal__control-btn source-type-modal__control-btn--apply"
+                        onClick={handleOnClick}
+                    >Submit
                     </button>
                 </div>
             </Modal>
@@ -88,4 +104,4 @@ const customStyles = {
     }
 };
 
-export default ConfirmationModal;
+export default OCRModal;
