@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form , Button , Modal} from 'react-bootstrap';
+import {AppContext} from "../context/AppContext.jsx";
+import Transaction from "../models/Transaction.js";
 
 
 const CostField = (props) => {
-    // const [show, setShow] = useState(false);
+    const {ocrData, setOcrData} = useContext(AppContext)
     const [amount, setAmount] = useState(props.amount);
-  
-    // const handleShow = () => setShow(true);
-    // const handleClose = () => setShow(false);
-    //
-    // const handleButtonClick = (value) => {
-    //   setCost(prevCost => prevCost + value);
-    // };
-    //
-    // const handleClear = () => setCost('');
+
+    const handleBlur = (e) => {
+        const amount = e.target.value;
+        const newOCR = new Transaction(ocrData)
+        newOCR.amount = amount;
+        setOcrData(newOCR)
+    }
   
     return (
       <>
@@ -24,6 +24,7 @@ const CostField = (props) => {
           inputMode="numeric"
           // onClick={handleShow}
           // readOnly
+            onBlur={handleBlur}
         />
   
         {/*<Modal show={show} onHide={handleClose} centered>*/}

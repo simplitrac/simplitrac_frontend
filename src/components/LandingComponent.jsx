@@ -5,21 +5,26 @@ import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
 import {AppContext} from "../context/AppContext.jsx";
 import ConfirmationModel from "./ConfirmationModal.jsx";
+import User from "../models/User.js";
+import Transaction from "../models/Transaction.js";
+import transaction from "../models/Transaction.js";
 
 const LandingComponent = () => {
 
     // eslint-disable-next-line react/prop-types
-    const {user, setUser, screen, setScreen, modalIsOpen, setModalIsOpen, ocrData } = useContext(AppContext);
-    // const setScreen = props.setScreen
-    // const user = props.user
-    // const setUser = props.setUser
-    // const [modalIsOpen, setModalIsOpen] = useState(true);
+    const {user, setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
 
     const renderNewScreen = (screen) =>{
         if (screen === undefined){
             return;
         }
         setScreen(screen)
+    }
+
+    const handleSubmit = () => {
+        const userWithUpdates = new User(user)
+        userWithUpdates.transactions.push(ocrData)
+        setServerResponse(user.updateFirebase())
     }
 
     return (
@@ -52,7 +57,7 @@ const LandingComponent = () => {
             </Row>
             <Row className="mt-3">
                 <Col className="d-flex justify-content-around">
-                    <Button variant="primary" onClick={() => renderNewScreen("landing")}>Submit</Button>
+                    <Button variant="primary" onClick={handleSubmit}>Submit</Button>
                     <Button variant="primary" onClick={() => renderNewScreen("camera")}>Camera</Button>
                     <Button variant="primary" onClick={() =>renderNewScreen("chart")}>Chart</Button>
                 </Col>

@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { isMobile, isTablet, isDesktop } from 'react-device-detect';
+import Transaction from "../models/Transaction.js";
 
 
 const AppContext = createContext();
@@ -21,8 +22,10 @@ const AppProvider = ({ children }) => {
     const [modalIsOpen, setModalIsOpen] = useState(true);
     const [show, setShow] = useState(false);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
-    const [ocrData, setOcrData] = useState(null);
+    const [ocrData, setOcrData] = useState(new Transaction());
     const [device, setDevice ] = useState(detectDevice())
+    const [serverResponse, setServerResponse] = useState();
+
     const value = {
         screen, setScreen,
         user, setUser,
@@ -30,7 +33,8 @@ const AppProvider = ({ children }) => {
         show, setShow,
         capturedPhoto, setCapturedPhoto,
         ocrData, setOcrData,
-        device, setDevice
+        device, setDevice,
+        serverResponse, setServerResponse
     };
 
 
