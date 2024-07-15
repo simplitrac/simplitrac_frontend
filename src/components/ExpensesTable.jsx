@@ -15,7 +15,7 @@ const ExpensesTable = () => {
 
   const getListOfVendors = () =>{
     if (user.transactions.length !== 0){
-      setVendors(["Select Vendor", ... user.transactions.map(transaction => transaction.vendor)]);
+      setVendors(["Select Vendor", ... user.transactions.map(transaction => transaction.vendor?.name)]);
     } else {
       setVendors(["Select Vendor"])
     }

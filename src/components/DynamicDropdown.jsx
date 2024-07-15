@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import {AppContext} from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
+import { v4 as uuidv4 } from 'uuid';
 
 const DynamicDropdown = (props) => {
     const {ocrData, setOcrData} = useContext(AppContext)
@@ -29,15 +30,39 @@ const DynamicDropdown = (props) => {
 
             const newOCR = new Transaction(ocrData)
             if (options.type === "vendors") {
-                newOCR.vendor = e.target.value
+                newOCR.vendor = {
+                    id: uuidv4(),
+                    name: e.target.value
+                }
             } else if (options.type === "categories") {
-                newOCR.category = e.target.value
+                newOCR.category = {
+                    id: uuidv4(),
+                    name: e.target.value
+                }
             }
             setOcrData(newOCR)
         }
     }
 
     const mapOptions = (opts) => {
+
+    //     if (!opts.list) return null;
+    //
+    //     return opts.list.map((option, index) => {
+    //         if (option instanceof Object) {
+    //             return (
+    //                 <option key={index} value={option}>
+    //                     {option.name}
+    //                 </option>
+    //             );
+    //         }
+    //         return (
+    //             <option key={index} value={option}>
+    //                 {option}
+    //             </option>
+    //         );
+    //     });
+    // };
         if(!opts.list) return
 
         return (opts.list.map((option, index) => (
