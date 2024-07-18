@@ -62,29 +62,29 @@ Click the link in the terminal to open the project in your browser.
 | Landing Page Text                      | ![#c3b299ff](https://via.placeholder.com/10/c3b299ff?text=+) #c3b299ff |
 | Button Color     | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+) #ffffff |
 
-## Application in Motion
 
+## Application in Motion
 
 ### Landing Page
 
-![](docs/pictures/simpli home.png)
+![Landing Page](https://github.com/dave-b-b/simplitrac_frontend/blob/main/docs/pictures/simpli_home.png)
 
 ### Login Page
 
-![](docs/pictures/login.png)
+![Login Page](https://github.com/dave-b-b/simplitrac_frontend/blob/main/docs/pictures/login_page.png)
 
 ### Home Page
 
-![](docs/images/landing_page.png)
+![Home Page](https://github.com/dave-b-b/simplitrac_frontend/blob/main/docs/pictures/landing_page.png)
 
 ### Camera Function
 
-![](docs/images/receipt_picture.png)
+![Camera Function](https://github.com/dave-b-b/simplitrac_frontend/blob/main/docs/pictures/receipt_picture.png)
 
 ### Extracted Data
 
-![](docs/images/extracted_data.png)
+![Extracted Data](https://github.com/dave-b-b/simplitrac_frontend/blob/main/docs/pictures/extracted_data.png)
 
 ### Pie Chart
 
-![](docs/images/pie_chart.png)
+![Pie Chart](https://github.com/dave-b-b/simplitrac_frontend/blob/main/docs/pictures/pie_chart.png)
