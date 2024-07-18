@@ -19,6 +19,7 @@
     "react-bootstrap": "^2.10.2",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.52.1",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.24.0",
     "recharts": "^2.12.7",
