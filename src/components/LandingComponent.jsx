@@ -7,6 +7,7 @@ import {AppContext} from "../context/AppContext.jsx";
 import OCRModal from "./OCRModal.jsx";
 import User from "../models/User.js";
 import ConfirmationModal from "./ConfirmationModal.jsx";
+import { isMobile, isTablet, isDesktop } from 'react-device-detect';
 
 const LandingComponent = () => {
 
@@ -26,6 +27,14 @@ const LandingComponent = () => {
         const result = await user.updateFirebase()
         setServerResponse( result )
     }
+
+    const detectDevice = () => {
+        if(isDesktop) return 'desktop'
+
+        return 'mobile'
+    }
+
+    const [device, setDevice ] = useState(detectDevice())
 
     return (
 

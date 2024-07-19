@@ -55,7 +55,8 @@ export const Login = () => {
                 </Row>
             </Container>
             <div>
-                <button onClick={signInWithGoogle}> Sign In with Google</button>
+                <button onClick={signInWithGoogle}> Existing User</button>
+                <button onClick={signInWithGoogle}> New User</button>
             </div>
         </>
 
