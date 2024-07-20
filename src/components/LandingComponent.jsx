@@ -44,7 +44,7 @@ const LandingComponent = () => {
                 <ExpensesTable />
             </div>
             <div className="buttons-container">
-                <button className="custom-button" onClick={handleSubmit}>Submit</button>
+                {/*<button className="custom-button" onClick={handleSubmit}>Submit</button>*/}
                 <button className="custom-button" onClick={() => renderNewScreen("camera")}>Camera</button>
                 <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
             </div>

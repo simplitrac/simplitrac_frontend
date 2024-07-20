@@ -150,7 +150,11 @@ const ExpensesForm = () => {
                 <Controller
                     name="total"
                     control={control}
-                    render={({ field }) => <input type="number" step="0.01" {...field} />}
+                    render={({ field }) =>
+                        <input
+                            type="number"
+                            inputMode={"numeric"}
+                            step="0.01" {...field} />}
                 />
             </div>
             <div>
