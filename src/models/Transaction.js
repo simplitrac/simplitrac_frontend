@@ -33,7 +33,7 @@ class Transaction {
     }
 
     isEmpty(){
-        return this.vendor === null || this.vendor === undefined
+        return this.vendor === null && this.amount === null && this.createdAt === null && this.category === null
     }
 
     serialize() {
