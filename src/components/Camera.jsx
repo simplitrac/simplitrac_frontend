@@ -138,7 +138,7 @@ const Camera = () => {
             {device === 'desktop' && !capturedPhoto && (
                 <div>
                     <video ref={videoRef} style={styles.video} />
-                    <button onClick={capturePhoto} style={styles.button}>Capture Photo</button>
+                    <button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</button>
                 </div>
             )}
             {capturedPhoto && (
@@ -147,8 +147,8 @@ const Camera = () => {
                         <p>Captured Photo:</p>
                         <img src={capturedPhoto} alt="Captured" style={styles.image} />
                     </div>
-                    <button onClick={submitPhoto} style={styles.button}>Submit</button>
-                    <button onClick={activateDesktopCamera} style={styles.button}>Retake</button>
+                    <button className="custom-button" onClick={submitPhoto} style={styles.button}>Submit</button>
+                    <button className="custom-button" onClick={activateDesktopCamera} style={styles.button}>Retake</button>
                 </div>
             )}
             <BackButton />
