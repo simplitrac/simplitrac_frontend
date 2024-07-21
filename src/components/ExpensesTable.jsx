@@ -33,7 +33,7 @@ const ExpensesForm = () => {
 
     const getListOfVendors = () => {
         if (user.transactions.length !== 0) {
-            const newSet = new Set(["Select Vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor?.name))]);
+            const newSet = new Set(["Select Vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor))]);
             setVendors([...newSet]);
         } else {
             setVendors(["Select Vendor"]);
@@ -93,7 +93,11 @@ const ExpensesForm = () => {
         userWithUpdates.transactions.push(transaction);
 
         const result = await user.updateFirebase();
-        setServerResponse(result);
+        
+        if (result instanceof User) {
+            setServerResponse('User Successfully Updated');
+            setUser(result);
+        }
     };
 
     return (

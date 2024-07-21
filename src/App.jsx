@@ -34,7 +34,7 @@ function App() {
 
     }
 
-  return renderComponent()
+    return renderComponent()
 }
 
 export default App
