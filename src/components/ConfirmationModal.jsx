@@ -2,6 +2,8 @@ import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
+import Confetti from 'react-confetti';
+
 
 
 const ConfirmationModal = () => {
@@ -9,6 +11,7 @@ const ConfirmationModal = () => {
     const firstInputRef = useRef();
     const {serverResponse, setServerResponse, setOcrData} = useContext(AppContext);
     const [modalOpen, setModalOpen] = useState(serverResponse ? true : false)
+
 
     const toggleModalOpenState = (state) => {
         setModalOpen(!state);
@@ -64,6 +67,7 @@ const ConfirmationModal = () => {
                     </button>
                 </div>
             </Modal>
+            {modalOpen && <Confetti />}
         </div>
     );
 }
