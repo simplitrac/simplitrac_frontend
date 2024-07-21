@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Container } from "react-bootstrap";
 import ExpensesTable from "./ExpensesTable.jsx";
 import CategoryModal from "./CategoryModal.jsx";

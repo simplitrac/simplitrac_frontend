@@ -10,14 +10,14 @@ import logo from './../assets/simplitrac.webp';
 export const Login = () => {
     const {setScreen, setUser} = useContext(AppContext);
 
-    const signInWithGoogle = async () => {
+    const signInWithGoogle = async (isNewUser) => {
         try {
             const result = await signInWithPopup(auth,googleProvider);
             const id = result.user.uid;
 
             let user = await User.getUserFromFirestore(id)
 
-            if(user.isNewUser()){
+            if(isNewUser && user.isNewUser()){
                 user = new User(result.user)
                 await createNewUser(new User(result.user))
             }
@@ -55,7 +55,8 @@ export const Login = () => {
                 </Row>
             </Container>
             <div>
-                <button onClick={signInWithGoogle}> Sign In with Google</button>
+                <button onClick={signInWithGoogle}> New User Sign Up</button>
+                <button onClick={signInWithGoogle}> Existing User Sign In</button>
             </div>
         </>
 
