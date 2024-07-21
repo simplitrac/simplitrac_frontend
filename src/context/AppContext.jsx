@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { isMobile, isTablet, isDesktop } from 'react-device-detect';
 import Transaction from "../models/Transaction.js";
 
@@ -27,6 +27,30 @@ const AppProvider = ({ children }) => {
     const [serverResponse, setServerResponse] = useState();
     const [ocrModalOpen, setOcrModalOpen] = useState(false);
 
+    // updating user data based on state
+    const fetchUserData = async () => {
+        const endpoint = import.meta.env.MODE === 'development'
+            ? import.meta.env.VITE_DEV_GET_USER_ENDPOINT
+            : import.meta.env.VITE_PROD_GET_USER_ENDPOINT;
+    
+        try {
+            const response = await fetch(endpoint);
+            if (!response.ok) {
+                throw new Error('Network response issue exists');
+            }
+            const data = await response.json();
+            // console.log('Fetched user data:', data); //testing fetching user data
+            setUser(data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    // updating data based on user state
+    useEffect(() => {
+        fetchUserData(); 
+    }, []);
+
     const value = {
         screen, setScreen,
         user, setUser,
@@ -36,9 +60,9 @@ const AppProvider = ({ children }) => {
         ocrData, setOcrData,
         device, setDevice,
         serverResponse, setServerResponse,
-        ocrModalOpen, setOcrModalOpen
+        ocrModalOpen, setOcrModalOpen,
+        fetchUserData, //updating value with user data
     };
-
 
 
     return (

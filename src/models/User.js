@@ -1,3 +1,4 @@
+import Category from "./Category.js";
 import Transaction from "./Transaction.js";
 
 class User {
@@ -19,8 +20,8 @@ class User {
             this.created_at = data?.metadata?.createdAt || new Date().getTime();
             this.last_login = data?.metadata?.lastLoginAt || new Date().getTime();
             this.admin = null;
-            this.transactions = data.transactions || [];
-            this.categories = data.categories || [];
+            this.transactions = data.transactions?.map(transaction => new Transaction(transaction)) || [];
+            this.categories = data.categories?.map(category => new Category(category)) || [];
         }
     }
 
@@ -78,7 +79,7 @@ class User {
         result = await response.text();
 
 
-        return result;
+        return new User(JSON.parse(result));
     }
 
     static async getUserFromFirestore(user_id){
