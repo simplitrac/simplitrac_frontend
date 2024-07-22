@@ -5,11 +5,14 @@ import User from "../models/User.js";
 import Category from "../models/Category.js";
 
 const categories = [
-    { id: 1, name: "Food & Dining" },
-    { id: 2, name: "Transportation" },
-    { id: 3, name: "Utilities" },
-    { id: 4, name: "Entertainment" },
-    { id: 5, name: "Miscellaneous" },
+    { id: 1, name: "Vehicle" },
+    { id: 2, name: "Insurance/Health" },
+    { id: 3, name: "Rent/Mortgage" },
+    { id: 4, name: "Meals" },
+    { id: 5, name: "Travel" },
+    { id: 6, name: "Supplies" },
+    { id: 7, name: "Cell Phone" },
+    { id: 8, name: "Utilities" },
 ];
 
 const CategoryModal = () => {
