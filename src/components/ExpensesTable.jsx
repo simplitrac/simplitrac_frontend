@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import { useForm, Controller } from 'react-hook-form';
 import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
@@ -10,6 +10,8 @@ const ExpensesForm = () => {
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
+    const catSelectRef = useRef("");
+    const vendSelectRef = useRef("")
 
     const {
         control,
@@ -76,10 +78,7 @@ const ExpensesForm = () => {
             getListOfVendors();
             getListOfCategories();
         }
-        // if (!categories.length) {
-        //
-        // }
-    }, []);
+    }, [catSelectRef.current, vendSelectRef.current]);
 
     const onSubmit = async (data) => {
         const userWithUpdates = new User(user);
@@ -200,6 +199,7 @@ const ExpensesForm = () => {
                     )}
                 />
             </div>
+            <button type="button" >Edit Transactions</button>
             <button type="submit">Submit</button>
         </form>
     );

@@ -3,6 +3,8 @@ import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize'
+
 
 
 
@@ -11,6 +13,7 @@ const ConfirmationModal = () => {
     const firstInputRef = useRef();
     const {serverResponse, setServerResponse, setOcrData} = useContext(AppContext);
     const [modalOpen, setModalOpen] = useState(serverResponse ? true : false)
+    const {width, height} = useWindowSize()
 
 
     const toggleModalOpenState = (state) => {
@@ -67,7 +70,7 @@ const ConfirmationModal = () => {
                     </button>
                 </div>
             </Modal>
-            {modalOpen && <Confetti />}
+            {modalOpen && <Confetti width={width} height={height}/>}
         </div>
     );
 }
