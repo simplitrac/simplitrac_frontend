@@ -71,6 +71,9 @@ const Camera = () => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 setCapturedPhoto(e.target.result);
+                if (device === 'mobile'){
+                    submitPhoto();
+                }
             };
             reader.readAsDataURL(file);
         }
