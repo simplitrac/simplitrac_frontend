@@ -58,6 +58,8 @@ const CategoryModal = () => {
                     setTimeout(() => firstInputRef.current?.focus(), 0);
                 }}
             >
+            <h2 id="source-type-dialog-label">Select Your Categories</h2>  <header></header>
+
                 <ul
                     className="source-type-modal__list"
                     role="group"
