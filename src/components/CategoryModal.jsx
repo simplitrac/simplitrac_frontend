@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { AppContext } from "../context/AppContext.jsx";
 import User from "../models/User.js";
 import Category from "../models/Category.js";
+// import '../App.css';
 
 const categories = [
     { id: 1, name: "Vehicle" },

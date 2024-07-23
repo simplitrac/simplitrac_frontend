@@ -256,3 +256,31 @@ h1 {
 .source-type-modal__control-btn--apply:hover {
   background-color: #0056b3;
 }
+.source-type-modal__list-item label {
+  display: flex;
+  align-items: center;
+}
+
+.source-type-modal__list-item input[type="checkbox"] {
+  display: inline-block;
+  width: 30px; /* Adjust width */
+  height: 30px; /* Adjust height */
+  border: 2px solid #000; /* Customize border */
+  border-radius: 4px; /* Customize border radius */
+  margin-right: 8px; /* Adjust spacing between checkbox and label */
+  position: relative;
+  cursor: pointer;
+}
+
+.source-type-modal__list-item input[type="checkbox"]:checked + span::before {
+  content: '';
+  display: block;
+  width: 12px; /* Adjust checkmark width */
+  height: 12px; /* Adjust checkmark height */
+  background-color: #000; /* Customize checkmark color */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
