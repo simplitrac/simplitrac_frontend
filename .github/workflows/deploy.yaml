@@ -4,27 +4,52 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  deploy_to_github:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Node Environment
-        uses: actions/setup-node@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 18
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node_modules-${{hashFiles('package-lock.json')}}
-          restore-keys: node_modules-
-      - name: Install dependencies
-        run: npm install
-
-      - name: deploy_code
-        run: npm run deploy
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Node Environment
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: 18
+#
+#      - name: Cache dependencies
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.npm
+#          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.OS }}-node-
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: deploy_code
+#        run: npm run deploy
