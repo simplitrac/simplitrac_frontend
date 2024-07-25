@@ -10,16 +10,38 @@ import logo from './../assets/simplitrac.webp';
 export const Login = () => {
     const {setScreen, setUser} = useContext(AppContext);
 
-    const signInWithGoogle = async (isNewUser) => {
+    const newUserSignUp = async () => {
         try {
             const result = await signInWithPopup(auth,googleProvider);
             const id = result.user.uid;
 
             let user = await User.getUserFromFirestore(id)
 
-            if(isNewUser && user.isNewUser()){
-                user = new User(result.user)
-                await createNewUser(new User(result.user))
+            if(!user.isNewUser()){
+                alert("Sorry, you already have an account.")
+                setScreen()
+                return
+            }
+
+            user = new User(result.user)
+            await createNewUser(new User(result.user))
+            setUser(user)
+            setScreen("landing")
+        } catch (err){
+            console.error(err);
+        }
+    };
+
+    const existingUserSignUp = async () => {
+        try {
+            const result = await signInWithPopup(auth,googleProvider);
+            const id = result.user.uid;
+
+            let user = await User.getUserFromFirestore(id)
+
+            if(user.isNewUser()){
+                alert("Sorry. You do not have an account.")
+                setScreen("")
             }
 
             setUser(user)
@@ -55,8 +77,8 @@ export const Login = () => {
                 </Row>
             </Container>
             <div>
-            <button onClick={signInWithGoogle}> New User Sign Up</button>
-            <button onClick={signInWithGoogle}> Existing User Sign In</button>
+            <button onClick={newUserSignUp}> New User Sign Up</button>
+            <button onClick={existingUserSignUp}> Existing User Sign In</button>
             </div>
         </>
 
