@@ -96,6 +96,12 @@ const ExpensesForm = () => {
         if (result instanceof User) {
             setServerResponse('User Successfully Updated');
             setUser(result);
+            reset({
+                vendor: 'Select Vendor',
+                category: 'Select Category',
+                date: new Date().toISOString().split('T')[0],
+                total: '',
+            })
         }
     };
 
