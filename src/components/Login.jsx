@@ -72,7 +72,7 @@ export const Login = () => {
             <Container>
                 <Row>
                     <Col xs={1} md={1}>
-                        <Image src={logo} style={{ width: '300px', height: '300px' }} roundedCircle/>
+                        <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle/>
                     </Col>
                 </Row>
             </Container>
