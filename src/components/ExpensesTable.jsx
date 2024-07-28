@@ -49,7 +49,7 @@ const ExpensesForm = () => {
 
     const getListOfCategories = () => {
         if (user.categories.length !== 0) {
-            const newSet = new Set(["Select category", ...user.categories.map(category => toProperCase(category.category_name))]);
+            const newSet = new Set(["Select Category", ...user.categories.map(category => toProperCase(category.category_name))]);
             setCategories([...newSet]);
             // return newSet
         } else {
@@ -78,6 +78,7 @@ const ExpensesForm = () => {
             setValue('category', newCat);
         }
     };
+
 
     useEffect(() => {
         if (ocrData.isEmpty()) {
@@ -125,7 +126,7 @@ const ExpensesForm = () => {
         const userWithUpdates = new User(user);
 
         const transaction = new Transaction(ocrData);
-        transaction.created_at = data.date;
+        transaction.createdAt = data.date;
         transaction.vendor = data.vendor;
         transaction.amount = data.amount;
         transaction.category_name = data.category;

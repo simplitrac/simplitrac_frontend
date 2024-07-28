@@ -19,7 +19,20 @@ const EditTransactionsPage = () => {
         }
     }, [user]);
 
-    const { control, handleSubmit, watch } = useForm();
+    const { control, handleSubmit, watch } = useForm(
+        // {
+        //     defaultValues: {
+        //         vendor: 'Select Vendor',
+        //         category: 'Select Category',
+        //         date: new Date().toISOString().split('T')[0],
+        //         total: '',
+        //     }
+        // }
+    );
+
+    const getCategoryByCategoryId = (catId) => {
+        return user.categories.find( category => category.categoryId === catId)
+    }
 
     const onSubmit = async (data) => {
         const updatedTransactions = transactions.map((transaction, index) => {
@@ -52,24 +65,28 @@ const EditTransactionsPage = () => {
             <h2>Edit Transactions</h2>
             {transactions.map((transaction, index) => (
                 <div key={transaction.transactionId} className="transaction-edit-row">
+                    <label>Date</label>
                     <Controller
                         name={`date-${index}`}
                         control={control}
                         defaultValue={transaction.createdAt}
-                        render={({ field }) => <input type="date" {...field} />}
+                        render={({field}) => <input type="date" {...field} />}
                     />
+                    <label>Vendor</label>
                     <Controller
                         name={`vendor-${index}`}
                         control={control}
                         defaultValue={transaction.vendor}
-                        render={({ field }) => <input type="text" {...field} />}
+                        render={({field}) => <input type="text" {...field} />}
                     />
+                    <label>Amount</label>
                     <Controller
                         name={`amount-${index}`}
                         control={control}
                         defaultValue={transaction.amount}
-                        render={({ field }) => <input type="number" step="0.01" {...field} />}
+                        render={({field}) => <input type="number" step="0.01" {...field} />}
                     />
+                    <label>Category</label>
                     <Controller
                         name={`category-${index}`}
                         control={control}

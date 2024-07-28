@@ -17,7 +17,17 @@ class Transaction {
         }
         if (data instanceof Transaction){
             Object.assign(this, data)
+        } else {
+            this.transactionId = data.transaction_id || this.#generateUUID();
+            this.createdAt = data.created_at || null;
+            this.amount = data.amount || null;
+            this.vendor = data.vendor || null;
+            this.category_id = data.category_id || null;
+            this.category_name = data.category_name || null;
+            this.pictureId = data.pictureId || null;
+            this.isSuccessful = data.isSuccessful || null;
         }
+<<<<<<< HEAD
         this.transactionId = data.transactionId || this.#generateUUID();
         this.createdAt = data.createdAt || null;
         this.amount = data.amount || null;
@@ -26,6 +36,9 @@ class Transaction {
         this.category_id= data.category_id || null;
         this.pictureId = data.pictureId || null;
         this.isSuccessful = data.isSuccessful || null;
+=======
+
+>>>>>>> 6e27bb9 (updates)
     }
 
     #generateUUID() {
@@ -34,11 +47,15 @@ class Transaction {
     }
 
     isEmpty(){
+<<<<<<< HEAD
         return this.vendor === null && this.amount === null && this.createdAt === null && this.category_id === null && this.category_name === null
     }
 
     isNotComplete(){
         return this.vendor === null || this.amount === null || this.createdAt === null || this.category_id === null || this.category_name === null
+=======
+        return this.vendor === null && this.amount === null && this.createdAt === null && this.category_name === null
+>>>>>>> 6e27bb9 (updates)
     }
 
     serialize() {
@@ -47,8 +64,13 @@ class Transaction {
             createdAt: this.createdAt,
             amount: this.amount,
             vendor: this.vendor,
+<<<<<<< HEAD
             category_name: this.category_name,
             category_id: this.category_id,
+=======
+            category_id: this.category_id,
+            category_name: this.category_name,
+>>>>>>> 6e27bb9 (updates)
             pictureId: this.pictureId,
             isSuccessful: this.isSuccessful,
         };
