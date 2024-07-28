@@ -42,7 +42,8 @@ class Transaction {
             createdAt: this.createdAt,
             amount: this.amount,
             vendor: this.vendor,
-            category: this.category,
+            category_name: this.category.category_name,
+            category_id: this.category.category_id,
             pictureId: this.pictureId,
             isSuccessful: this.isSuccessful,
         };
