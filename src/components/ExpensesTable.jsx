@@ -5,7 +5,7 @@ import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 
 const ExpensesForm = () => {
-    const { user, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
+    const { user, setUser, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
     const [vendors, setVendors] = useState([]);
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
@@ -58,18 +58,18 @@ const ExpensesForm = () => {
         setOcrData(newOCR);
         setVendors(prevVendors => [...new Set([...prevVendors, newVendor])]);
         setVendorInput("");
-        setValue('vendor', newVendor); // Set the form value to the new vendor
+        setValue('vendor', newVendor);
     };
 
     const categoryBlur = (e) => {
         if (e.target.value !== "") {
             const newCat = e.target.value;
             const newOCR = new Transaction(ocrData);
-            newOCR.category = { id: "", name: newCat };
+            newOCR.category_name = newCat;
             setOcrData(newOCR);
             setCategories(prevCategories => [...new Set([...prevCategories, newCat])]);
             setCategoryInput("");
-            setValue('category', newCat); // Set the form value to the new category
+            setValue('category', newCat);
         }
     };
 
@@ -87,7 +87,7 @@ const ExpensesForm = () => {
         transaction.created_at = data.date;
         transaction.vendor = data.vendor;
         transaction.amount = data.total;
-        transaction.category_id = data.category;
+        transaction.category_name = data.category;
 
         userWithUpdates.transactions.push(transaction);
 
