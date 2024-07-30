@@ -44,7 +44,7 @@ const ExpensesForm = () => {
 
     const getListOfCategories = () => {
         if (user.categories.length !== 0) {
-            const newSet = new Set(["Select Category", ...user.categories.map(category => toProperCase(category.name))]);
+            const newSet = new Set(["Select Category", ...user.categories.map(category => toProperCase(category.category_name))]);
             setCategories([...newSet]);
         } else {
             setCategories(["Select Category"]);
