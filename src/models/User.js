@@ -2,6 +2,11 @@ import Category from "./Category.js";
 import Transaction from "./Transaction.js";
 
 class User {
+
+    // static environment = import.meta.env.DEVELOPMENT.toLowerCase() === "true" ?
+    //     import.meta.env.VITE_DEV_UPDATE_USER_ENDPOINT :
+    //     import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT
+
     constructor(data) {
         if(data instanceof User){
             Object.assign(this, data);

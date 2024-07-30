@@ -5,7 +5,7 @@ import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 
 const ExpensesForm = () => {
-    const { user, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
+    const { user, setUser, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
     const [vendors, setVendors] = useState([]);
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
@@ -35,7 +35,7 @@ const ExpensesForm = () => {
 
     const getListOfVendors = () => {
         if (user.transactions.length !== 0) {
-            const newSet = new Set(["Select Vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor))]);
+            const newSet = new Set(["Select vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor))]);
             setVendors([...newSet]);
         } else {
             setVendors(["Select Vendor"]);
@@ -44,7 +44,7 @@ const ExpensesForm = () => {
 
     const getListOfCategories = () => {
         if (user.categories.length !== 0) {
-            const newSet = new Set(["Select Category", ...user.categories.map(category => toProperCase(category.name))]);
+            const newSet = new Set(["Select category", ...user.categories.map(category => toProperCase(category.category_name))]);
             setCategories([...newSet]);
         } else {
             setCategories(["Select Category"]);
@@ -58,18 +58,18 @@ const ExpensesForm = () => {
         setOcrData(newOCR);
         setVendors(prevVendors => [...new Set([...prevVendors, newVendor])]);
         setVendorInput("");
-        setValue('vendor', newVendor); // Set the form value to the new vendor
+        setValue('vendor', newVendor);
     };
 
     const categoryBlur = (e) => {
         if (e.target.value !== "") {
             const newCat = e.target.value;
             const newOCR = new Transaction(ocrData);
-            newOCR.category = { id: "", name: newCat };
+            newOCR.category_name = newCat;
             setOcrData(newOCR);
             setCategories(prevCategories => [...new Set([...prevCategories, newCat])]);
             setCategoryInput("");
-            setValue('category', newCat); // Set the form value to the new category
+            setValue('category', newCat);
         }
     };
 
@@ -78,7 +78,7 @@ const ExpensesForm = () => {
             getListOfVendors();
             getListOfCategories();
         }
-    }, [catSelectRef.current, vendSelectRef.current]);
+    }, [catSelectRef.current, vendSelectRef.current, user]);
 
     const onSubmit = async (data) => {
         const userWithUpdates = new User(user);
@@ -87,7 +87,7 @@ const ExpensesForm = () => {
         transaction.created_at = data.date;
         transaction.vendor = data.vendor;
         transaction.amount = data.total;
-        transaction.category_id = data.category;
+        transaction.category_name = data.category;
 
         userWithUpdates.transactions.push(transaction);
 
@@ -96,6 +96,12 @@ const ExpensesForm = () => {
         if (result instanceof User) {
             setServerResponse('User Successfully Updated');
             setUser(result);
+            reset({
+                vendor: 'Select Vendor',
+                category: 'Select Category',
+                date: new Date().toISOString().split('T')[0],
+                total: '',
+            })
         }
     };
 

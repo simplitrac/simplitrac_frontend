@@ -22,7 +22,8 @@ class Transaction {
         this.createdAt = data.createdAt || null;
         this.amount = data.amount || null;
         this.vendor = data.vendor || null;
-        this.category = data.category || null;
+        this.category_name= data.category_name || null;
+        this.category_id= data.category_id || null;
         this.pictureId = data.pictureId || null;
         this.isSuccessful = data.isSuccessful || null;
     }
@@ -33,7 +34,7 @@ class Transaction {
     }
 
     isEmpty(){
-        return this.vendor === null && this.amount === null && this.createdAt === null && this.category === null
+        return this.vendor === null && this.amount === null && this.createdAt === null && this.category_id === null && this.category_name === null
     }
 
     serialize() {
@@ -42,7 +43,8 @@ class Transaction {
             createdAt: this.createdAt,
             amount: this.amount,
             vendor: this.vendor,
-            category: this.category,
+            category_name: this.category_name,
+            category_id: this.category_id,
             pictureId: this.pictureId,
             isSuccessful: this.isSuccessful,
         };

@@ -15,7 +15,7 @@ const EditTransactionsPage = () => {
         }
         if (user && user.categories) {
             // Ensure we have a "Select Category" option
-            setCategories(["Select Category", ...user.categories.map(cat => cat.name)]);
+            setCategories(["Select Category", ...user.categories.map(cat => cat.category_name)]);
         }
     }, [user]);
 
@@ -73,7 +73,7 @@ const EditTransactionsPage = () => {
                     <Controller
                         name={`category-${index}`}
                         control={control}
-                        defaultValue={transaction.category?.name || "Select Category"}
+                        defaultValue={transaction.category?.category_name || "Select Category"}
                         render={({ field }) => (
                             <select {...field}>
                                 {categories.map(category => (

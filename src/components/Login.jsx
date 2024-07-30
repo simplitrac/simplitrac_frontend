@@ -42,6 +42,7 @@ export const Login = () => {
             if(user.isNewUser()){
                 alert("Sorry. You do not have an account.")
                 setScreen("")
+                return
             }
 
             setUser(user)
@@ -72,7 +73,7 @@ export const Login = () => {
             <Container>
                 <Row>
                     <Col xs={1} md={1}>
-                        <Image src={logo} style={{ width: '300px', height: '300px' }} roundedCircle/>
+                        <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle/>
                     </Col>
                 </Row>
             </Container>
