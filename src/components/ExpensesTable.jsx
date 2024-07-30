@@ -35,7 +35,7 @@ const ExpensesForm = () => {
 
     const getListOfVendors = () => {
         if (user.transactions.length !== 0) {
-            const newSet = new Set(["Select Vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor))]);
+            const newSet = new Set(["Select vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor))]);
             setVendors([...newSet]);
         } else {
             setVendors(["Select Vendor"]);
@@ -44,7 +44,7 @@ const ExpensesForm = () => {
 
     const getListOfCategories = () => {
         if (user.categories.length !== 0) {
-            const newSet = new Set(["Select Category", ...user.categories.map(category => toProperCase(category.category_name))]);
+            const newSet = new Set(["Select category", ...user.categories.map(category => toProperCase(category.category_name))]);
             setCategories([...newSet]);
         } else {
             setCategories(["Select Category"]);
@@ -78,7 +78,7 @@ const ExpensesForm = () => {
             getListOfVendors();
             getListOfCategories();
         }
-    }, [catSelectRef.current, vendSelectRef.current]);
+    }, [catSelectRef.current, vendSelectRef.current, user]);
 
     const onSubmit = async (data) => {
         const userWithUpdates = new User(user);
