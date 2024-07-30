@@ -105,7 +105,7 @@ const Camera = () => {
         }
     } catch (error) {
         console.error('Error submitting photo:', error);
-        alert('An unexpected error occurred. Please try again.'); // You might want to use a more user-friendly way to display this
+        alert('Text is unreadable, please take the photo again.'); // You might want to use a more user-friendly way to display this
 
         }
     };
