@@ -33,8 +33,8 @@ const CategoryModal = () => {
         if (event?.target) {
             tempArray.push(
                 new Category({
-                    category_name: event.target.category_name,
-                    category_id: event.target.category_id,
+                    category_name: event.target.name,
+                    category_id: event.target.id,
                 })
             );
             setSelectedItems(tempArray);
@@ -42,8 +42,8 @@ const CategoryModal = () => {
     };
 
     const submitCategories = () => {
+        user.categories = selectedItems.map((item) => new Category(item));
         const tempUser = new User(user);
-        tempUser.categories = selectedItems.map((item) => new Category(item));
         setUser(tempUser);
         toggleModalOpenState(modalIsOpen);
     };
