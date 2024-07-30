@@ -42,6 +42,7 @@ export const Login = () => {
             if(user.isNewUser()){
                 alert("Sorry. You do not have an account.")
                 setScreen("")
+                return
             }
 
             setUser(user)
