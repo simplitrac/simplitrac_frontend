@@ -3,6 +3,8 @@ import { AppContext } from "../context/AppContext.jsx";
 import { useForm, Controller } from 'react-hook-form';
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
+import BackButton from "./BackButton.jsx";
+
 
 const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse } = useContext(AppContext);
@@ -86,9 +88,10 @@ const EditTransactionsPage = () => {
                     />
                 </div>
             ))}
-            <div className="edit-buttons">
+            <div>
                 <button type="submit" className="custom-button">Save Changes</button>
                 <button type="button" className="custom-button" onClick={handleCancel}>Cancel</button>
+                <button type="button" className="custom-button" onClick={handleCancel}>Back</button>
             </div>
         </form>
     );
