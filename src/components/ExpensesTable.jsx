@@ -245,7 +245,6 @@ const ExpensesForm = () => {
                     )}
                 />
             </div>
-            <button type="button" >Edit Transactions</button>
             <button type="submit">Submit</button>
         </form>
     );

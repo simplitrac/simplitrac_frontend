@@ -24,23 +24,43 @@ const OCRModal = () => {
 
     const handleOnClick = (e) => {
         const button = e.target.value;
-        switch(button){
+        switch(button) {
             case "edit":
                 setFormData(getFormData())
                 break;
             case "submit":
+
                 if(ocrData.isNotComplete()){
                     alert("Data not complete. Switching to edit mode");
                     setFormData(getFormData())
                     break;
                 }
-                submitTransaction(ocrData)
+                if (!ocrData.error) {
+                    submitTransaction(ocrData);
+                } else {
+                    // Handle error case, maybe close the modal and ask user to try again
+                    alert(ocrData.message);
+                }
+                break;
+            case "tryAgain":
+                // Add this case to handle "try again" for error scenarios
+                setScreen("camera");
+
                 break;
         }
-        toggleModalOpenState(ocrModalOpen)
-    }
+        toggleModalOpenState(ocrModalOpen);
+    };
 
     const displayConfirmation = (transaction) => {
+        if (transaction.error) {
+            return (
+                <li className="source-type-modal__list-item">
+                    <label>Error</label>
+                    <div>{transaction.message}</div>
+                </li>
+            );
+        }
+        
         return Object.entries(transaction)
             .filter(entry => entry[1] !== null && entry[1] !== undefined)
             .map((entry, index) => {
@@ -60,7 +80,6 @@ const OCRModal = () => {
 
             });
     }
-
 
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
     return (
@@ -82,19 +101,33 @@ const OCRModal = () => {
                     {displayConfirmation(ocrData)}
                 </ul>
                 <div className="source-type-modal__controls">
-                    <button
-                        value="edit"
-                        className="source-type-modal__control-btn source-type-modal__control-btn--apply"
-                        onClick={handleOnClick}
-                    >Edit Info
-                    </button>
-                    <button
-                        value="submit"
-                        className="source-type-modal__control-btn source-type-modal__control-btn--apply"
-                        onClick={handleOnClick}
-                    >Submit
-                    </button>
-                </div>
+    {ocrData.error ? (
+        <button
+            value="tryAgain"
+            className="source-type-modal__control-btn source-type-modal__control-btn--apply"
+            onClick={handleOnClick}
+        >
+            Try Again
+        </button>
+    ) : (
+        <>
+            <button
+                value="edit"
+                className="source-type-modal__control-btn source-type-modal__control-btn--apply"
+                onClick={handleOnClick}
+            >
+                Edit Info
+            </button>
+            <button
+                value="submit"
+                className="source-type-modal__control-btn source-type-modal__control-btn--apply"
+                onClick={handleOnClick}
+            >
+                Submit
+            </button>
+        </>
+    )}
+</div>
             </Modal>
         </div>
     );
