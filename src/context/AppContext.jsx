@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { isMobile, isTablet, isDesktop } from 'react-device-detect';
 import Transaction from "../models/Transaction.js";
+import FormData from "../models/FormData.js"
 
 
 const AppContext = createContext();
@@ -26,6 +27,7 @@ const AppProvider = ({ children }) => {
     const [device, setDevice ] = useState(detectDevice())
     const [serverResponse, setServerResponse] = useState();
     const [ocrModalOpen, setOcrModalOpen] = useState(false);
+    const [formData, setFormData] = useState(new FormData());
 
     // updating user data based on state
     const fetchUserData = async () => {
@@ -62,6 +64,7 @@ const AppProvider = ({ children }) => {
         serverResponse, setServerResponse,
         ocrModalOpen, setOcrModalOpen,
         fetchUserData, //updating value with user data
+        formData, setFormData
     };
 
 

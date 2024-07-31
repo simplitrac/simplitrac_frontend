@@ -57,6 +57,10 @@ class User {
         };
     }
 
+    addCategory(catName){
+        this.categories.push(new Category(catName))
+    }
+
     toString() {
         return JSON.stringify(this.serialize());
     }
@@ -67,6 +71,14 @@ class User {
         } else {
             console.error('Invalid transaction provided:', transaction);
         }
+    }
+
+    returnCategoryList(){
+       return [...new Set(["Select category", ...this.categories.map(category => toProperCase(category.category_name))])];
+    }
+
+    returnVendorList(){
+         return [...new Set(["Select vendor", ...this.transactions.map(transaction => toProperCase(transaction.vendor))])];
     }
 
     async updateFirebase(){
@@ -111,5 +123,12 @@ class User {
         }
     }
 }
+
+function toProperCase(name){
+    if (!name) return;
+    const lower = name.toLowerCase();
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+};
+
 
 export default User;

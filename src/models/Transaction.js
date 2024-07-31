@@ -37,6 +37,10 @@ class Transaction {
         return this.vendor === null && this.amount === null && this.createdAt === null && this.category_id === null && this.category_name === null
     }
 
+    isNotComplete(){
+        return this.vendor === null || this.amount === null || this.createdAt === null || this.category_id === null || this.category_name === null
+    }
+
     serialize() {
         return {
             transactionId: this.transactionId,

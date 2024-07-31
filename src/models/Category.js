@@ -2,8 +2,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 class Category{
     constructor(data){
-        this.category_id = data.category_id;
-        this.category_name = data.category_name;
+        if(data instanceof Object){
+            this.category_id = data.category_id;
+            this.category_name = data.category_name;
+        } else if(data instanceof this){
+            Object.assign(this, data);
+        } else {
+            this.category_name = data;
+            this.category_id = "";
+        }
     }
 
     serialize(){

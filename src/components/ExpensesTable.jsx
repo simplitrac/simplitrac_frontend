@@ -3,9 +3,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
+import Category from "../models/Category.js";
+import FormData from '../models/FormData.js'
 
 const ExpensesForm = () => {
-    const { user, setUser, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
+    const { user, formData, setFormData, setUser, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
     const [vendors, setVendors] = useState([]);
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
@@ -23,7 +25,7 @@ const ExpensesForm = () => {
             vendor: 'Select Vendor',
             category: 'Select Category',
             date: new Date().toISOString().split('T')[0],
-            total: '',
+            amount: '',
         }
     });
 
@@ -35,17 +37,20 @@ const ExpensesForm = () => {
 
     const getListOfVendors = () => {
         if (user.transactions.length !== 0) {
-            const newSet = new Set(["Select vendor", ...user.transactions.map(transaction => toProperCase(transaction.vendor))]);
+            const newSet = new Set(["Select vendor", ...user.returnVendorList()]);
             setVendors([...newSet]);
+            // return newSet
         } else {
             setVendors(["Select Vendor"]);
         }
+
     };
 
     const getListOfCategories = () => {
         if (user.categories.length !== 0) {
             const newSet = new Set(["Select category", ...user.categories.map(category => toProperCase(category.category_name))]);
             setCategories([...newSet]);
+            // return newSet
         } else {
             setCategories(["Select Category"]);
         }
@@ -78,7 +83,42 @@ const ExpensesForm = () => {
             getListOfVendors();
             getListOfCategories();
         }
-    }, [catSelectRef.current, vendSelectRef.current, user]);
+        if(!formData) return;
+
+        const listOfValues = formData.returnNonEmptyValues()
+        let refreshVendors, refreshCats = true;
+
+        if(listOfValues.length){
+            for(const entry of listOfValues){
+                const key = entry[0];
+                const value = entry[1]
+
+
+                switch (key){
+                    case "vendor":
+                        setVendors([...user.returnVendorList(), value])
+                        catSelectRef.current = toProperCase(value)
+                        setValue(key, value)
+                        refreshVendors = false
+                        break;
+                    case "category":
+                        user.addCategory(value)
+                        setCategories([...user.returnCategoryList()])
+                        vendSelectRef.current = toProperCase(value)
+                        setValue(key, value)
+                        refreshCats = false
+                        break;
+                    default:
+                        setValue(key, value)
+                        break;
+                }
+            }
+            setFormData()
+            refreshVendors ? getListOfVendors() : null;
+            refreshCats ? getListOfCategories() : null;
+        }
+
+    }, [catSelectRef.current, vendSelectRef.current, user, formData]);
 
     const onSubmit = async (data) => {
         const userWithUpdates = new User(user);
@@ -86,7 +126,7 @@ const ExpensesForm = () => {
         const transaction = new Transaction(ocrData);
         transaction.created_at = data.date;
         transaction.vendor = data.vendor;
-        transaction.amount = data.total;
+        transaction.amount = data.amount;
         transaction.category_name = data.category;
 
         userWithUpdates.transactions.push(transaction);
@@ -100,7 +140,7 @@ const ExpensesForm = () => {
                 vendor: 'Select Vendor',
                 category: 'Select Category',
                 date: new Date().toISOString().split('T')[0],
-                total: '',
+                amount: '',
             })
         }
     };
@@ -157,7 +197,7 @@ const ExpensesForm = () => {
             <div>
                 <label>Amount</label>
                 <Controller
-                    name="total"
+                    name="amount"
                     control={control}
                     render={({ field }) =>
                         <input
