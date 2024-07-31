@@ -1,12 +1,13 @@
 import {useState, useRef, useContext, useEffect} from "react";
 import Modal from "react-modal";
 import {AppContext} from "../context/AppContext.jsx";
+import FormData from "../models/FormData.js"
 
 
 const OCRModal = () => {
     Modal.setAppElement("#root");
     const firstInputRef = useRef();
-    const {ocrData, user, setScreen, ocrModalOpen, setOcrModalOpen} = useContext(AppContext);
+    const {ocrData, user, setFormData, ocrModalOpen, setOcrModalOpen} = useContext(AppContext);
 
     const toggleModalOpenState = (state) => {
         setOcrModalOpen(!state);
@@ -17,13 +18,23 @@ const OCRModal = () => {
         return user.updateFirebase()
     }
 
+    const getFormData = () => {
+        return new FormData(ocrData)
+    }
+
     const handleOnClick = (e) => {
         const button = e.target.value;
         switch(button) {
             case "edit":
-                //Need to populate datafields from Expenses Table
+                setFormData(getFormData())
                 break;
             case "submit":
+
+                if(ocrData.isNotComplete()){
+                    alert("Data not complete. Switching to edit mode");
+                    setFormData(getFormData())
+                    break;
+                }
                 if (!ocrData.error) {
                     submitTransaction(ocrData);
                 } else {
@@ -34,6 +45,7 @@ const OCRModal = () => {
             case "tryAgain":
                 // Add this case to handle "try again" for error scenarios
                 setScreen("camera");
+
                 break;
         }
         toggleModalOpenState(ocrModalOpen);
@@ -51,13 +63,23 @@ const OCRModal = () => {
         
         return Object.entries(transaction)
             .filter(entry => entry[1] !== null && entry[1] !== undefined)
-            .map((entry, index) => (
-                <li key={index} className="source-type-modal__list-item">
-                    <label>{entry[0]}</label>
-                    <div>{entry[1]}</div>
-                </li>
-            ));
-    };
+            .map((entry, index) => {
+
+                if(entry[0] === "transactionId") return;
+
+                return (
+                    <li key={index} className="source-type-modal__list-item">
+                        <label>
+                            {entry[0]}
+                        </label>
+                        <div>
+                            {entry[1]}
+                        </div>
+                    </li>
+                )
+
+            });
+    }
 
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
     return (
