@@ -57,7 +57,7 @@ const LandingComponent = () => {
                     <SignOut />
                 </div>
             </Container>
-            <Achievement metric={user.transactions} threshold={} onAchieve={} message={} />
+            <Achievement metric={user.transactions} threshold={1} onAchieve={() => alert("hello")} message={"asdf"}/>
         </AchievementProvider>
     );
 };
