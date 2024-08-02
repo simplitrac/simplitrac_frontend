@@ -19,7 +19,8 @@ const ExpensesForm = () => {
         control,
         handleSubmit,
         setValue,
-        watch
+        watch,
+        reset
     } = useForm({
         defaultValues: {
             vendor: 'Select Vendor',
