@@ -11,7 +11,7 @@ class User {
         if(data instanceof User){
             Object.assign(this, data);
         } else {
-            this.user_id = data?.uid ?? data.user_id;
+            this.user_id = data?.uid ?? data?.user_id;
             this.access_token = data?.accessToken;
             this.email = data?.email;
             if(data?.displayName){
@@ -25,8 +25,8 @@ class User {
             this.created_at = data?.metadata?.createdAt || new Date().getTime();
             this.last_login = data?.metadata?.lastLoginAt || new Date().getTime();
             this.admin = null;
-            this.transactions = data.transactions?.map(transaction => new Transaction(transaction)) || [];
-            this.categories = data.categories?.map(category => new Category(category)) || [];
+            this.transactions = data?.transactions?.map(transaction => new Transaction(transaction)) || [];
+            this.categories = data?.categories?.map(category => new Category(category)) || [];
         }
     }
 
@@ -90,7 +90,7 @@ class User {
             },
             body: JSON.stringify(this.serialize())
         };
-        const endPoint = `${import.meta.env.VITE_DEV_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`;
+        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`;
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
@@ -107,7 +107,7 @@ class User {
                 Accept: "application/json",
             },
         };
-        const endPoint = `${import.meta.env.VITE_DEV_GET_USER_ENDPOINT}?user_id=${user_id}`;
+        const endPoint = `${import.meta.env.VITE_PROD_GET_USER_ENDPOINT}?user_id=${user_id}`;
 
         try {
             const res = await fetch(endPoint, init);

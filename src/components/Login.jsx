@@ -24,7 +24,7 @@ export const Login = () => {
             }
 
             user = new User(result.user)
-            await createNewUser(new User(result.user))
+            await createNewUser(new User(user))
             setUser(user)
             setScreen("landing")
         } catch (err){
