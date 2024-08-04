@@ -123,8 +123,9 @@ const ExpensesForm = () => {
     }, [catSelectRef.current, vendSelectRef.current, user, formData]);
 
     const onSubmit = async (data) => {
-        if (errors.amount || errors.vendor || errors.category) {
-            alert(errors.amount.message);
+        if (Object.keys(errors).length > 0) {
+        // (errors.amount || errors.vendor || errors.category) {
+            alert("Please fill in all the inputs properly");
             return;
         }
         const userWithUpdates = new User(user);
@@ -168,8 +169,7 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please select a vendor',
-                        validate: value => (value === 'Select Vendor' || value === ' ') ? 'Please select a  vendor' : true
-
+                        validate: value => (value === 'Select Vendor' || value === '') ? 'Please select a vendor' : true
                     }}
                     render={({ field }) => (
                         <div>
@@ -191,7 +191,7 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === '' || field.value === 'Select Vendor') && (
+                            {(field.value === '' || field.value === 'Select Vendor' || field.value === 'Other (specify below)') && (
                                 <>
                                     <input
                                         id="vendor"
@@ -200,7 +200,10 @@ const ExpensesForm = () => {
                                         onChange={(e) => {
                                             setVendorInput(e.target.value);
                                         }}
-                                        onBlur={vendorBlur}
+                                        onBlur={(e) => {
+                                            vendorBlur(e);
+                                            field.onBlur(); 
+                                        }}
                                     />
                                     {errors.vendor && (
                                         <span role="alert" style={{ color: 'red'}}>
@@ -220,6 +223,8 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please enter a value',
+                        validate: value => (value === 'Select Vendor' || value === '') ? 'Please input a valid amount' : true
+
                     }}
                     render={({ field }) =>
                         <input
@@ -241,7 +246,7 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please select a category',
-                        validate: value => (value === 'Select category' || value === '') ? 'Please select a  category' : true
+                        validate: value => (value === 'Select category' || value === '' || value === 'Other (specify below)' ) ? 'Please select a  category' : true
 
                     }}
                     render={({ field }) => (
