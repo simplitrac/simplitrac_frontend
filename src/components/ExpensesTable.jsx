@@ -1,5 +1,5 @@
 import {useContext, useEffect, useRef, useState} from "react";
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller} from 'react-hook-form';
 import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
@@ -20,7 +20,8 @@ const ExpensesForm = () => {
         handleSubmit,
         setValue,
         watch,
-        reset
+        reset,
+        formState: {errors},
     } = useForm({
         defaultValues: {
             vendor: 'Select Vendor',
@@ -122,6 +123,10 @@ const ExpensesForm = () => {
     }, [catSelectRef.current, vendSelectRef.current, user, formData]);
 
     const onSubmit = async (data) => {
+        if (errors.amount || errors.vendor || errors.category) {
+            alert(errors.amount.message);
+            return;
+        }
         const userWithUpdates = new User(user);
 
         const transaction = new Transaction(ocrData);
@@ -161,6 +166,11 @@ const ExpensesForm = () => {
                 <Controller
                     name="vendor"
                     control={control}
+                    rules={{
+                        required: 'Please select a vendor',
+                        validate: value => (value === 'Select Vendor' || value === ' ') ? 'Please select a  vendor' : true
+
+                    }}
                     render={({ field }) => (
                         <div>
                             <select
@@ -181,37 +191,59 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {field.value === '' && (
-                                <input
-                                    type="text"
-                                    value={vendorInput}
-                                    onChange={(e) => {
-                                        setVendorInput(e.target.value);
-                                    }}
-                                    onBlur={vendorBlur}
-                                />
+                            {(field.value === '' || field.value === 'Select Vendor') && (
+                                <>
+                                    <input
+                                        id="vendor"
+                                        type="text"
+                                        value={vendorInput}
+                                        onChange={(e) => {
+                                            setVendorInput(e.target.value);
+                                        }}
+                                        onBlur={vendorBlur}
+                                    />
+                                    {errors.vendor && (
+                                        <span role="alert" style={{ color: 'red'}}>
+                                            {errors.vendor.message}
+                                        </span>
+                                    )}
+                                </>
                             )}
                         </div>
                     )}
                 />
             </div>
             <div>
-                <label>Amount</label>
+                <label htmlFor="amount">Amount</label>
                 <Controller
                     name="amount"
                     control={control}
+                    rules={{
+                        required: 'Please enter a value',
+                    }}
                     render={({ field }) =>
                         <input
+                            id="amount"
                             type="number"
                             inputMode={"numeric"}
                             step="0.01" {...field} />}
-                />
-            </div>
+                            />
+                        {errors.amount && (
+                            <span role="alert" style={{ color: 'red'}}>
+                                {errors.amount.message}
+                            </span>
+                        )}         
+                 </div>
             <div>
                 <label>Category</label>
                 <Controller
                     name="category"
                     control={control}
+                    rules={{
+                        required: 'Please select a category',
+                        validate: value => (value === 'Select category' || value === '') ? 'Please select a  category' : true
+
+                    }}
                     render={({ field }) => (
                         <div>
                             <select
@@ -232,8 +264,10 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {field.value === '' && (
+                            {(field.value === ''  || field.value === 'Select category') && (
+                                <>
                                 <input
+                                    id="category"
                                     type="text"
                                     value={categoryInput}
                                     onChange={(e) => {
@@ -241,6 +275,12 @@ const ExpensesForm = () => {
                                     }}
                                     onBlur={categoryBlur}
                                 />
+                                {errors.category && (
+                                    <span role="alert" style={{ color: 'red'}}>
+                                        {errors.category.message}
+                                    </span>
+                                )}
+                            </>
                             )}
                         </div>
                     )}
