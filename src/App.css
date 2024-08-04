@@ -284,3 +284,22 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
+.delete-button {
+  background-color: #dc3545;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.transaction-edit-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.transaction-edit-row input,
+.transaction-edit-row select {
+  margin-right: 10px;
+}

@@ -47,6 +47,22 @@ const EditTransactionsPage = () => {
         setScreen('landing');
     };
 
+    const handleDelete = async (transactionId) => {
+        if (window.confirm("Are you sure you want to delete this transaction?")) {
+            const updatedTransactions = transactions.filter(t => t.transactionId !== transactionId);
+            setTransactions(updatedTransactions);
+
+            const updatedUser = new User(user);
+            updatedUser.transactions = updatedTransactions;
+            const result = await updatedUser.updateFirebase();
+
+            if (result instanceof User) {
+                setUser(result);
+                setServerResponse('Transaction Successfully Deleted');
+            }
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <h2>Edit Transactions</h2>
@@ -84,6 +100,13 @@ const EditTransactionsPage = () => {
                             </select>
                         )}
                     />
+                    <button 
+                        type="button" 
+                        className="custom-button delete-button"
+                        onClick={() => handleDelete(transaction.transactionId)}
+                    >
+                        Delete
+                    </button>
                 </div>
             ))}
             <div className="edit-buttons">
