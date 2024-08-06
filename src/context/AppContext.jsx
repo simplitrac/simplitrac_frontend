@@ -48,6 +48,23 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    const resetAppState = () => {
+        setScreen('login');
+        setUser({
+            first_name: '',
+            last_name: '',
+            categories: []
+        });
+        setModalIsOpen(true);
+        setShow(false);
+        setCapturedPhoto(null);
+        setOcrData(new Transaction());
+        setDevice(detectDevice());
+        setServerResponse();
+        setOcrModalOpen(false);
+        setFormData(new FormData());
+    };
+
     // updating data based on user state
     useEffect(() => {
         fetchUserData(); 
@@ -64,7 +81,8 @@ const AppProvider = ({ children }) => {
         serverResponse, setServerResponse,
         ocrModalOpen, setOcrModalOpen,
         fetchUserData, //updating value with user data
-        formData, setFormData
+        formData, setFormData,
+        resetAppState,
     };
 
 
