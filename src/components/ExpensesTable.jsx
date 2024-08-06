@@ -150,6 +150,7 @@ const ExpensesForm = () => {
                 date: new Date().toISOString().split('T')[0],
                 amount: '',
             })
+            setOcrData(new Transaction())
         }
     };
 

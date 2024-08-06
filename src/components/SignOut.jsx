@@ -4,13 +4,12 @@ import {useContext} from "react";
 
 const Logout = () => {
 
-    const { setScreen, setUser } = useContext(AppContext);
+    const { setScreen, setUser, resetAppState } = useContext(AppContext);
 
     const logOut = async () => {
         try {
             await signOut(auth);
-            setScreen("login")
-            setUser(null)
+            resetAppState()
         } catch (err) {
             console.error('Error signing out: ', err);
         }
