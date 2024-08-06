@@ -66,7 +66,7 @@ const ExpensesForm = () => {
         setVendors(prevVendors => [...new Set([...prevVendors, newVendor])]);
         setVendorInput("");
         setValue('vendor', newVendor);
-    };
+    }; 
 
     const categoryBlur = (e) => {
         if (e.target.value !== "") {
