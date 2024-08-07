@@ -1,6 +1,6 @@
-import { auth , signOut} from "../config/initializeFirestore.js";
-import {AppContext} from "../context/AppContext.jsx";
-import {useContext} from "react";
+import { auth, signOut } from "../config/initializeFirestore.js";
+import { AppContext } from "../context/AppContext.jsx";
+import { useContext } from "react";
 
 const Logout = () => {
 
@@ -9,6 +9,7 @@ const Logout = () => {
     const logOut = async () => {
         try {
             await signOut(auth);
+            localStorage.clear() // added
             resetAppState()
         } catch (err) {
             console.error('Error signing out: ', err);

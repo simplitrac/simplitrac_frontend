@@ -1,5 +1,5 @@
-import {useContext, useEffect, useRef, useState} from "react";
-import { useForm, Controller} from 'react-hook-form';
+import { useContext, useEffect, useRef, useState } from "react";
+import { useForm, Controller } from 'react-hook-form';
 import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
@@ -21,7 +21,7 @@ const ExpensesForm = () => {
         setValue,
         watch,
         reset,
-        formState: {errors},
+        formState: { errors },
     } = useForm({
         defaultValues: {
             vendor: 'Select Vendor',
@@ -86,18 +86,18 @@ const ExpensesForm = () => {
             getListOfVendors();
             getListOfCategories();
         }
-        if(!formData) return;
+        if (!formData) return;
 
         const listOfValues = formData.returnNonEmptyValues()
         let refreshVendors, refreshCats = true;
 
-        if(listOfValues.length){
-            for(const entry of listOfValues){
+        if (listOfValues.length) {
+            for (const entry of listOfValues) {
                 const key = entry[0];
                 const value = entry[1]
 
 
-                switch (key){
+                switch (key) {
                     case "vendor":
                         setVendors([...user.returnVendorList(), value])
                         catSelectRef.current = toProperCase(value)
@@ -125,7 +125,7 @@ const ExpensesForm = () => {
 
     const onSubmit = async (data) => {
         if (Object.keys(errors).length > 0) {
-        // (errors.amount || errors.vendor || errors.category) {
+            // (errors.amount || errors.vendor || errors.category) {
             alert("Please fill in all the inputs properly");
             return;
         }
@@ -140,7 +140,7 @@ const ExpensesForm = () => {
         userWithUpdates.transactions.push(transaction);
 
         const result = await user.updateFirebase();
-        
+
         if (result instanceof User) {
             setServerResponse('User Successfully Updated');
             setUser(result);
@@ -204,11 +204,11 @@ const ExpensesForm = () => {
                                         }}
                                         onBlur={(e) => {
                                             vendorBlur(e);
-                                            field.onBlur(); 
+                                            field.onBlur();
                                         }}
                                     />
                                     {errors.vendor && (
-                                        <span role="alert" style={{ color: 'red'}}>
+                                        <span role="alert" style={{ color: 'red' }}>
                                             {errors.vendor.message}
                                         </span>
                                     )}
@@ -234,13 +234,13 @@ const ExpensesForm = () => {
                             type="number"
                             inputMode={"numeric"}
                             step="0.01" {...field} />}
-                            />
-                        {errors.amount && (
-                            <span role="alert" style={{ color: 'red'}}>
-                                {errors.amount.message}
-                            </span>
-                        )}         
-                 </div>
+                />
+                {errors.amount && (
+                    <span role="alert" style={{ color: 'red' }}>
+                        {errors.amount.message}
+                    </span>
+                )}
+            </div>
             <div>
                 <label>Category</label>
                 <Controller
@@ -248,7 +248,7 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please select a category',
-                        validate: value => (value === 'Select category' || value === '' || value === 'Other (specify below)' ) ? 'Please select a  category' : true
+                        validate: value => (value === 'Select category' || value === '' || value === 'Other (specify below)') ? 'Please select a  category' : true
 
                     }}
                     render={({ field }) => (
@@ -271,23 +271,23 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === ''  || field.value === 'Select category') && (
+                            {(field.value === '' || field.value === 'Select category') && (
                                 <>
-                                <input
-                                    id="category"
-                                    type="text"
-                                    value={categoryInput}
-                                    onChange={(e) => {
-                                        setCategoryInput(e.target.value);
-                                    }}
-                                    onBlur={categoryBlur}
-                                />
-                                {errors.category && (
-                                    <span role="alert" style={{ color: 'red'}}>
-                                        {errors.category.message}
-                                    </span>
-                                )}
-                            </>
+                                    <input
+                                        id="category"
+                                        type="text"
+                                        value={categoryInput}
+                                        onChange={(e) => {
+                                            setCategoryInput(e.target.value);
+                                        }}
+                                        onBlur={categoryBlur}
+                                    />
+                                    {errors.category && (
+                                        <span role="alert" style={{ color: 'red' }}>
+                                            {errors.category.message}
+                                        </span>
+                                    )}
+                                </>
                             )}
                         </div>
                     )}
