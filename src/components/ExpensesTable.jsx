@@ -169,7 +169,7 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please select a vendor',
-                        validate: value => (value === 'Select Vendor' || value === '') ? 'Please select a vendor' : true
+                        validate: value => (value === 'Select vendor' || value === '') ? 'Please select a vendor' : true //this might be missing some parts in callback, set validsate to select vendor and set to reference, not to a variable. 
                     }}
                     render={({ field }) => (
                         <div>
@@ -191,7 +191,7 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === '' || field.value === 'Select Vendor' || field.value === 'Other (specify below)') && (
+                            {(field.value === '' || field.value === 'Select vendor' || field.value === 'Other (specify below)') && (
                                 <>
                                     <input
                                         id="vendor"
@@ -222,9 +222,13 @@ const ExpensesForm = () => {
                     name="amount"
                     control={control}
                     rules={{
-                        required: 'Please enter a value',
-                        validate: value => (value === 'Select Vendor' || value === '') ? 'Please input a valid amount' : true
-
+                        required: 'Please enter a valid number',
+                        validate: value => {
+                            if(isNaN(value)) {
+                                // return 'Please enter a valid number';
+                        }
+                        return true;
+                    }
                     }}
                     render={({ field }) =>
                         <input
@@ -246,7 +250,7 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please select a category',
-                        validate: value => (value === 'Select category' || value === '' || value === 'Other (specify below)' ) ? 'Please select a  category' : true
+                        validate: value => (value === 'Select Category' || value === '' || value === 'Other (specify below)' ) ? 'Please select a  category' : true
 
                     }}
                     render={({ field }) => (
@@ -269,7 +273,7 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === ''  || field.value === 'Select category') && (
+                            {(field.value === ''  || field.value === 'Select Category') && (
                                 <>
                                 <input
                                     id="category"
