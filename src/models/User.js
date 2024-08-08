@@ -7,14 +7,15 @@ class User {
     //     import.meta.env.VITE_DEV_UPDATE_USER_ENDPOINT :
     //     import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT
 
-    constructor(data) {
-        if(data instanceof User){
+    constructor(data = {}) {
+        if (data instanceof User) {
             Object.assign(this, data);
+
         } else {
             this.user_id = data?.uid ?? data?.user_id;
             this.access_token = data?.accessToken;
             this.email = data?.email;
-            if(data?.displayName){
+            if (data?.displayName) {
                 this.first_name = data?.displayName.split(" ")[0];
                 this.last_name = data?.displayName.split(" ").slice(1).join(" ");
             } else {
@@ -57,7 +58,7 @@ class User {
         };
     }
 
-    addCategory(catName){
+    addCategory(catName) {
         this.categories.push(new Category(catName))
     }
 
@@ -73,15 +74,15 @@ class User {
         }
     }
 
-    returnCategoryList(){
-       return [...new Set(["Select category", ...this.categories.map(category => toProperCase(category.category_name))])];
+    returnCategoryList() {
+        return [...new Set(["Select category", ...this.categories.map(category => toProperCase(category.category_name))])];
     }
 
-    returnVendorList(){
-         return [...new Set(["Select vendor", ...this.transactions.map(transaction => toProperCase(transaction.vendor))])];
+    returnVendorList() {
+        return [...new Set(["Select vendor", ...this.transactions.map(transaction => toProperCase(transaction.vendor))])];
     }
 
-    async updateFirebase(){
+    async updateFirebase() {
         const init = {
             method: "POST",
             headers: {
@@ -99,7 +100,7 @@ class User {
         return new User(JSON.parse(result));
     }
 
-    static async getUserFromFirestore(user_id){
+    static async getUserFromFirestore(user_id) {
         const init = {
             method: "GET",
             headers: {
@@ -124,7 +125,7 @@ class User {
     }
 }
 
-function toProperCase(name){
+function toProperCase(name) {
     if (!name) return;
     const lower = name.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);

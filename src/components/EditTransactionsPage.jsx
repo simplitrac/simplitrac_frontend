@@ -32,7 +32,7 @@ const EditTransactionsPage = () => {
     );
 
     const getCategoryByCategoryId = (catId) => {
-        return user.categories.find( category => category.categoryId === catId)
+        return user.categories.find(category => category.categoryId === catId)
     }
 
     const onSubmit = async (data) => {
@@ -49,10 +49,12 @@ const EditTransactionsPage = () => {
         updatedUser.transactions = updatedTransactions;
 
         const result = await updatedUser.updateFirebase();
-        
+
         if (result instanceof User) {
             setUser(result);
             setServerResponse('Transactions Successfully Updated');
+            localStorage.clear()
+            localStorage.setItem('user', result)
             setScreen('landing');
         }
     };
@@ -87,21 +89,21 @@ const EditTransactionsPage = () => {
                         name={`date-${index}`}
                         control={control}
                         defaultValue={transaction.createdAt}
-                        render={({field}) => <input type="date" {...field} />}
+                        render={({ field }) => <input type="date" {...field} />}
                     />
                     <label>Vendor</label>
                     <Controller
                         name={`vendor-${index}`}
                         control={control}
                         defaultValue={transaction.vendor}
-                        render={({field}) => <input type="text" {...field} />}
+                        render={({ field }) => <input type="text" {...field} />}
                     />
                     <label>Amount</label>
                     <Controller
                         name={`amount-${index}`}
                         control={control}
                         defaultValue={transaction.amount}
-                        render={({field}) => <input type="number" step="0.01" {...field} />}
+                        render={({ field }) => <input type="number" step="0.01" {...field} />}
                     />
                     <label>Category</label>
                     <Controller
@@ -118,8 +120,8 @@ const EditTransactionsPage = () => {
                             </select>
                         )}
                     />
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         className="custom-button delete-button"
                         onClick={() => handleDelete(transaction.transactionId)}
                     >

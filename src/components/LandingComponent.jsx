@@ -7,11 +7,11 @@ import { AppContext } from "../context/AppContext.jsx";
 import OCRModal from "./OCRModal.jsx";
 import User from "../models/User.js";
 import ConfirmationModal from "./ConfirmationModal.jsx";
-import {Achievement, AchievementProvider} from "react-achievements";
+import { Achievement, AchievementProvider } from "react-achievements";
 
 const LandingComponent = () => {
-    const { user, setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
-
+    const { setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
+    const user = new User(JSON.parse(localStorage.getItem('user')))
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
             return;
@@ -28,7 +28,7 @@ const LandingComponent = () => {
 
     return (
         <AchievementProvider>
-            
+
             <Container fluid={true} className="landing-container">
                 {user.first_name && (
                     <>
@@ -57,7 +57,7 @@ const LandingComponent = () => {
                     <SignOut />
                 </div>
             </Container>
-            <Achievement metric={user.transactions} threshold={1} onAchieve={() => alert("hello")} message={"asdf"}/>
+            <Achievement metric={user.transactions} threshold={1} onAchieve={() => alert("hello")} message={"asdf"} />
         </AchievementProvider>
     );
 };
