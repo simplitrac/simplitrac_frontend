@@ -7,17 +7,11 @@ class User {
     //     import.meta.env.VITE_DEV_UPDATE_USER_ENDPOINT :
     //     import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT
 
-    constructor(data) {
-        console.log(data)
+    constructor(data = {}) {
         if (data instanceof User) {
-            console.log("if code ran")
             Object.assign(this, data);
-            // this.transactions = data?.transactions?.map(transaction => new Transaction(transaction)) || [];
-            // this.categories = data?.categories?.map(category => new Category(category)) || [];
 
         } else {
-            console.log("else code ran")
-            console.log(data)
             this.user_id = data?.uid ?? data?.user_id;
             this.access_token = data?.accessToken;
             this.email = data?.email;

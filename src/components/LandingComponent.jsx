@@ -11,8 +11,7 @@ import { Achievement, AchievementProvider } from "react-achievements";
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
-    const user = localStorage.getItem('user');
-    console.log(user)
+    const user = new User(JSON.parse(localStorage.getItem('user')))
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
             return;

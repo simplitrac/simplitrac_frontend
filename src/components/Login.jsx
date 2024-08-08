@@ -10,10 +10,7 @@ import logo from './../assets/simplitrac.webp';
 export const Login = () => {
     const { setScreen, setUser } = useContext(AppContext);
 
-    let storedUser = new User(localStorage.getItem('user'))
-    console.log(localStorage.getItem('user'))
-    console.log("line 14")
-    console.log(storedUser)
+    let storedUser = new User(JSON.parse(localStorage.getItem('user')))
 
     if (localStorage.length !== 0) {
         setUser(storedUser)
@@ -37,7 +34,7 @@ export const Login = () => {
             user = new User(result.user)
             await createNewUser(new User(user))
             setUser(user)
-            localStorage.setItem('user', user) // added
+            localStorage.setItem('user', user)
             setScreen("landing")
         } catch (err) {
             console.error(err);
@@ -58,7 +55,7 @@ export const Login = () => {
             }
 
             setUser(user)
-            localStorage.setItem('user', user) // added, saving transactions and categories
+            localStorage.setItem('user', user)
             setScreen("landing")
         } catch (err) {
             console.error(err);

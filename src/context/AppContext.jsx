@@ -21,15 +21,6 @@ const AppProvider = ({ children }) => {
         last_name: '',
         categories: []
     });
-    // let storedUser = new User(localStorage.getItem('user'))
-    // if (storedUser) {
-    //     setUser({
-    //         first_name: storedUser.first_name,
-    //         last_name: storedUser.last_name,
-    //         categories: storedUser.categories,
-    //         transactions: storedUser.transactions
-    //     })
-    // }
     const [modalIsOpen, setModalIsOpen] = useState(true);
     const [show, setShow] = useState(false);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
