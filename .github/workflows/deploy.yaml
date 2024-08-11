@@ -23,7 +23,6 @@ jobs:
       - name: Setup Pages
         if: env.ACT != 'true'
         uses: actions/configure-pages@v5
-        with:
 
       - name: Local Setup Simulation
         if: env.ACT == 'true'
