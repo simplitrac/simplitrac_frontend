@@ -79,8 +79,13 @@ export const Login = () => {
                 </Row>
             </Container>
             <div>
-            <button onClick={newUserSignUp}> New User Sign Up</button>
-            <button onClick={existingUserSignUp}> Existing User Sign In</button>
+            <button onClick={newUserSignUp} className="button-login"> New User Sign Up</button>
+                <div>
+                    <p className="body">
+                        Welcome to SimpliTrac! You're one stop shop for control over your finances.
+                    </p>
+                </div>
+            <button onClick={existingUserSignUp} className="button-login"> Existing User Sign In</button>
             </div>
         </>
 

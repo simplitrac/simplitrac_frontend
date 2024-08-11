@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 import BackButton from "./BackButton.jsx";
+import '../App.css';
 
 const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse } = useContext(AppContext);

@@ -50,6 +50,20 @@
   text-align: center;
 }
 
+.button-login {
+  width: 100%;
+  max-width: 150px;
+  padding: 0.75rem;
+  background-color: #0e0468;
+  border: none;
+  border-radius: 5px;
+  color: rgb(230, 226, 11);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
 .custom-button:hover {
   background-color: #0056b3;
 }
@@ -105,7 +119,7 @@
 
 body {
   background-color: #06586d;
-  color: #343a40;
+  color: #c1d412;
   margin: 0;
   font-family: Arial, sans-serif;
 }

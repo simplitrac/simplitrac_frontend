@@ -8,6 +8,7 @@ import OCRModal from "./OCRModal.jsx";
 import User from "../models/User.js";
 import ConfirmationModal from "./ConfirmationModal.jsx";
 import {Achievement, AchievementProvider} from "react-achievements";
+import '../App.css';
 
 const LandingComponent = () => {
     const { user, setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
