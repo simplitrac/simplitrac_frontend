@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { AppContext } from './context/AppContext.jsx';
 import Chart from "./components/Chart.jsx";
 import EditTransactionsPage from './components/EditTransactionsPage';
+import Features from './components/Features.jsx';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
                 return <Camera />
             case "edit":
                 return <EditTransactionsPage />
+            case "features":
+                return <Features />
             default:
                 return <Login />
         }

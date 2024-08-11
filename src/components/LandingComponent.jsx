@@ -52,6 +52,7 @@ const LandingComponent = () => {
                     <button className="custom-button" onClick={() => renderNewScreen("camera")}>Camera</button>
                     <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
                     <button className="custom-button" onClick={() => renderNewScreen("edit")}>Edit Transactions</button>
+                    <button className="custom-button" onClick={() => renderNewScreen("features")}>Features</button>
 
                 </div>
                 <div className="landing-content">
