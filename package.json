@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "change-project": "gcloud config set project simplitracapp "
+    "change-project": "gcloud config set project simplitracapp",
+    "test-runner": "act -P self-hosted=catthehacker/ubuntu:act-latest --env-file .env"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
