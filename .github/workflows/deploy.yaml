@@ -25,6 +25,11 @@ jobs:
       - name: Upload artifact
         if: env.ACT != 'true'
         uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.name }}
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: ${{ inputs.retention-days }}
+          if-no-files-found: error
 
       - name: Local Artifact Simulation
         if: env.ACT == 'true'
