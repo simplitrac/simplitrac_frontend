@@ -11,11 +11,9 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: self-hosted
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,18 +22,9 @@ jobs:
         if: env.ACT != 'true'
         uses: actions/configure-pages@v5
 
-      - name: Local Setup Simulation
-        if: env.ACT == 'true'
-        run: |
-          echo "Simulating GitHub Pages setup for local testing"
-          # Add any necessary local setup steps here
-
       - name: Upload artifact
         if: env.ACT != 'true'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-          name: 'pages'
+        uses: actions/upload-artifact@v4
 
       - name: Local Artifact Simulation
         if: env.ACT == 'true'
