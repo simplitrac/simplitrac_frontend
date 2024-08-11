@@ -17,4 +17,4 @@ const LookerStudioChart = ({ userId }) => {
     );
 };
 
-export default
+export default Look
