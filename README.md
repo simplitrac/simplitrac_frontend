@@ -56,19 +56,20 @@ Open the link in the terminal to view the project in your browser.
 
 When writing code in development, ensure your IDE and web browser are open simultaneously. Changes in the IDE should reflect immediately in the browser. If something breaks, use \`CTRL/CMD + Z\` to undo the last change.
 
-## 🚀 Deployment
+## 🚀 Deployment 🚀
 1. First you need to set up a local GitHub actions runner. You can follow the instructions [here]("https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners").
 2. Once your runner is set up, you need to install 'act' so that you can test the GitHub actions locally.
 
     - Mac
-      - `brew install act`
+      - `brew install act` 
+        ❗️ (If you nave a local runner on Mac, you'll need to add the following to your PATH for it to work: `export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"`) ❗️
     - Windows
         - `choco install act-cli`
     - Linux (using snap)
       - `sudo snap install act`
 
 3. Run `act --version` to make sure you have it install correctly.
-4. Then run `act` to run all your workflows to test them. 
+4. Then run `npm run test-runner` to run all your workflows to test them. 
 
 Once this is running correctly, any time you merge code to main, your code will automatically deploy to GitHub pages. 🎉
 ## 🎨 Color Reference
