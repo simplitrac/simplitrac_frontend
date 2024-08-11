@@ -47,8 +47,6 @@ jobs:
         if: env.ACT != 'true'
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: pages
 
       - name: Local Deployment Simulation
         if: env.ACT == 'true'
