@@ -24,7 +24,6 @@ jobs:
         if: env.ACT != 'true'
         uses: actions/configure-pages@v5
         with:
-          token: ${{ secrets.GH_TOKEN || env.GH_TOKEN }}
 
       - name: Local Setup Simulation
         if: env.ACT == 'true'
@@ -38,7 +37,6 @@ jobs:
         with:
           path: '.'
           name: 'pages'
-          token: ${{ secrets.GH_TOKEN || env.GH_TOKEN }}
 
       - name: Local Artifact Simulation
         if: env.ACT == 'true'
@@ -52,7 +50,6 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: pages
-          token: ${{ secrets.GH_TOKEN || env.GH_TOKEN }}
 
       - name: Local Deployment Simulation
         if: env.ACT == 'true'
