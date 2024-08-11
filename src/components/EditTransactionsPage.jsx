@@ -18,7 +18,7 @@ const EditTransactionsPage = () => {
             // Ensure we have a "Select Category" option
             setCategories(["Select Category", ...user.categories.map(cat => cat.category_name)]);
         }
-    }, [user]);
+    }, [user])
 
     const { control, handleSubmit, watch } = useForm(
         // {
@@ -35,6 +35,10 @@ const EditTransactionsPage = () => {
         return user.categories.find(category => category.categoryId === catId)
     }
 
+    const toProperCase = (string) => {
+        if (string === undefined) return
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     const onSubmit = async (data) => {
         const updatedTransactions = transactions.map((transaction, index) => {
             const updatedTransaction = new Transaction(transaction);
@@ -109,7 +113,7 @@ const EditTransactionsPage = () => {
                     <Controller
                         name={`category-${index}`}
                         control={control}
-                        defaultValue={transaction.category?.category_name || "Select Category"}
+                        defaultValue={transaction.category_name || "Select Category"}
                         render={({ field }) => (
                             <select {...field}>
                                 {categories.map(category => (

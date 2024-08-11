@@ -138,6 +138,7 @@ const ExpensesForm = () => {
         transaction.category_name = data.category;
 
         userWithUpdates.transactions.push(transaction);
+        userWithUpdates.addCategory(data.category);
 
         const result = await user.updateFirebase();
 
