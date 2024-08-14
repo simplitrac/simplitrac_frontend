@@ -95,6 +95,28 @@ class User {
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
+    
+        
+
+
+        return new User(JSON.parse(result));
+    }
+
+    async deleteTransactions() {
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(this.serialize())
+        };
+        const endPoint = `${import.meta.env.VITE_PROD_DELETE_TRANSACTIONS_ENDPOINT}/?user_id=${this.user_id}`;
+        const response = await fetch(endPoint, init);
+        let result;
+        result = await response.text();
+    
+        
 
 
         return new User(JSON.parse(result));

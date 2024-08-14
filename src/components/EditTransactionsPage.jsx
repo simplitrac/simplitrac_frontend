@@ -9,6 +9,7 @@ const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse } = useContext(AppContext);
     const [transactions, setTransactions] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [deletedTransactions, setDeletedTransactions] = useState([]);
 
     useEffect(() => {
         if (user && user.transactions) {
@@ -52,7 +53,7 @@ const EditTransactionsPage = () => {
         const updatedUser = new User(user);
         updatedUser.transactions = updatedTransactions;
 
-        const result = await updatedUser.updateFirebase();
+        const result = await updatedUser.deleteTransactions();
 
         if (result instanceof User) {
             setUser(result);
@@ -71,6 +72,7 @@ const EditTransactionsPage = () => {
         if (window.confirm("Are you sure you want to delete this transaction?")) {
             const updatedTransactions = transactions.filter(t => t.transactionId !== transactionId);
             setTransactions(updatedTransactions);
+            setDeletedTransactions()
 
             const updatedUser = new User(user);
             updatedUser.transactions = updatedTransactions;
