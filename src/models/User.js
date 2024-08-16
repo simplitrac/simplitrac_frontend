@@ -115,12 +115,40 @@ class User {
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
-    
-        
+
+
 
 
         return new User(JSON.parse(result));
     }
+
+
+    
+    async deleteCategory(categoryId) {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_PROD_DELETE_CATEGORY_ENDPOINT}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    userId: this.user_id, 
+                    categoryId: categoryId 
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to delete category');
+            }
+    
+            const updatedUserData = await response.json();
+            return new User(updatedUserData);
+        } catch (error) {
+            console.error('Error deleting category:', error);
+            return null;
+        }
+    }
+
 
     static async getUserFromFirestore(user_id) {
         const init = {
