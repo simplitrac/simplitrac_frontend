@@ -39,7 +39,7 @@ export const Login = () => {
             localStorage.setItem('user', user)
             setScreen("landing")
         } catch (err) {
-            console.error(err);
+            console.log(err);
         }
     };
 

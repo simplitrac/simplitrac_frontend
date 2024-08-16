@@ -5,7 +5,7 @@ import FormData from "../models/FormData.js"
 import User from "../models/User.js"
 
 
-const AppContext = createContext();
+const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
 
@@ -16,11 +16,7 @@ const AppProvider = ({ children }) => {
     }
 
     const [screen, setScreen] = useState();
-    const [user, setUser] = useState({
-        first_name: '',
-        last_name: '',
-        categories: []
-    });
+    const [user, setUser] = useState(new User(JSON.parse(localStorage.getItem('user'))));
     const [modalIsOpen, setModalIsOpen] = useState(true);
     const [show, setShow] = useState(false);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
@@ -32,9 +28,7 @@ const AppProvider = ({ children }) => {
 
     // updating user data based on state
     const fetchUserData = async () => {
-        const endpoint = import.meta.env.MODE === 'development'
-            ? import.meta.env.VITE_DEV_GET_USER_ENDPOINT
-            : import.meta.env.VITE_PROD_GET_USER_ENDPOINT;
+        const endpoint = import.meta.env.VITE_DEV_GET_USER_ENDPOINT;
 
         try {
             const response = await fetch(endpoint);
