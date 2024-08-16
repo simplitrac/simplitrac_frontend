@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import logo from '../../public/assets/simplitrac.webp';
+import FeaturesList from './Features.jsx';
 import '../App.css';
 
 export const Login = () => {
@@ -92,7 +93,9 @@ export const Login = () => {
             </Container>
             <div>
                 <button onClick={newUserSignUp}> New User Sign Up</button>
+                <div></div>
                 <button onClick={existingUserSignUp}> Existing User Sign In</button>
+                <div><FeaturesList /></div>
             </div>
         </>
 
