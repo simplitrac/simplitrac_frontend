@@ -5,7 +5,7 @@ import FormData from "../models/FormData.js"
 import User from "../models/User.js"
 
 
-const AppContext = createContext();
+const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
 

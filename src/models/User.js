@@ -91,7 +91,7 @@ class User {
             },
             body: JSON.stringify(this.serialize())
         };
-        const endPoint = `${import.meta.env.VITE_DEV_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`;
+        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`;
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
@@ -130,7 +130,7 @@ class User {
                 Accept: "application/json",
             },
         };
-        const endPoint = `${import.meta.env.VITE_DEV_GET_USER_ENDPOINT}?user_id=${user_id}`;
+        const endPoint = `${import.meta.env.VITE_PROD_GET_USER_ENDPOINT}?user_id=${user_id}`;
 
         try {
             const res = await fetch(endPoint, init);
