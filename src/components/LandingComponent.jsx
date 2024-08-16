@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import { Container } from "react-bootstrap";
 import ExpensesTable from "./ExpensesTable.jsx";
 import CategoryModal from "./CategoryModal.jsx";
@@ -13,6 +13,8 @@ import '../App.css';
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user } = useContext(AppContext);
+    const [showCategories, setShowCategories] = useState(false);
+    
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
             return;
@@ -25,6 +27,24 @@ const LandingComponent = () => {
             setServerResponse(null);
         }
     }, [user]);
+
+    const toggleCategoriesList = () => {
+        setShowCategories(!showCategories);
+    };
+
+    const handleDeleteCategory = async (categoryId) => {
+        if (window.confirm("Are you sure you want to delete this category?")) {
+            const updatedUser = new User(user);
+            const result = await updatedUser.deleteCategory(categoryId);
+
+            if (result instanceof User) {
+                setUser(result);
+                setServerResponse('Category Successfully Deleted');
+            } else {
+                setServerResponse('Failed to delete category');
+            }
+        }
+    }
 
     return (
         <AchievementProvider  config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
@@ -51,7 +71,28 @@ const LandingComponent = () => {
                         <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
                         <button className="custom-button" onClick={() => renderNewScreen("edit")}>Edit Transactions</button>
                         <button className="custom-button" onClick={() => renderNewScreen("userguide")}>User Guide</button>
+                        <button className="custom-button" onClick={(toggleCategoriesList)}>
+                            {showCategories ? "Hide Categories" : "Show Categories"}
+                        </button>
                     </div>
+                    {showCategories && (
+                    <div className="categories-list">
+                        <h3>Your Categories</h3>
+                        <ul className="category-list">
+                            {user.categories.map((category) => (
+                                <li key={category.category_id} className="category-item">
+                                    <span>{category.category_name}</span>
+                                    <button 
+                                        className="delete-button custom-button"
+                                        onClick={() => handleDeleteCategory(category.category_id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                     <div className="landing-content">
                         <SignOut />
                     </div>
