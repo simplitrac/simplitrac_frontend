@@ -4,7 +4,8 @@ import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 import Category from "../models/Category.js";
-import FormData from '../models/FormData.js'
+import FormData from '../models/FormData.js';
+import '../App.css';
 
 const ExpensesForm = () => {
     const { user, formData, setFormData, setUser, ocrData, setOcrData, setServerResponse } = useContext(AppContext);

@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import logo from '../../public/assets/simplitrac.webp';
+import '../App.css';
 
 export const Login = () => {
     const { setScreen, setUser } = useContext(AppContext);

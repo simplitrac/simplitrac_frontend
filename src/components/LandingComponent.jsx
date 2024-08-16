@@ -9,6 +9,7 @@ import User from "../models/User.js";
 import ConfirmationModal from "./ConfirmationModal.jsx";
 import { AchievementProvider } from "react-achievements";
 import achievementConfig  from "../config/achievementConfig.js";
+import '../App.css';
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
@@ -51,7 +52,7 @@ const LandingComponent = () => {
                         <button className="custom-button" onClick={() => renderNewScreen("camera")}>Camera</button>
                         <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
                         <button className="custom-button" onClick={() => renderNewScreen("edit")}>Edit Transactions</button>
-
+                        <button className="custom-button" onClick={() => renderNewScreen("userguide")}>User Guide</button>
                     </div>
                     <div className="landing-content">
                         <SignOut />
