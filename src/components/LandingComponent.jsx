@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useEffect} from "react";
 import { Container } from "react-bootstrap";
 import ExpensesTable from "./ExpensesTable.jsx";
 import CategoryModal from "./CategoryModal.jsx";
@@ -12,8 +12,7 @@ import achievementConfig  from "../config/achievementConfig.js";
 import '../App.css';
 
 const LandingComponent = () => {
-    const { setScreen, ocrData, serverResponse, setServerResponse } = useContext(AppContext);
-    const user = new User(JSON.parse(localStorage.getItem('user')))
+    const { setScreen, ocrData, serverResponse, setServerResponse, user } = useContext(AppContext);
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
             return;
@@ -21,12 +20,11 @@ const LandingComponent = () => {
         setScreen(screen);
     };
 
-    const handleSubmit = async () => {
-        // const userWithUpdates = new User(user);
-        // userWithUpdates.transactions.push(ocrData);
-        // const result = await user.updateFirebase();
-        // setServerResponse(result);
-    };
+    useEffect(() => {
+        if (serverResponse) {
+            setServerResponse(null);
+        }
+    }, [user]);
 
     return (
         <AchievementProvider  config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>

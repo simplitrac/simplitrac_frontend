@@ -82,7 +82,7 @@ const Camera = () => {
 
     const submitPhoto = async () => {
         try {
-            const url = import.meta.env.VITE_PROD_OCR_ENDPOINT;
+            const url = import.meta.env.VITE_DEV_OCR_ENDPOINT;
             const formData = imageToFormData(capturedPhoto);
             const init = {
                 method: 'POST',

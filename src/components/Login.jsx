@@ -38,7 +38,7 @@ export const Login = () => {
             localStorage.setItem('user', user)
             setScreen("landing")
         } catch (err) {
-            console.error(err);
+            console.log(err);
         }
     };
 
@@ -74,7 +74,7 @@ export const Login = () => {
         };
         // In order to run locally, you need to change the endpoint to your local endpoint:
         // This should be in your .env file
-        const endpoint = import.meta.env.VITE_PROD_CREATE_USER_ENDPOINT
+        const endpoint = import.meta.env.VITE_DEV_CREATE_USER_ENDPOINT
         const result = await fetch(endpoint, init)
         console.log(result)
     }
