@@ -8,9 +8,10 @@ import { Col, Container, Row, Image } from "react-bootstrap";
 import logo from '../../public/assets/simplitrac.webp';
 import FeaturesList from './Features.jsx';
 import '../App.css';
+import Updating from "./Updating.jsx";
 
 export const Login = () => {
-    const { setScreen, setUser } = useContext(AppContext);
+    const { setScreen, setUser, isUpdating, setIsUpdating } = useContext(AppContext);
 
     let storedUser = new User(JSON.parse(localStorage.getItem('user')))
 
@@ -22,6 +23,7 @@ export const Login = () => {
 
     const newUserSignUp = async () => {
         try {
+            setIsUpdating(true)
             const result = await signInWithPopup(auth, googleProvider);
             const id = result.user.uid;
 
@@ -30,6 +32,7 @@ export const Login = () => {
             if (!user.isNewUser()) {
                 alert("Sorry, you already have an account.")
                 setScreen()
+                setIsUpdating(false)
                 return
             }
 
@@ -38,6 +41,7 @@ export const Login = () => {
             setUser(user)
             localStorage.setItem('user', user)
             setScreen("landing")
+            setIsUpdating(false)
         } catch (err) {
             console.log(err);
         }
@@ -45,6 +49,7 @@ export const Login = () => {
 
     const existingUserSignUp = async () => {
         try {
+            setIsUpdating(true)
             const result = await signInWithPopup(auth, googleProvider);
             const id = result.user.uid;
 
@@ -53,12 +58,14 @@ export const Login = () => {
             if (user.isNewUser()) {
                 alert("Sorry. You do not have an account.")
                 setScreen("")
+                setIsUpdating(false)
                 return
             }
 
             setUser(user)
             localStorage.setItem('user', user)
             setScreen("landing")
+            setIsUpdating(false)
         } catch (err) {
             console.error(err);
         }
@@ -92,6 +99,7 @@ export const Login = () => {
                 </Row>
             </Container>
             <div>
+                {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
                 <button onClick={newUserSignUp}> New User Sign Up</button>
                 <div></div>
                 <button onClick={existingUserSignUp}> Existing User Sign In</button>
