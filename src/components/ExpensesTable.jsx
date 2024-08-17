@@ -222,7 +222,7 @@ const ExpensesForm = () => {
                     name="amount"
                     control={control}
                     rules={{
-                        required: 'Please enter a valid number',
+                        required: 'Please enter an amount',
                         validate: value => {
                             if(isNaN(value)) {
                                 // return 'Please enter a valid number';
