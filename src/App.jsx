@@ -1,5 +1,5 @@
 
-import './App.css'
+// import './App.css'
 import ExpensesTable from './components/ExpensesTable.jsx'
 import Camera from "./components/Camera.jsx";
 import LandingComponent from "./components/LandingComponent.jsx";
@@ -10,6 +10,11 @@ import { AppContext } from './context/AppContext.jsx';
 import Chart from "./components/Chart.jsx";
 import EditTransactionsPage from './components/EditTransactionsPage';
 import UserGuide from './components/UserGuide.jsx';
+import 'primereact/resources/themes/lara-light-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
+import { PrimeReactProvider } from 'primereact/api';
 
 
 function App() {

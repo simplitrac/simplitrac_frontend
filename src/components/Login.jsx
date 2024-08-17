@@ -7,8 +7,9 @@ import { AppContext } from "../context/AppContext.jsx";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import logo from '../../public/assets/simplitrac.webp';
 import FeaturesList from './Features.jsx';
-import '../App.css';
 import Updating from "./Updating.jsx";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { Button } from 'primereact/button';
 
 export const Login = () => {
     const { setScreen, setUser, isUpdating, setIsUpdating } = useContext(AppContext);
@@ -93,18 +94,19 @@ export const Login = () => {
         <>
             <Container>
                 <Row>
-                    <Col xs={1} md={1}>
+                    <Col xs={12} className="d-flex justify-content-center">
                         <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle />
                     </Col>
                 </Row>
             </Container>
             <div>
                 {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
-                <button onClick={newUserSignUp}> New User Sign Up</button>
+                <Button onClick={newUserSignUp}> New User Sign Up</Button>
                 <div></div>
-                <button onClick={existingUserSignUp}> Existing User Sign In</button>
+                <Button onClick={existingUserSignUp}> Existing User Sign In</Button>
                 <div><FeaturesList /></div>
             </div>
+        
         </>
 
     );
