@@ -6,9 +6,10 @@ import User from "../models/User.js";
 import Category from "../models/Category.js";
 import FormData from '../models/FormData.js';
 import '../App.css';
+import Updating from "./Updating.jsx";
 
 const ExpensesForm = () => {
-    const { user, formData, setFormData, setUser, ocrData, setOcrData, setServerResponse } = useContext(AppContext);
+    const { user, formData, setFormData, setUser, ocrData, setOcrData, setServerResponse, isUpdating, setIsUpdating } = useContext(AppContext);
     const [vendors, setVendors] = useState([]);
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
@@ -67,7 +68,7 @@ const ExpensesForm = () => {
         setVendors(prevVendors => [...new Set([...prevVendors, newVendor])]);
         setVendorInput("");
         setValue('vendor', newVendor);
-    }; 
+    };
 
     const categoryBlur = (e) => {
         if (e.target.value !== "") {
@@ -125,6 +126,7 @@ const ExpensesForm = () => {
     }, [catSelectRef.current, vendSelectRef.current, user, formData]);
 
     const onSubmit = async (data) => {
+        setIsUpdating(true)
         if (Object.keys(errors).length > 0) {
             // (errors.amount || errors.vendor || errors.category) {
             alert("Please fill in all the inputs properly");
@@ -154,10 +156,12 @@ const ExpensesForm = () => {
             })
             setOcrData(new Transaction())
         }
+        setIsUpdating(false)
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+            {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
             <div>
                 <label>Date</label>
                 <Controller
@@ -228,11 +232,11 @@ const ExpensesForm = () => {
                     rules={{
                         required: 'Please enter a valid number',
                         validate: value => {
-                            if(isNaN(value)) {
+                            if (isNaN(value)) {
                                 // return 'Please enter a valid number';
+                            }
+                            return true;
                         }
-                        return true;
-                    }
                     }}
                     render={({ field }) =>
                         <input
@@ -277,7 +281,7 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === ''  || field.value === 'Select category' || field.value === 'Select Category' || field.value ==='Other (specify below)') && (
+                            {(field.value === '' || field.value === 'Select category' || field.value === 'Select Category' || field.value === 'Other (specify below)') && (
                                 <>
                                     <input
                                         id="category"
