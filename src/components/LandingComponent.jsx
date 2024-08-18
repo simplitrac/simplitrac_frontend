@@ -10,10 +10,19 @@ import ConfirmationModal from "./ConfirmationModal.jsx";
 import { AchievementProvider } from "react-achievements";
 import achievementConfig  from "../config/achievementConfig.js";
 import '../App.css';
+import JoyrideTour from "./JoyRideTour.jsx";
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user } = useContext(AppContext);
     const [showCategories, setShowCategories] = useState(false);
+    const [runTour, setRunTour] = useState(false);
+    
+    useEffect(() => {
+        if (user.isNewUser && user.isNewUser()) {
+            setRunTour(true);
+        }
+    }, [user]);
+
     
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
@@ -49,6 +58,7 @@ const LandingComponent = () => {
     return (
         <AchievementProvider  config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
                 <Container fluid={true} className="landing-container">
+                    {< JoyrideTour run={runTour} setRun={setRunTour} />}
                     {user.first_name && (
                         <>
                             <p>
@@ -67,6 +77,7 @@ const LandingComponent = () => {
                     </div>
                     <div className="buttons-container">
                         {/*<button className="custom-button" onClick={handleSubmit}>Submit</button>*/}
+                        <button className="custom-button" onClick={() => setRunTour(true)}>Start Tour</button>
                         <button className="custom-button" onClick={() => renderNewScreen("camera")}>Camera</button>
                         <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
                         <button className="custom-button" onClick={() => renderNewScreen("edit")}>Edit Transactions</button>
