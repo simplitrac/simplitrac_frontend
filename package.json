@@ -28,6 +28,7 @@
     "react-router-dom": "^6.24.0",
     "react-use": "^17.5.1",
     "recharts": "^2.12.7",
+    "rollup": "^4.21.0",
     "styled-components": "^6.1.12",
     "uuid": "^10.0.0"
   },
