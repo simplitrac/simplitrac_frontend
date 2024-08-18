@@ -5,7 +5,7 @@ import User from "../models/User.js";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 import { Col, Container, Row, Image } from "react-bootstrap";
-import logo from '../../public/assets/simplitrac.webp';
+import logo from '../../docs/pictures/simplitrac_logo.png';
 import FeaturesList from './Features.jsx';
 import '../App.css';
 import Updating from "./Updating.jsx";

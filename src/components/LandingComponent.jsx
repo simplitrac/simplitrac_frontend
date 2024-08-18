@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Col, Image } from "react-bootstrap";
 import ExpensesTable from "./ExpensesTable.jsx";
 import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
@@ -11,6 +11,7 @@ import { AchievementProvider } from "react-achievements";
 import achievementConfig from "../config/achievementConfig.js";
 import '../App.css';
 import JoyrideTour from "./JoyRideTour.jsx";
+import logo from '../../docs/pictures/simplitrac_logo.png';
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user, setIsUpdating } = useContext(AppContext);
@@ -72,7 +73,9 @@ const LandingComponent = () => {
                     </>
                 )}
                 <div className="landing-header">
-                    <h1>SimpliTrac</h1>
+                    <h1><Col xs={1} md={1}>
+                        <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle />
+                    </Col></h1>
                 </div>
                 <div className="landing-content">
                     <ExpensesTable />
