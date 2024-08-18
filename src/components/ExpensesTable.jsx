@@ -14,6 +14,7 @@ const ExpensesForm = () => {
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
+    const [errorPopup, setErrorPopup] = useState(''); 
     const catSelectRef = useRef("");
     const vendSelectRef = useRef("")
 
@@ -132,8 +133,8 @@ const ExpensesForm = () => {
             alert("Please fill in all the inputs properly");
             return;
         }
-        const userWithUpdates = new User(user);
 
+        const userWithUpdates = new User(user);
         const transaction = new Transaction(ocrData);
         transaction.createdAt = data.date;
         transaction.vendor = data.vendor;
@@ -177,7 +178,7 @@ const ExpensesForm = () => {
                     control={control}
                     rules={{
                         required: 'Please select a vendor',
-                        validate: value => (value === 'Select vendor' || value === '') ? 'Please select a vendor' : true //this might be missing some parts in callback, set validsate to select vendor and set to reference, not to a variable. 
+                        validate: value => (value === 'Select vendor' || value === '' || value === 'Other(specify below)') ? 'Please select a vendor' : true //this might be missing some parts in callback, set validsate to select vendor and set to reference, not to a variable. 
                     }}
                     render={({ field }) => (
                         <div>
@@ -199,7 +200,7 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === '' || field.value === 'Select vendor' || field.value === 'Other (specify below)') && (
+                            {(field.value === '' || field.value === 'Select vendor' || field.value === 'Other(specify below)') && (
                                 <>
                                     <input
                                         id="vendor"
@@ -230,26 +231,35 @@ const ExpensesForm = () => {
                     name="amount"
                     control={control}
                     rules={{
-                        required: 'Please enter a valid number',
+                        required: 'Please enter a valid input (0-9 or . or -)',
                         validate: value => {
-                            if (isNaN(value)) {
-                                // return 'Please enter a valid number';
-                            }
-                            return true;
+                            const numberChecker = /^-?\d*(\.\d*)?$/;
+                            const cleanedData = value
+                                .replace(/(?!^-)[^\d.]/g, '')
+                                .replace(/^([^.]*\.)|\./g, '$1');
+                            return numberChecker.test(cleanedData) ? true : 'Please enter a valid input (0-9 or . or -)';
                         }
                     }}
-                    render={({ field }) =>
-                        <input
-                            id="amount"
-                            type="number"
-                            inputMode={"numeric"}
-                            step="0.01" {...field} />}
+                    render={({ field: { onChange, value, ...field }, fieldState: { error } }) => (
+                        <>
+                            <input
+                                {...field}
+                                value={value}
+                                onChange={e => {
+                                    const cleanedData = e.target.value
+                                        .replace(/(?!^-)[^\d.]/g, '') //ensure only 1 "-" to handle negative numbers
+                                        .replace(/^([^.]*\.)|\./g, '$1'); //ensures only 1 "." to handle decimal points
+                                    onChange(cleanedData); 
+                                }}
+                            />
+                            {error && (
+                                <span role="alert" style={{ color: 'red' }}>
+                                    {error.message}
+                                </span>
+                            )}
+                        </>
+                    )}
                 />
-                {errors.amount && (
-                    <span role="alert" style={{ color: 'red' }}>
-                        {errors.amount.message}
-                    </span>
-                )}
             </div>
             <div>
                 <label>Category</label>
