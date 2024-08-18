@@ -4,9 +4,10 @@ import BackButton from "./BackButton.jsx";
 import Transaction from "../models/Transaction.js";
 import { Button, Spinner } from "react-bootstrap";
 import '../App.css';
+import Updating from "./Updating.jsx";
 
 const Camera = () => {
-    const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device, setOcrModalOpen } = useContext(AppContext);
+    const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device, setOcrModalOpen, isUpdating, setIsUpdating } = useContext(AppContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [stream, setStream] = useState(null);
     const videoRef = useRef(null);
@@ -67,13 +68,17 @@ const Camera = () => {
     };
 
     const handleFileChange = (event) => {
+        setIsUpdating(true);
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 setCapturedPhoto(e.target.result);
                 if (device === 'mobile'){
-                    submitPhoto();
+                    submitPhoto().then(() => {
+                        setCapturedPhoto(null);
+                        setIsUpdating(false);
+                    });
                 }
             };
             reader.readAsDataURL(file);
@@ -82,6 +87,7 @@ const Camera = () => {
 
     const submitPhoto = async () => {
         try {
+            setIsUpdating(true);
             const url = import.meta.env.VITE_PROD_OCR_ENDPOINT;
             const formData = imageToFormData(capturedPhoto);
             const init = {
@@ -89,6 +95,7 @@ const Camera = () => {
                 body: formData,
             };
             const response = await fetch(url, init);
+            setIsUpdating(false);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -135,6 +142,7 @@ const Camera = () => {
 
     return (
         <div style={styles.container}>
+            {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
             {device === 'mobile' && !capturedPhoto && (
                 <div>
                     <input
@@ -153,7 +161,7 @@ const Camera = () => {
                     <button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</button>
                 </div>
             )}
-            {capturedPhoto && (
+            {capturedPhoto && device !== 'mobile' && (
                 <div>
                     <div style={styles.imageContainer}>
                         <p>Captured Photo:</p>
