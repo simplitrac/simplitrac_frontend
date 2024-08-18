@@ -233,7 +233,6 @@ const ExpensesForm = () => {
                     rules={{
                         required: 'Please enter a valid input (0-9 or . or -)',
                         validate: value => {
-<<<<<<< HEAD
                             const numberChecker = /^-?\d*(\.\d*)?$/;
                             const cleanedData = value
                                 .replace(/(?!^-)[^\d.]/g, '')
@@ -261,26 +260,6 @@ const ExpensesForm = () => {
                         </>
                     )}
                 />
-=======
-                            if (isNaN(value)) {
-                                // return 'Please enter a valid number';
-                            }
-                            return true;
-                        }
-                    }}
-                    render={({ field }) =>
-                        <input
-                            id="amount"
-                            type="number"
-                            inputMode={"numeric"}
-                            step="0.01" {...field} />}
-                />
-                {errors.amount && (
-                    <span role="alert" style={{ color: 'red' }}>
-                        {errors.amount.message}
-                    </span>
-                )}
->>>>>>> main
             </div>
             <div>
                 <label>Category</label>
