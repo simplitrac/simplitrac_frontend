@@ -5,7 +5,7 @@ class Category{
         if(data instanceof Object){
             this.category_id = data.category_id;
             this.category_name = data.category_name;
-        } else if(data instanceof this){
+        } else if(data instanceof Category){
             Object.assign(this, data);
         } else {
             this.category_name = data;

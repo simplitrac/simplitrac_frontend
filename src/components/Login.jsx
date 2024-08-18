@@ -1,58 +1,77 @@
 // Copied this from:
 // https://blog.bitsrc.io/firebase-authentication-with-react-for-beginners-implementing-email-password-and-google-sign-in-e62d9094e22
-import { auth , googleProvider, signInWithPopup } from "../config/initializeFirestore.js";
+import { auth, googleProvider, signInWithPopup } from "../config/initializeFirestore.js";
 import User from "../models/User.js";
-import {useContext, useEffect} from "react";
-import {AppContext} from "../context/AppContext.jsx";
-import {Col, Container, Row, Image} from "react-bootstrap";
-import logo from './../assets/simplitrac.webp';
+import { useContext, useEffect } from "react";
+import { AppContext } from "../context/AppContext.jsx";
+import { Col, Container, Row, Image } from "react-bootstrap";
+import logo from '../../public/assets/simplitrac.webp';
+import FeaturesList from './Features.jsx';
+import '../App.css';
+import Updating from "./Updating.jsx";
 
 export const Login = () => {
-    const {setScreen, setUser} = useContext(AppContext);
+    const { setScreen, setUser, isUpdating, setIsUpdating } = useContext(AppContext);
+
+    let storedUser = new User(JSON.parse(localStorage.getItem('user')))
+
+    if (localStorage.length !== 0) {
+        setUser(storedUser)
+        setScreen("landing")
+        return
+    }
 
     const newUserSignUp = async () => {
         try {
-            const result = await signInWithPopup(auth,googleProvider);
+            setIsUpdating(true)
+            const result = await signInWithPopup(auth, googleProvider);
             const id = result.user.uid;
 
             let user = await User.getUserFromFirestore(id)
 
-            if(!user.isNewUser()){
+            if (!user.isNewUser()) {
                 alert("Sorry, you already have an account.")
                 setScreen()
+                setIsUpdating(false)
                 return
             }
 
             user = new User(result.user)
-            await createNewUser(new User(result.user))
+            await createNewUser(new User(user))
             setUser(user)
+            localStorage.setItem('user', user)
             setScreen("landing")
-        } catch (err){
-            console.error(err);
+            setIsUpdating(false)
+        } catch (err) {
+            console.log(err);
         }
     };
 
     const existingUserSignUp = async () => {
         try {
-            const result = await signInWithPopup(auth,googleProvider);
+            setIsUpdating(true)
+            const result = await signInWithPopup(auth, googleProvider);
             const id = result.user.uid;
 
             let user = await User.getUserFromFirestore(id)
 
-            if(user.isNewUser()){
+            if (user.isNewUser()) {
                 alert("Sorry. You do not have an account.")
                 setScreen("")
+                setIsUpdating(false)
                 return
             }
 
             setUser(user)
+            localStorage.setItem('user', user)
             setScreen("landing")
-        } catch (err){
+            setIsUpdating(false)
+        } catch (err) {
             console.error(err);
         }
     };
 
-    async function createNewUser(user){
+    async function createNewUser(user) {
         const init = {
             method: "POST",
             headers: {
@@ -68,18 +87,23 @@ export const Login = () => {
         console.log(result)
     }
 
+
+
     return (
         <>
             <Container>
                 <Row>
                     <Col xs={1} md={1}>
-                        <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle/>
+                        <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle />
                     </Col>
                 </Row>
             </Container>
             <div>
-            <button onClick={newUserSignUp}> New User Sign Up</button>
-            <button onClick={existingUserSignUp}> Existing User Sign In</button>
+                {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
+                <button onClick={newUserSignUp}> New User Sign Up</button>
+                <div></div>
+                <button onClick={existingUserSignUp}> Existing User Sign In</button>
+                <div><FeaturesList /></div>
             </div>
         </>
 

@@ -7,14 +7,15 @@ class User {
     //     import.meta.env.VITE_DEV_UPDATE_USER_ENDPOINT :
     //     import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT
 
-    constructor(data) {
-        if(data instanceof User){
+    constructor(data = {}) {
+        if (data instanceof User) {
             Object.assign(this, data);
+
         } else {
-            this.user_id = data?.uid ?? data.user_id;
+            this.user_id = data?.uid ?? data?.user_id;
             this.access_token = data?.accessToken;
             this.email = data?.email;
-            if(data?.displayName){
+            if (data?.displayName) {
                 this.first_name = data?.displayName.split(" ")[0];
                 this.last_name = data?.displayName.split(" ").slice(1).join(" ");
             } else {
@@ -25,8 +26,8 @@ class User {
             this.created_at = data?.metadata?.createdAt || new Date().getTime();
             this.last_login = data?.metadata?.lastLoginAt || new Date().getTime();
             this.admin = null;
-            this.transactions = data.transactions?.map(transaction => new Transaction(transaction)) || [];
-            this.categories = data.categories?.map(category => new Category(category)) || [];
+            this.transactions = data?.transactions?.map(transaction => new Transaction(transaction)) || [];
+            this.categories = data?.categories?.map(category => new Category(category)) || [];
         }
     }
 
@@ -57,7 +58,7 @@ class User {
         };
     }
 
-    addCategory(catName){
+    addCategory(catName) {
         this.categories.push(new Category(catName))
     }
 
@@ -73,15 +74,15 @@ class User {
         }
     }
 
-    returnCategoryList(){
-       return [...new Set(["Select category", ...this.categories.map(category => toProperCase(category.category_name))])];
+    returnCategoryList() {
+        return [...new Set(["Select category", ...this.categories.map(category => toProperCase(category.category_name))])];
     }
 
-    returnVendorList(){
-         return [...new Set(["Select vendor", ...this.transactions.map(transaction => toProperCase(transaction.vendor))])];
+    returnVendorList() {
+        return [...new Set(["Select vendor", ...this.transactions.map(transaction => toProperCase(transaction.vendor))])];
     }
 
-    async updateFirebase(){
+    async updateFirebase() {
         const init = {
             method: "POST",
             headers: {
@@ -94,12 +95,62 @@ class User {
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
+    
+        
 
 
         return new User(JSON.parse(result));
     }
 
-    static async getUserFromFirestore(user_id){
+    async deleteTransactions() {
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(this.serialize())
+        };
+        const endPoint = `${import.meta.env.VITE_PROD_DELETE_TRANSACTIONS_ENDPOINT}/?user_id=${this.user_id}`;
+        const response = await fetch(endPoint, init);
+        let result;
+        result = await response.text();
+
+
+
+
+        return new User(JSON.parse(result));
+    }
+
+
+    
+    async deleteCategory(categoryId) {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_PROD_DELETE_CATEGORY_ENDPOINT}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    userId: this.user_id, 
+                    categoryId: categoryId 
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to delete category');
+            }
+    
+            const updatedUserData = await response.json();
+            return new User(updatedUserData);
+        } catch (error) {
+            console.error('Error deleting category:', error);
+            return null;
+        }
+    }
+
+
+    static async getUserFromFirestore(user_id) {
         const init = {
             method: "GET",
             headers: {
@@ -124,7 +175,7 @@ class User {
     }
 }
 
-function toProperCase(name){
+function toProperCase(name) {
     if (!name) return;
     const lower = name.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);

@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import './../assets/style.scss';
+import '../../public/assets/style.scss';
 import {AppContext} from "../context/AppContext.jsx";
 
 function Example() {

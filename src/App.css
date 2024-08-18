@@ -50,6 +50,20 @@
   text-align: center;
 }
 
+.button-login {
+  width: 100%;
+  max-width: 150px;
+  padding: 0.75rem;
+  background-color: #0e0468;
+  border: none;
+  border-radius: 5px;
+  color: rgb(230, 226, 11);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
 .custom-button:hover {
   background-color: #0056b3;
 }
@@ -104,8 +118,8 @@
 }
 
 body {
-  background-color: #f8f9fa;
-  color: #343a40;
+  background-color: #06586d;
+  color: #c1d412;
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -302,4 +316,47 @@ h1 {
 .transaction-edit-row input,
 .transaction-edit-row select {
   margin-right: 10px;
+}
+.categories-list {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.category-list {
+  list-style-type: none;
+  padding: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+/* Specific styles for category delete button to avoid conflicts */
+.category-item .delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.category-item .delete-button:hover {
+  background-color: #c82333;
 }

@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { AppContext } from './context/AppContext.jsx';
 import Chart from "./components/Chart.jsx";
 import EditTransactionsPage from './components/EditTransactionsPage';
+import UserGuide from './components/UserGuide.jsx';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
                 return <Camera />
             case "edit":
                 return <EditTransactionsPage />
+            case "userguide":
+                return <UserGuide />
             default:
                 return <Login />
         }

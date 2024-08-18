@@ -3,6 +3,7 @@ import { AppContext } from "../context/AppContext.jsx";
 import BackButton from "./BackButton.jsx";
 import Transaction from "../models/Transaction.js";
 import { Button, Spinner } from "react-bootstrap";
+import '../App.css';
 
 const Camera = () => {
     const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device, setOcrModalOpen } = useContext(AppContext);

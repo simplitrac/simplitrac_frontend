@@ -1,69 +1,87 @@
 
-![Logo](https://dave-b-b.github.io/simplitrac_frontend/assets/simplitrac-Bu0G2zUg.webp)
+![SimpliTrac Logo](https://dave-b-b.github.io/simplitrac_frontend/assets/simplitrac-Bu0G2zUg.webp)
 
-# SimpliTrac Capstone Project - Front End Repository
-Simplicity in Finance Tracking
+# 📊 SimpliTrac Capstone Project - Front End Repository
+**_Simplicity in Finance Tracking_**
 
-This repository was created to be able host the project as our backend repository is private## Team
+This repository hosts the frontend of the SimpliTrac project, while the backend remains private.
 
-- Paul An - Product Manager / Business Intelligence Lead [@anpaulan](https://github.com/anpaulan)
-- Dave Brown - Technical Lead [@dave-b-b](https://github.com/dave-b-b)
-- Patrick Snoop - UX, Testing, and QA Lead [@Patsnoop](https://github.com/Patsnoop)
-- Eddie Diaz - OCR & AI Lead / Flex Contributor [@EdDiazGRS](https://github.com/EdDiazGRS)
-- Kirn Kim - Documentation and Presentation Lead [@squrki](https://github.com/squrki)
+## 👥 Team
 
+- 🚀 **Paul An** - Product Manager / Business Intelligence Lead [@anpaulan](https://github.com/anpaulan)
+- 💻 **Dave Brown** - Technical Lead [@dave-b-b](https://github.com/dave-b-b)
+- 🔍 **Patrick Snoop** - UX, Testing, and QA Lead [@Patsnoop](https://github.com/Patsnoop)
+- 🤖 **Eddie Diaz** - OCR & AI Lead / Flex Contributor [@EdDiazGRS](https://github.com/EdDiazGRS)
+- 📚 **Kirn Kim** - Documentation and Presentation Lead [@squrki](https://github.com/squrki)
 
+## 🛠️ Tech Stack
 
-## Tech Stack
+- **📄 GitHub Pages**: Hosting platform
+- **⚛️ React**: Frontend framework
+- **🎨 Bootstrap**: Responsive design CSS framework
+- **📝 Hook Form**: Form state and validation library
+- **🔥 Firebase**: Authentication and database backend as a service
+- **🔐 Google Auth**: User login authentication provider
+- **📱 Device Detect**: Device type detection library
+- **📊 Looker Studio**: Data visualization and reporting tool
+- **🧪 Act**: GitHub Actions testing library
 
-- **GitHub Pages**: For hosting the project
-- **React**: Frontend framework
-- **Bootstrap**: CSS framework for responsive design
-- **Hook Form**: Library for handling form state and validation
-- **Firebase**: Backend as a service for authentication and database
-- **Google Auth**: Authentication provider for user login
-- **Device Detect**: Library for detecting device type
-- **Looker Studio**: Tool for data visualization and reporting
-## Run Locally
+## 🏃‍♂️ Run Locally
 
-Clone the project
-
-```bash
-  git clone https://github.com/dave-b-b/simplitrac_frontend.git
-```
-
-Install dependencies
+### 1. Clone the project
 
 ```bash
-  npm install
+git clone https://github.com/dave-b-b/simplitrac_frontend.git
 ```
 
-Create a .env file in your root folder (the simplitrac_frontend folder). Your firestore key needs to be in here
-
-Start the development server
+### 2. Install dependencies
 
 ```bash
-  npm run dev
+npm install
 ```
 
-Click the link in the terminal to open the project in your browser.
+### 3. Set up environment variables
 
-## Writing Code in Dev
+Create a \`.env\` file in the root folder (\`simplitrac_frontend\`) and add your Firestore key.
 
-- When you are writing code in development, you want to make sure that you have your IDE open and the web browser open at the same time
-- As you make changes in your IDE, you should see them reflected in your browser.
-- As soon as something breaks, you CTRL/CMD + Z to undo whatever you did to break things.
-## Color Reference
+### 4. Start the development server
 
-| Color                     | Hex                                                                |
-| ------------------------- | ------------------------------------------------------------------ |
-| Background Color          | ![#247ba0ff](https://via.placeholder.com/10/247ba0ff?text=+) #247ba0ff |
-| Button Color (Hover)      | ![#90a054ff](https://via.placeholder.com/10/90a054ff?text=+) #90a054ff |
-| Landing Page Text                      | ![#c3b299ff](https://via.placeholder.com/10/c3b299ff?text=+) #c3b299ff |
-| Button Color     | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+) #ffffff |
+```bash
+npm run dev
+```
 
+Open the link in the terminal to view the project in your browser.
 
-## Application in Motion
+## 💻 Writing Code in Development
+
+When writing code in development, ensure your IDE and web browser are open simultaneously. Changes in the IDE should reflect immediately in the browser. If something breaks, use \`CTRL/CMD + Z\` to undo the last change.
+
+## 🚀 Deployment 🚀
+1. First you need to set up a local GitHub actions runner. You can follow the instructions [here]("https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners").
+2. Once your runner is set up, you need to install 'act' so that you can test the GitHub actions locally.
+
+    - Mac
+      - `brew install act` 
+        ❗️ (If you nave a local runner on Mac, you'll need to add the following to your PATH for it to work: `export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"`) ❗️
+    - Windows
+        - `choco install act-cli`
+    - Linux (using snap)
+      - `sudo snap install act`
+
+3. Run `act --version` to make sure you have it install correctly.
+4. Then run `npm run test-runner` to run all your workflows to test them. 
+
+Once this is running correctly, any time you merge code to main, your code will automatically deploy to GitHub pages. 🎉
+## 🎨 Color Reference
+
+| **Element**              | **Color**                                                         | **Hex**                              |
+|--------------------------|-------------------------------------------------------------------|--------------------------------------|
+| Background Color          | ![#247ba0ff](https://via.placeholder.com/10/247ba0ff?text=+)      | \`#247ba0ff\`                          |
+| Button Color (Hover)      | ![#90a054ff](https://via.placeholder.com/10/90a054ff?text=+)      | \`#90a054ff\`                          |
+| Landing Page Text         | ![#c3b299ff](https://via.placeholder.com/10/c3b299ff?text=+)      | \`#c3b299ff\`                          |
+| Button Color              | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+)          | \`#ffffff\`                            |
+
+## 🖼️ Application in Motion
 
 ### Landing Page
 

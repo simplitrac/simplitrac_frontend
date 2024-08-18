@@ -14,18 +14,19 @@ class Transaction {
                 console.error('Invalid JSON string provided:', error);
                 data = {};
             }
-        }
-        if (data instanceof Transaction){
+        } else if (data instanceof Transaction){
             Object.assign(this, data)
+        } else {
+            this.transactionId = data.transaction_id || this.#generateUUID();
+            this.createdAt = data.created_at || null;
+            this.amount = data.amount || null;
+            this.vendor = data.vendor || null;
+            this.category_id = data.category_id || null;
+            this.category_name = data.category_name || null;
+            this.pictureId = data.pictureId || null;
+            this.isSuccessful = data.isSuccessful || null;
         }
-        this.transactionId = data.transactionId || this.#generateUUID();
-        this.createdAt = data.createdAt || null;
-        this.amount = data.amount || null;
-        this.vendor = data.vendor || null;
-        this.category_name= data.category_name || null;
-        this.category_id= data.category_id || null;
-        this.pictureId = data.pictureId || null;
-        this.isSuccessful = data.isSuccessful || null;
+
     }
 
     #generateUUID() {
@@ -44,11 +45,12 @@ class Transaction {
     serialize() {
         return {
             transactionId: this.transactionId,
-            createdAt: this.createdAt,
+            transaction_id: this.transactionId,
+            created_at: this.createdAt,
             amount: this.amount,
             vendor: this.vendor,
-            category_name: this.category_name,
             category_id: this.category_id,
+            category_name: this.category_name,
             pictureId: this.pictureId,
             isSuccessful: this.isSuccessful,
         };

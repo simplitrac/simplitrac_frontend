@@ -1,9 +1,7 @@
 name: Github Pages CICD Pipeline
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
 
@@ -13,43 +11,33 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+  build:
+    runs-on: self-hosted
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
+        if: env.ACT != 'true'
         uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3.0.1
+
+      - name: Local Artifact Simulation
+        if: env.ACT == 'true'
+        run: |
+          echo "Simulating artifact upload for local testing"
+          # Add any necessary local artifact simulation steps here
+
       - name: Deploy to GitHub Pages
+        if: env.ACT != 'true'
         id: deployment
         uses: actions/deploy-pages@v4
 
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Set up Node Environment
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: 18
-#
-#      - name: Cache dependencies
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.npm
-#          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-#          restore-keys: |
-#            ${{ runner.OS }}-node-
-#
-#      - name: Install dependencies
-#        run: npm install
-#
-#      - name: deploy_code
-#        run: npm run deploy
+      - name: Local Deployment Simulation
+        if: env.ACT == 'true'
+        run: |
+          echo "Simulating deployment for local testing"
+          # Add any local deployment simulation steps here

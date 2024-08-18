@@ -69,7 +69,7 @@ const ExpensesForm = () => {
         setVendors(prevVendors => [...new Set([...prevVendors, newVendor])]);
         setVendorInput("");
         setValue('vendor', newVendor);
-    }; 
+    };
 
     const categoryBlur = (e) => {
         if (e.target.value !== "") {
@@ -233,6 +233,7 @@ const ExpensesForm = () => {
                     rules={{
                         required: 'Please enter a valid input (0-9 or . or -)',
                         validate: value => {
+<<<<<<< HEAD
                             const numberChecker = /^-?\d*(\.\d*)?$/;
                             const cleanedData = value
                                 .replace(/(?!^-)[^\d.]/g, '')
@@ -260,6 +261,26 @@ const ExpensesForm = () => {
                         </>
                     )}
                 />
+=======
+                            if (isNaN(value)) {
+                                // return 'Please enter a valid number';
+                            }
+                            return true;
+                        }
+                    }}
+                    render={({ field }) =>
+                        <input
+                            id="amount"
+                            type="number"
+                            inputMode={"numeric"}
+                            step="0.01" {...field} />}
+                />
+                {errors.amount && (
+                    <span role="alert" style={{ color: 'red' }}>
+                        {errors.amount.message}
+                    </span>
+                )}
+>>>>>>> main
             </div>
             <div>
                 <label>Category</label>
@@ -291,7 +312,7 @@ const ExpensesForm = () => {
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === ''  || field.value === 'Select category' || field.value === 'Select Category' || field.value ==='Other (specify below)') && (
+                            {(field.value === '' || field.value === 'Select category' || field.value === 'Select Category' || field.value === 'Other (specify below)') && (
                                 <>
                                     <input
                                         id="category"
