@@ -23,25 +23,25 @@ const items = [
     icon: <ConstructionRoundedIcon />,
     title: 'Built to last',
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      'SimpliTrac was built with longevity in mind and will be your finance partner for years to come.',
   },
   {
     icon: <ThumbUpAltRoundedIcon />,
     title: 'Great user experience',
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'Our product is easy to learn and will be a valuable tool to anyones daily routine.',
   },
   {
     icon: <AutoFixHighRoundedIcon />,
     title: 'Innovative functionality',
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
+      'Using up-to-date AI technology to integrate key features and ensure constant innovation.',
   },
   {
     icon: <SupportAgentRoundedIcon />,
-    title: 'Reliable support',
+    title: 'User Feedback',
     description:
-      'Count on our responsive customer support, offering assistance that goes beyond the purchase.',
+      'New features will be added based on user suggestions and to keep up with market trends.',
   },
   {
     icon: <QueryStatsRoundedIcon />,
@@ -78,12 +78,11 @@ export default function Highlights() {
           }}
         >
           <Typography component="h2" variant="h4">
-            Highlights
+            SimpliTrac Highlights
           </Typography>
           <Typography variant="body1" sx={{ color: 'grey.400' }}>
             Explore why our product stands out: adaptability, durability,
-            user-friendly design, and innovation. Enjoy reliable customer support and
-            precision in every detail.
+            user-friendly design, and innovation. 
           </Typography>
         </Box>
         <Grid container spacing={2.5}>

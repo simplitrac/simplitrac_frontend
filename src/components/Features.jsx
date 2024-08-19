@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-// import AppAppBar from './FeaturesComponents/AppAppBar';
+import AppAppBar from './FeaturesComponents/AppAppBar';
 import Hero from './FeaturesComponents/Hero';
 import LogoCollection from './FeaturesComponents/LogoCollection';
 import Highlights from './FeaturesComponents/Highlights';
@@ -81,23 +81,23 @@ export default function LandingPage() {
       {/* <AppAppBar mode={mode} toggleColorMode={toggleColorMode} /> */}
       <Hero />
       <Box sx={{ bgcolor: 'background.default' }}>
-        <LogoCollection />
+        {/* <LogoCollection /> */}
         <Features />
         <Divider />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Divider />
         <Highlights />
         <Divider />
-        <Pricing />
+        {/* <Pricing /> */}
         <Divider />
-        <FAQ />
+        {/* <FAQ /> */}
         <Divider />
-        <Footer />
+        {/* <Footer /> */}
       </Box>
-      <ToggleCustomTheme
+      {/* <ToggleCustomTheme
         showCustomTheme={showCustomTheme}
         toggleCustomTheme={toggleCustomTheme}
-      />
+      /> */}
     </ThemeProvider>
   );
 }

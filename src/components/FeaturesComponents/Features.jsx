@@ -13,28 +13,29 @@ import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
 import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
 
+
 const items = [
   {
     icon: <ViewQuiltRoundedIcon />,
-    title: 'Dashboard',
+    title: 'Camera Support',
     description:
-      'This item could provide a snapshot of the most important metrics or data points related to the product.',
+      'Our AI-drive receipt reader can translate your daily receipts to financial entries.',
     imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
     imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
   },
   {
     icon: <EdgesensorHighRoundedIcon />,
-    title: 'Mobile integration',
+    title: 'Advanced Tracking Metrics',
     description:
-      'This item could provide information about the mobile app version of the product.',
+      'Be able to see your spending in real time with our state of the art tracking metrics.',
     imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
     imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
   },
   {
     icon: <DevicesRoundedIcon />,
-    title: 'Available on all platforms',
+    title: 'Achievement Progression',
     description:
-      'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
+      'Check the Achievements tab to see your progession and how you measure up to other users.',
     imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
     imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
   },
@@ -62,9 +63,9 @@ export default function Features() {
               color="text.secondary"
               sx={{ mb: { xs: 2, sm: 4 } }}
             >
-              Here you can provide a brief overview of the key features of the
-              product. For example, you could list the number of features, the types
-              of features, add-ons, or the benefits of the features.
+              SimpliTrac uses a number of different features to enhance the user experience
+              and ensure accurate recording of day-to-day expenses while providing ample
+              feedback on user activity and giving financial peace of mind.
             </Typography>
           </div>
           <Grid container item gap={1} sx={{ display: { xs: 'auto', sm: 'none' } }}>
