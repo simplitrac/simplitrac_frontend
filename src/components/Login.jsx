@@ -15,7 +15,7 @@ export const Login = () => {
 
     let storedUser = new User(JSON.parse(localStorage.getItem('user')))
 
-    if (localStorage.length !== 0) {
+    if (!storedUser.isEmptyUser()) {
         setUser(storedUser)
         setScreen("landing")
         return
