@@ -43,6 +43,10 @@ class User {
         return this.categories?.length === 0 || this.categories?.length === undefined;
     }
 
+    isEmptyUser(){
+        return this.access_token === undefined;
+    }
+
     serialize() {
         return {
             user_id: this.user_id,
