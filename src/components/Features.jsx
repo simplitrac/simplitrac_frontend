@@ -1,64 +1,103 @@
-import {useContext, useEffect, useRef, useState} from "react";
-import { useForm, Controller} from 'react-hook-form';
-import { AppContext } from "../context/AppContext.jsx";
-import Transaction from "../models/Transaction.js";
-import User from "../models/User.js";
-import Category from "../models/Category.js";
-import FormData from '../models/FormData.js';
-import logo from '../../docs/pictures/simplitrac_logo.png';
-import { Container, Row, Col, Image } from 'react-bootstrap';
-import '../App.css';
-import BackButton from "./BackButton.jsx";
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
-const FeaturesList = () => {
-    const features = [
-      "Our application is a simple to use financial tracker that allows you to record expenses on the go",
-      "Intuitive AI-Driven Camera Support",
-      "Manual Expense Entry",
-      "Cost Tracker via Up-to-date data display and Pie Chart",
-      "Edit/Delete Transaction Fuctionality",
-      "Achievement System to display activity and rewards",
-    ];
-  
-    // Render the features list
-    return (
-      <div style={styles.container}>
-        <h2 style={styles.title}>Website Features</h2>
-        <ul style={styles.list}>
-          {features.map((feature, index) => (
-            <li key={index} style={styles.listItem}>
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+// import AppAppBar from './FeaturesComponents/AppAppBar';
+import Hero from './FeaturesComponents/Hero';
+import LogoCollection from './FeaturesComponents/LogoCollection';
+import Highlights from './FeaturesComponents/Highlights';
+import Pricing from './FeaturesComponents/Pricing';
+import Features from './FeaturesComponents/Features';
+import Testimonials from './FeaturesComponents/Testimonials';
+import FAQ from './FeaturesComponents/FAQ';
+import Footer from './FeaturesComponents/Footer';
+import getLPTheme from './FeaturesComponents/getLPTheme';
+
+function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100dvw',
+        position: 'fixed',
+        bottom: 24,
+      }}
+    >
+      <ToggleButtonGroup
+        color="primary"
+        exclusive
+        value={showCustomTheme}
+        onChange={toggleCustomTheme}
+        aria-label="Platform"
+        sx={{
+          backgroundColor: 'background.default',
+          '& .Mui-selected': {
+            pointerEvents: 'none',
+          },
+        }}
+      >
+        <ToggleButton value>
+          <AutoAwesomeRoundedIcon sx={{ fontSize: '20px', mr: 1 }} />
+          Custom theme
+        </ToggleButton>
+        <ToggleButton value={false}>Material Design 2</ToggleButton>
+      </ToggleButtonGroup>
+    </Box>
+  );
+}
+
+ToggleCustomTheme.propTypes = {
+  showCustomTheme: PropTypes.shape({
+    valueOf: PropTypes.func.isRequired,
+  }).isRequired,
+  toggleCustomTheme: PropTypes.func.isRequired,
+};
+
+export default function LandingPage() {
+  const [mode, setMode] = React.useState('light');
+  const [showCustomTheme, setShowCustomTheme] = React.useState(true);
+  const LPtheme = createTheme(getLPTheme(mode));
+  const defaultTheme = createTheme({ palette: { mode } });
+
+  const toggleColorMode = () => {
+    setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
-  
-  const styles = {
-    container: {
-      padding: "20px",
-      maxWidth: "600px",
-      margin: "0 auto",
-      backgroundColor: "#f5f5f5",
-      borderRadius: "8px",
-      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-    },
-    title: {
-      fontSize: "24px",
-      marginBottom: "15px",
-      color: "#333",
-    },
-    list: {
-      listStyleType: "disc",
-      paddingLeft: "20px",
-    },
-    listItem: {
-      fontSize: "18px",
-      marginBottom: "10px",
-      color: "#555",
-    },
+
+  const toggleCustomTheme = () => {
+    setShowCustomTheme((prev) => !prev);
   };
-  
-  // Export the component
-  export default FeaturesList;
+
+  return (
+    <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
+      <CssBaseline />
+      {/* <AppAppBar mode={mode} toggleColorMode={toggleColorMode} /> */}
+      <Hero />
+      <Box sx={{ bgcolor: 'background.default' }}>
+        <LogoCollection />
+        <Features />
+        <Divider />
+        <Testimonials />
+        <Divider />
+        <Highlights />
+        <Divider />
+        <Pricing />
+        <Divider />
+        <FAQ />
+        <Divider />
+        <Footer />
+      </Box>
+      <ToggleCustomTheme
+        showCustomTheme={showCustomTheme}
+        toggleCustomTheme={toggleCustomTheme}
+      />
+    </ThemeProvider>
+  );
+}
