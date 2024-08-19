@@ -1,5 +1,6 @@
 {
   "name": "simplitrac_frontend",
+  "homepage": "https://www.simplitrac.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
