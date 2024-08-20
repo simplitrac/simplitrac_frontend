@@ -12,6 +12,10 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
 import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
+import achievements from './Assets/Achievements 8-20.png';
+import charts from './Assets/Chart Report 8-20.png';
+import receiptpic from './Assets/Receipt Picture 8-20.png';
+import autofilled from './Assets/Autofill 8-20.png';
 
 
 const items = [
@@ -20,24 +24,22 @@ const items = [
     title: 'Camera Support',
     description:
       'Our AI-drive receipt reader can translate your daily receipts to financial entries.',
-    imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
+    imageLight: `url(${receiptpic})`,
+    imageDark: `url(${autofilled})`,
   },
   {
     icon: <EdgesensorHighRoundedIcon />,
     title: 'Advanced Tracking Metrics',
     description:
       'Be able to see your spending in real time with our state of the art tracking metrics.',
-    imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
+    imageLight: `url(${charts})`,
   },
   {
     icon: <DevicesRoundedIcon />,
     title: 'Achievement Progression',
     description:
       'Check the Achievements tab to see your progession and how you measure up to other users.',
-    imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
+    imageLight: `url(${achievements})`,
   },
 ];
 
