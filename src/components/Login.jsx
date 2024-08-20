@@ -90,8 +90,8 @@ export const Login = () => {
 
 
     return (
-        <div style={{ backgroundColor: '#1ba5db', padding: '20px' }}>
-            <Container style={{ backgroundColor: '#1ba5db', padding: '20px' }}>
+        <div style={{ backgroundColor: '#247ba0ff', padding: '20px' }}>
+            <Container style={{ backgroundColor: '#247ba0ff', padding: '20px' }}>
                 <Row>
                     <Col xs={1} md={1}>
                         <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle />

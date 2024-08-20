@@ -118,7 +118,7 @@
 }
 
 body {
-  background-color: #06586d;
+  background-color: #247ba0ff;
   color: #c1d412;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -127,7 +127,7 @@ body {
 form {
   width: 100%;
   padding: 2rem;
-  background: #0b81c5;
+  background: #f3f4f5;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -151,7 +151,7 @@ form input, form select {
   border-radius: 5px;
   font-size: 1rem;
   color: #495057;
-  background-color: #1ba5db;
+  background-color: #f9fafa;
 }
 
 form input:focus, form select:focus {
