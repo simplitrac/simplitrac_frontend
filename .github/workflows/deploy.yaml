@@ -1,43 +1,54 @@
-name: Github Pages CICD Pipeline
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main  # Set this to your default branch
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+env:
+  ACT: ${{ vars.ACT }}
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: self-hosted
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for .GitInfo and .Lastmod
 
-      - name: Setup Pages
-        if: env.ACT != 'true'
-        uses: actions/configure-pages@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3.0.1
-
-      - name: Local Artifact Simulation
-        if: env.ACT == 'true'
-        run: |
-          echo "Simulating artifact upload for local testing"
-          # Add any necessary local artifact simulation steps here
+      - name: Install dependencies
+        run: npm ci
 
       - name: Deploy to GitHub Pages
         if: env.ACT != 'true'
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # Replace with your build output directory
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy to GitHub Pages'
 
-      - name: Local Deployment Simulation
+      - name: Simulate deployment (Act)
         if: env.ACT == 'true'
         run: |
-          echo "Simulating deployment for local testing"
-          # Add any local deployment simulation steps here
+          echo "Simulating deployment to GitHub Pages"
+          echo "Contents of build directory:"
+          ls -R ./build  # Replace './build' with your actual build directory
+          echo "In a real deployment, these files would be pushed to the gh-pages branch"
+
+      - name: Cleanup (Act)
+        if: env.ACT == 'true'
+        run: |
+          echo "Performing cleanup after Act simulation"
+          # Add any cleanup steps here, if necessary
+          # For example, removing build artifacts:
+          # rm -rf ./build

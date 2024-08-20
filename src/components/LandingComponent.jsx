@@ -12,9 +12,10 @@ import achievementConfig from "../config/achievementConfig.js";
 import '../App.css';
 import JoyrideTour from "./JoyRideTour.jsx";
 import logo from '../../docs/pictures/simplitrac_logo.png';
+import Confetti from "react-confetti";
 
 const LandingComponent = () => {
-    const { setScreen, ocrData, serverResponse, setServerResponse, user, setIsUpdating } = useContext(AppContext);
+    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating } = useContext(AppContext);
     const [showCategories, setShowCategories] = useState(false);
     const [runTour, setRunTour] = useState(false);
 
@@ -32,11 +33,15 @@ const LandingComponent = () => {
         setScreen(screen);
     };
 
+    // useEffect(() => {
+    //     if (serverResponse) {
+    //         setServerResponse(null);
+    //     }
+    // }, [user]);
+
     useEffect(() => {
-        if (serverResponse) {
-            setServerResponse(null);
-        }
-    }, [user]);
+        setUser(user)
+    }, [serverResponse])
 
     const toggleCategoriesList = () => {
         setShowCategories(!showCategories);
