@@ -90,6 +90,9 @@ export default function Features() {
                     return selectedItemIndex === index ? 'none' : '';
                   },
                   backgroundColor: selectedItemIndex === index ? 'primary.main' : '',
+                  backgroundRepeat: 'no-repeat', 
+                  backgroundSize: 'cover', 
+                  backgroundPosition: 'center',
                   '& .MuiChip-label': {
                     color: selectedItemIndex === index ? '#fff' : '',
                   },
@@ -111,7 +114,8 @@ export default function Features() {
                   theme.palette.mode === 'light'
                     ? items[selectedItemIndex].imageLight
                     : items[selectedItemIndex].imageDark,
-                backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat', 
+                    backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: 280,
               }}
@@ -161,6 +165,7 @@ export default function Features() {
                   height: 'fit-content',
                   width: '100%',
                   background: 'none',
+                  backgroundRepeat: 'no-repeat', 
                   backgroundColor:
                     selectedItemIndex === index ? 'action.selected' : undefined,
                   borderColor: (theme) => {
@@ -261,6 +266,8 @@ export default function Features() {
                 width: 420,
                 height: 500,
                 backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat', 
+                backgroundPosition: 'center',
                 backgroundImage: (theme) =>
                   theme.palette.mode === 'light'
                     ? items[selectedItemIndex].imageLight
