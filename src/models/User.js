@@ -44,7 +44,7 @@ class User {
     }
 
     isEmptyUser(){
-        return this.access_token === undefined;
+        return this.user_id === undefined && this.email === undefined;
     }
 
     serialize() {
