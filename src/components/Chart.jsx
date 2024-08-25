@@ -29,23 +29,37 @@ const App = () => {
   return (
     <div className="App">
       <h1>SimpliTrac</h1>
+      <LookerStudioChart user_email={userEmail} /> 
+      <BackButton />
       {userId && <LookerStudioChart userId={userId} />}
     </div>
   );
 };
 
-const LookerStudioChart = ({ userId }) => {
-  const reportUrl = `https://lookerstudio.google.com/embed/reporting/fe5a072c-9afe-464c-9cef-2e04f351ff78/page/SVN5D?user_id=${userId}`;
+// LookerStudioChart component to display embedded Looker Studio report
+const LookerStudioChart = ({ user_email }) => {
+  const reportUrl = `https://lookerstudio.google.com/embed/reporting/ae330055-31b8-4e65-a1a9-f0bbd1cda92f/page/87O5D?params=${encodeURIComponent(`{"user_email": "${user_email}","filter": {"user_email": "${user_email}"} }`)}`;
+
+  const mobile = window.innerWidth <= 550
+  const iframeStyle = {
+    justifyContent: 'center',
+    position: 'relative',
+    alignItems: 'center',
+    display: 'inline-flex',
+    width: '100%',
+    height: mobile ? '350px' : '1000px',
+  };
+  useEffect(() => {
+    console.log(`Report URL: ${reportUrl}`);
+  }, [reportUrl]);
 
   return (
-    <div className="report-container">
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%',  }}>
       <iframe 
         id="report-frame" 
-        width="600" 
-        height="400" 
         src={reportUrl} 
-        style={{ border: 0 }} 
-        allowFullScreen 
+        style= {iframeStyle}
+        allowFullScreen  
       />
     </div>
   );

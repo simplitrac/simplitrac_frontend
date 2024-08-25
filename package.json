@@ -14,7 +14,9 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "firebase": "^10.12.2",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
+    "react-achievements": "^1.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
