@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Joyride, { STATUS } from 'react-joyride';
+import { AppContext } from '../context/AppContext';
+
 
 const steps = [
   {
@@ -8,7 +10,7 @@ const steps = [
     disableBeacon: true,
   },
   {
-    target: '.buttons-container button:nth-child(2)',
+    target: '.buttons-container button:nth-child(1)',
     content: 'With our intuitive AI-driven camera setup, you can snap pictures of your receipts on the fly and record your daily expenses.',
   },
   {
@@ -16,11 +18,11 @@ const steps = [
     content: 'You can manually enter your expenses on the main page with our easy to use Expense Table.',
   },
   {
-    target: '.buttons-container button:nth-child(3)',
+    target: '.buttons-container button:nth-child(2)',
     content: 'See where your money is going in real time with our handy Chart feature.',
   },
   {
-    target: '.buttons-container button:nth-child(4)',
+    target: '.buttons-container button:nth-child(3)',
     content: 'Use the Edit Transaction function to correct any errors in your expense processing.',
   },
   {

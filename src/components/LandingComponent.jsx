@@ -13,18 +13,18 @@ import '../App.css';
 import JoyrideTour from "./JoyRideTour.jsx";
 import logo from '../../docs/pictures/simplitrac_logo.png';
 import Confetti from "react-confetti";
+import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating } = useContext(AppContext);
     const [showCategories, setShowCategories] = useState(false);
     const [runTour, setRunTour] = useState(false);
-
+    const [categoriesSelected, setCategoriesSelected] = useState(false);
     useEffect(() => {
-        if (user.isNewUser && user.isNewUser()) {
+        if (user.isNewUser && user.isNewUser() && categoriesSelected) {
             setRunTour(true);
         }
-    }, [user]);
-
+    }, [user, categoriesSelected]);
 
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
@@ -47,11 +47,10 @@ const LandingComponent = () => {
         setShowCategories(!showCategories);
     };
 
-    const handleDeleteCategory = async (categoryId) => {
+    const handleDeleteCategory = async (user, categoryId) => {
         if (window.confirm("Are you sure you want to delete this category?")) {
             setIsUpdating(true)
-            const updatedUser = new User(user);
-            const result = await updatedUser.deleteCategory(categoryId);
+            const result = await user.deleteCategory(categoryId);
 
             if (result instanceof User) {
                 setUser(result);
@@ -66,13 +65,16 @@ const LandingComponent = () => {
     return (
         <AchievementProvider config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
             <Container fluid={true} className="landing-container">
+                <HamburgerMenu setRunTour={setRunTour} />
                 {< JoyrideTour run={runTour} setRun={setRunTour} />}
                 {user.first_name && (
                     <>
                         <p>
                             Welcome {user.first_name} {user.last_name}
                         </p>
-                        {user.isNewUser() && <CategoryModal />}
+                        {user.isNewUser() && !categoriesSelected && (
+                            <CategoryModal onCategoriesSelected={() => setCategoriesSelected(true)} />
+                        )}
                         {ocrData && <OCRModal />}
                         {serverResponse && <ConfirmationModal />}
                     </>
@@ -87,7 +89,6 @@ const LandingComponent = () => {
                 </div>
                 <div className="buttons-container">
                     {/*<button className="custom-button" onClick={handleSubmit}>Submit</button>*/}
-                    <button className="custom-button" onClick={() => setRunTour(true)}>Start Tour</button>
                     <button className="custom-button" onClick={() => renderNewScreen("camera")}>Camera</button>
                     <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
                     <button className="custom-button" onClick={() => renderNewScreen("edit")}>Edit Transactions</button>
@@ -104,7 +105,7 @@ const LandingComponent = () => {
                                     <span>{category.category_name}</span>
                                     <button
                                         className="delete-button custom-button"
-                                        onClick={() => handleDeleteCategory(category.category_id)}
+                                        onClick={() => handleDeleteCategory(user, category.category_id)}
                                     >
                                         Delete
                                     </button>
