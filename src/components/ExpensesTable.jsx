@@ -14,9 +14,11 @@ const ExpensesForm = () => {
     const [categories, setCategories] = useState([]);
     const [vendorInput, setVendorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
-    const [errorPopup, setErrorPopup] = useState(''); 
+    const [errorPopup, setErrorPopup] = useState('');
     const catSelectRef = useRef("");
     const vendSelectRef = useRef("")
+    const [filteredVendors, setFilteredVendors] = useState(vendors);
+    const [filteredCategories, setFilteredCategories] = useState(categories);
 
     const {
         control,
@@ -126,6 +128,25 @@ const ExpensesForm = () => {
 
     }, [catSelectRef.current, vendSelectRef.current, user, formData]);
 
+    const filterVendors = () => {
+        const filtered = vendors.filter(vendor =>
+            vendor.toLowerCase().includes(vendorInput.toLowerCase())
+        );
+        setFilteredVendors(filtered.length > 0 ? filtered : vendors);
+    };
+
+    const filterCategories = () => {
+        const filtered = categories.filter(category =>
+            category.toLowerCase().includes(categoryInput.toLowerCase())
+        );
+        setFilteredCategories(filtered.length > 0 ? filtered : categories);
+    };
+
+    useEffect(() => {
+        filterVendors();
+        filterCategories();
+    }, [vendorInput, categoryInput, vendors, categories]);
+
     const onSubmit = async (data) => {
         setIsUpdating(true)
         if (Object.keys(errors).length > 0) {
@@ -193,33 +214,25 @@ const ExpensesForm = () => {
                                     }
                                 }}
                             >
-                                {vendors.map(vendor => (
+                                {filteredVendors.map(vendor => (
                                     <option key={vendor} value={vendor}>
                                         {vendor}
                                     </option>
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === '' || field.value === 'Select vendor' || field.value === 'Other(specify below)') && (
-                                <>
-                                    <input
-                                        id="vendor"
-                                        type="text"
-                                        value={vendorInput}
-                                        onChange={(e) => {
-                                            setVendorInput(e.target.value);
-                                        }}
-                                        onBlur={(e) => {
-                                            vendorBlur(e);
-                                            field.onBlur();
-                                        }}
-                                    />
-                                    {errors.vendor && (
-                                        <span role="alert" style={{ color: 'red' }}>
-                                            {errors.vendor.message}
-                                        </span>
-                                    )}
-                                </>
+                            <input
+                                id="vendor"
+                                type="text"
+                                value={vendorInput}
+                                onChange={(e) => {
+                                    setVendorInput(e.target.value);
+                                }}
+                            />
+                            {errors.vendor && (
+                                <span role="alert" style={{ color: 'red' }}>
+                                    {errors.vendor.message}
+                                </span>
                             )}
                         </div>
                     )}
@@ -249,7 +262,7 @@ const ExpensesForm = () => {
                                     const cleanedData = e.target.value
                                         .replace(/(?!^-)[^\d.]/g, '') //ensure only 1 "-" to handle negative numbers
                                         .replace(/^([^.]*\.)|\./g, '$1'); //ensures only 1 "." to handle decimal points
-                                    onChange(cleanedData); 
+                                    onChange(cleanedData);
                                 }}
                             />
                             {error && (
@@ -284,30 +297,25 @@ const ExpensesForm = () => {
                                     }
                                 }}
                             >
-                                {categories.map(category => (
+                                {filteredCategories.map(category => (
                                     <option key={category} value={category}>
                                         {category}
                                     </option>
                                 ))}
                                 <option value="other">Other (specify below)</option>
                             </select>
-                            {(field.value === '' || field.value === 'Select category' || field.value === 'Select Category' || field.value === 'Other (specify below)') && (
-                                <>
-                                    <input
-                                        id="category"
-                                        type="text"
-                                        value={categoryInput}
-                                        onChange={(e) => {
-                                            setCategoryInput(e.target.value);
-                                        }}
-                                        onBlur={categoryBlur}
-                                    />
-                                    {errors.category && (
-                                        <span role="alert" style={{ color: 'red' }}>
-                                            {errors.category.message}
-                                        </span>
-                                    )}
-                                </>
+                            <input
+                                id="category"
+                                type="text"
+                                value={categoryInput}
+                                onChange={(e) => {
+                                    setCategoryInput(e.target.value);
+                                }}
+                            />
+                            {errors.category && (
+                                <span role="alert" style={{ color: 'red' }}>
+                                    {errors.category.message}
+                                </span>
                             )}
                         </div>
                     )}
