@@ -1,6 +1,7 @@
 import { auth, signOut } from "../config/initializeFirestore.js";
 import { AppContext } from "../context/AppContext.jsx";
 import { useContext } from "react";
+import { Button } from "@chakra-ui/react";
 
 const Logout = () => {
 
@@ -18,7 +19,7 @@ const Logout = () => {
     }
 
     return (
-        <button onClick={logOut}>Logout</button>
+        <Button onClick={logOut}>Logout</Button>
     );
 }
 
