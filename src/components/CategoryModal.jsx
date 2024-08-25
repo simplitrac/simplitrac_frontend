@@ -46,6 +46,7 @@ const CategoryModal = () => {
         const tempUser = new User(user);
         setUser(tempUser);
         toggleModalOpenState(modalIsOpen);
+        onCategoriesSelected();
     };
 
     return (
