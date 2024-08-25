@@ -47,11 +47,10 @@ const LandingComponent = () => {
         setShowCategories(!showCategories);
     };
 
-    const handleDeleteCategory = async (categoryId) => {
+    const handleDeleteCategory = async (user, categoryId) => {
         if (window.confirm("Are you sure you want to delete this category?")) {
             setIsUpdating(true)
-            const updatedUser = new User(user);
-            const result = await updatedUser.deleteCategory(categoryId);
+            const result = await user.deleteCategory(categoryId);
 
             if (result instanceof User) {
                 setUser(result);
@@ -106,7 +105,7 @@ const LandingComponent = () => {
                                     <span>{category.category_name}</span>
                                     <button
                                         className="delete-button custom-button"
-                                        onClick={() => handleDeleteCategory(category.category_id)}
+                                        onClick={() => handleDeleteCategory(user, category.category_id)}
                                     >
                                         Delete
                                     </button>

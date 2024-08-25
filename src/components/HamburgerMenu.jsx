@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { slide as Menu } from 'react-burger-menu';
+import { AppContext } from '../context/AppContext';
 
 const HamburgerMenu = ({ setRunTour }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleStateChange = (state) => {
-    setIsOpen(state.isOpen);
-  };
-
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
+  const {showHamburger, setShowHamburger} = useContext(AppContext);
+  
+  
 
   const startTour = () => {
+    setShowHamburger(false);
     setRunTour(true);
-    closeMenu();
   };
 
   return (
     <Menu 
-      isOpen={isOpen}
-      onStateChange={handleStateChange}
+    
     >
       <a onClick={startTour}>Start Tour</a>
       {/* Add more menu items here */}
