@@ -58,8 +58,7 @@ const LandingComponent = () => {
         if (window.confirm("Are you sure you want to delete this category?")) {
 
             setIsUpdating(true);
-            const updatedUser = new User(user);
-            const result = await updatedUser.deleteCategory(categoryId);
+            const result = await user.deleteCategory(categoryId);
 
             if (result instanceof User) {
                 setUser(result);
@@ -112,7 +111,7 @@ const LandingComponent = () => {
                                     <ListItem key={category.category_id}>
                                         <HStack justify="space-between">
                                             <Text>{category.category_name}</Text>
-                                            <Button colorScheme="red" onClick={() => handleDeleteCategory(category.category_id)}>
+                                            <Button colorScheme="red" onClick={() => handleDeleteCategory(user, category.category_id)}>
                                                 Delete
                                             </Button>
                                         </HStack>
