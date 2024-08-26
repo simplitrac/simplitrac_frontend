@@ -32,8 +32,8 @@ function App() {
                 return <Camera />
             case "edit":
                 return <EditTransactionsPage />
-            case "userguide":
-                return <UserGuide />
+            // case "userguide":
+            //     return <UserGuide />
             default:
                 return <Login />
         }

@@ -1,5 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import { Container, Col, Image } from "react-bootstrap";
+import {
+    Box,
+    Container,
+    Heading,
+    Image,
+    VStack,
+    HStack,
+    Button,
+    Text,
+    List,
+    ListItem,
+} from "@chakra-ui/react";
 import ExpensesTable from "./ExpensesTable.jsx";
 import CategoryModal from "./CategoryModal.jsx";
 import SignOut from "./SignOut.jsx";
@@ -9,10 +20,11 @@ import User from "../models/User.js";
 import ConfirmationModal from "./ConfirmationModal.jsx";
 import { AchievementProvider } from "react-achievements";
 import achievementConfig from "../config/achievementConfig.js";
-import '../App.css';
 import JoyrideTour from "./JoyRideTour.jsx";
 import logo from '../../docs/pictures/simplitrac_logo.png';
 import Confetti from "react-confetti";
+import ReactConfetti from "react-confetti";
+// import { reactAchievementsEventEmitter } from "react-achievements";
 import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
@@ -33,15 +45,10 @@ const LandingComponent = () => {
         setScreen(screen);
     };
 
-    // useEffect(() => {
-    //     if (serverResponse) {
-    //         setServerResponse(null);
-    //     }
-    // }, [user]);
-
     useEffect(() => {
         setUser(user)
-    }, [serverResponse])
+        // reactAchievementsEventEmitter.emit("checkAchievements", user.serialize())
+    }, [serverResponse]);
 
     const toggleCategoriesList = () => {
         setShowCategories(!showCategories);
@@ -49,8 +56,10 @@ const LandingComponent = () => {
 
     const handleDeleteCategory = async (user, categoryId) => {
         if (window.confirm("Are you sure you want to delete this category?")) {
-            setIsUpdating(true)
-            const result = await user.deleteCategory(categoryId);
+
+            setIsUpdating(true);
+            const updatedUser = new User(user);
+            const result = await updatedUser.deleteCategory(categoryId);
 
             if (result instanceof User) {
                 setUser(result);
@@ -58,65 +67,62 @@ const LandingComponent = () => {
             } else {
                 setServerResponse('Failed to delete category');
             }
+            setIsUpdating(false);
         }
-        setIsUpdating(false)
     }
 
     return (
         <AchievementProvider config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
-            <Container fluid={true} className="landing-container">
+            <Container maxW="container.xl" py={4}>
                 <HamburgerMenu setRunTour={setRunTour} />
-                {< JoyrideTour run={runTour} setRun={setRunTour} />}
-                {user.first_name && (
-                    <>
-                        <p>
-                            Welcome {user.first_name} {user.last_name}
-                        </p>
-                        {user.isNewUser() && !categoriesSelected && (
-                            <CategoryModal onCategoriesSelected={() => setCategoriesSelected(true)} />
-                        )}
-                        {ocrData && <OCRModal />}
-                        {serverResponse && <ConfirmationModal />}
-                    </>
-                )}
-                <div className="landing-header">
-                    <h1><Col xs={1} md={1}>
-                        <Image src={logo} role="logo" style={{ width: '300px', height: '300px' }} roundedCircle />
-                    </Col></h1>
-                </div>
-                <div className="landing-content">
+                <Box>
+                    <JoyrideTour run={runTour} setRun={setRunTour} />
+                    {user.first_name && (
+                        <>
+                            <Text fontSize="xl" fontWeight="bold">
+                                Welcome {user.first_name} {user.last_name}
+                            </Text>
+                            {user.isNewUser() && <CategoryModal />}
+                            {ocrData && <OCRModal />}
+                            {serverResponse && <ConfirmationModal />}
+                        </>
+                    )}
+                </Box>
+                <VStack spacing={8}>
+                    <HStack spacing={4} justify="center">
+                        <Image src={logo} alt="SimpliTrac Logo" boxSize="300px" borderRadius="full" />
+                    </HStack>
                     <ExpensesTable />
-                </div>
-                <div className="buttons-container">
-                    {/*<button className="custom-button" onClick={handleSubmit}>Submit</button>*/}
-                    <button className="custom-button" onClick={() => renderNewScreen("camera")}>Camera</button>
-                    <button className="custom-button" onClick={() => renderNewScreen("chart")}>Chart</button>
-                    <button className="custom-button" onClick={() => renderNewScreen("edit")}>Edit Transactions</button>
-                    <button className="custom-button" onClick={(toggleCategoriesList)}>
-                        {showCategories ? "Hide Categories" : "Show Categories"}
-                    </button>
-                </div>
-                {showCategories && (
-                    <div className="categories-list">
-                        <h3>Your Categories</h3>
-                        <ul className="category-list">
-                            {user.categories.map((category) => (
-                                <li key={category.category_id} className="category-item">
-                                    <span>{category.category_name}</span>
-                                    <button
-                                        className="delete-button custom-button"
-                                        onClick={() => handleDeleteCategory(user, category.category_id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-                <div className="landing-content">
+                    <HStack spacing={4}>
+                        <Button onClick={() => setRunTour(true)}>Start Tour</Button>
+                        <Button onClick={() => renderNewScreen("camera")}>Camera</Button>
+                        <Button onClick={() => renderNewScreen("chart")}>Chart</Button>
+                        <Button onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
+                        <Button onClick={toggleCategoriesList}>
+                            {showCategories ? "Hide Categories" : "Show Categories"}
+                        </Button>
+                    </HStack>
+                    {showCategories && (
+                        <Box w="100%">
+                            <Heading as="h3" size="lg" mb={4}>
+                                Your Categories
+                            </Heading>
+                            <List spacing={3}>
+                                {user.categories.map((category) => (
+                                    <ListItem key={category.category_id}>
+                                        <HStack justify="space-between">
+                                            <Text>{category.category_name}</Text>
+                                            <Button colorScheme="red" onClick={() => handleDeleteCategory(category.category_id)}>
+                                                Delete
+                                            </Button>
+                                        </HStack>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Box>
+                    )}
                     <SignOut />
-                </div>
+                </VStack>
             </Container>
         </AchievementProvider>
     );
