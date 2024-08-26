@@ -15,6 +15,7 @@
     "test-runner": "act -P self-hosted=catthehacker/ubuntu:act-latest"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -38,6 +39,7 @@
     "react-joyride": "^2.8.2",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.24.0",
+    "react-select": "^5.8.0",
     "react-use": "^17.5.1",
     "recharts": "^2.12.7",
     "rollup": "^4.21.0",
