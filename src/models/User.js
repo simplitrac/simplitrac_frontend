@@ -136,8 +136,8 @@ class User {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ 
-                    userId: this.user_id, 
-                    categoryId: categoryId 
+                    user_id: this.user_id, 
+                    category_id: categoryId 
                 }),
             });
     

@@ -139,11 +139,3 @@ form input:focus, form select:focus {
 .delete-button:hover {
   background-color: var(--error-hover);
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  button, .custom-button {
-    padding: 0.5rem;
-    font-size: 0.9rem;
-  }
-}

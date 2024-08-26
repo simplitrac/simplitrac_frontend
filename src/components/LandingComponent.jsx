@@ -25,17 +25,18 @@ import logo from '../../docs/pictures/simplitrac_logo.png';
 import Confetti from "react-confetti";
 import ReactConfetti from "react-confetti";
 // import { reactAchievementsEventEmitter } from "react-achievements";
+import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating } = useContext(AppContext);
     const [showCategories, setShowCategories] = useState(false);
     const [runTour, setRunTour] = useState(false);
-
+    const [categoriesSelected, setCategoriesSelected] = useState(false);
     useEffect(() => {
-        if (user.isNewUser && user.isNewUser()) {
+        if (user.isNewUser && user.isNewUser() && categoriesSelected) {
             setRunTour(true);
         }
-    }, [user]);
+    }, [user, categoriesSelected]);
 
     const renderNewScreen = (screen) => {
         if (screen === undefined) {
@@ -53,8 +54,9 @@ const LandingComponent = () => {
         setShowCategories(!showCategories);
     };
 
-    const handleDeleteCategory = async (categoryId) => {
+    const handleDeleteCategory = async (user, categoryId) => {
         if (window.confirm("Are you sure you want to delete this category?")) {
+
             setIsUpdating(true);
             const updatedUser = new User(user);
             const result = await updatedUser.deleteCategory(categoryId);
@@ -72,6 +74,7 @@ const LandingComponent = () => {
     return (
         <AchievementProvider config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
             <Container maxW="container.xl" py={4}>
+                <HamburgerMenu setRunTour={setRunTour} />
                 <Box>
                     <JoyrideTour run={runTour} setRun={setRunTour} />
                     {user.first_name && (
@@ -121,7 +124,6 @@ const LandingComponent = () => {
                     <SignOut />
                 </VStack>
             </Container>
-
         </AchievementProvider>
     );
 };

@@ -26,6 +26,8 @@ const AppProvider = ({ children }) => {
     const [ocrModalOpen, setOcrModalOpen] = useState(false);
     const [formData, setFormData] = useState(new FormData());
     const [isUpdating, setIsUpdating] = useState(false)
+    const [showHamburger, setShowHamburger] = useState(false)
+
 
     // updating user data based on state
     const fetchUserData = async () => {
@@ -71,6 +73,7 @@ const AppProvider = ({ children }) => {
         setOcrModalOpen(false);
         setFormData(new FormData());
         setIsUpdating(false)
+        setShowHamburger(false)
     };
 
     // updating data based on user state
@@ -91,7 +94,8 @@ const AppProvider = ({ children }) => {
         fetchUserData, //updating value with user data
         formData, setFormData,
         resetAppState,
-        isUpdating, setIsUpdating
+        isUpdating, setIsUpdating,
+        showHamburger, setShowHamburger
     };
 
 
