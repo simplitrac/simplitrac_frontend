@@ -143,7 +143,7 @@ form input:focus, form select:focus {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-}
+} 
 
 .transaction-edit-row input,
 .transaction-edit-row select {
