@@ -139,3 +139,13 @@ form input:focus, form select:focus {
 .delete-button:hover {
   background-color: var(--error-hover);
 }
+.transaction-edit-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.transaction-edit-row input,
+.transaction-edit-row select {
+  margin-right: 10px;
+}
