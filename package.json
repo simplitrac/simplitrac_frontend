@@ -25,6 +25,7 @@
     "esbuild": "^0.23.1",
     "firebase": "^10.12.2",
     "framer-motion": "^11.3.30",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
     "react-achievements": "^1.2.0",
     "react-bootstrap": "^2.10.2",
