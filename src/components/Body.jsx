@@ -11,16 +11,46 @@ const Body = () => {
 
     const keyFeatures = [
         {
-            title: 'Cloud Sync',
-            text: 'Access your snippets from anywhere, anytime. Our cloud sync feature ensures your code is always up to date.',
+            title: 'Camera Support',
+            text: 'Our AI-driven receipt reader can translate your daily receipts to financial entries.',
         },
         {
-            title: 'Smart Categorization',
-            text: 'Organize your snippets effortlessly with our intelligent categorization system. Find what you need in seconds.',
+            title: 'Advanced Tracking Metrics',
+            text: 'Be able to see your spending in real time with our state of the art tracking metrics.',
         },
         {
-            title: 'Collaboration Tools',
-            text: 'Share and collaborate on snippets with your team. Boost productivity with real-time editing and commenting.',
+            title: 'Achievement Progression',
+            text: 'Check the Achievements tab to see your progession and how you measure up to other users.',
+        },
+    ];
+
+    const keyHighlights = [
+        {
+            title: 'Adaptable Performance',
+            text: 'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+        },
+        {
+            title: 'Great User Experience',
+            text: 'Be able to see your spending in real time with our state of the art tracking metrics.',
+        },
+        {
+            title: 'Built to Last',
+            text: 'SimpliTrac was built with longevity in mind and will be your finance partner for years to come.',
+        },
+    ];
+
+    const keyFeedback = [
+        {
+            title: 'Great Product',
+            text: 'I use this application daily to track everyday expenses and stay on budget. Patrick',
+        },
+        {
+            title: 'Easy to Learn',
+            text: 'I was able to start using this application and learn the ins-and-outs in a matter of minutes. -Steve',
+        },
+        {
+            title: 'Like No Other',
+            text: 'After using this application, I will never go back to a different finance tracker again. -Justin',
         },
     ];
 
@@ -33,12 +63,12 @@ const Body = () => {
                     features={keyFeatures}
                 />
                 <SlideSection
-                    title="Key Features"
-                    features={keyFeatures}
+                    title="Highlights"
+                    features={keyHighlights}
                 />
                 <SlideSection
-                    title="Key Features"
-                    features={keyFeatures}
+                    title="User Feedback"
+                    features={keyFeedback}
                 />
             </Stack>
         </Container>
