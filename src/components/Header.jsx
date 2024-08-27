@@ -133,7 +133,9 @@ const Header = () => {
                         </Text>
                     </Heading>
                     <Text color="gray.500" mb={6}>
-                        Put information here about SimpliTrac. And change picture
+                        SimpliTrac uses a number of different features to enhance the user experience
+                        and ensure accurate recording of day-to-day expenses while providing ample
+                        feedback on user activity and giving financial peace of mind.
                     </Text>
 
                 </Box>
