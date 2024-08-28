@@ -45,7 +45,7 @@ const LookerStudioChart = ({ user_email }) => {
     justifyContent: 'center',
     position: 'relative',
     alignItems: 'center',
-    display: 'inline-flex',
+    display: 'inline-flex', 
     width: '100%',
     height: mobile ? '350px' : '1000px',
   };
