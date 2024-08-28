@@ -10,7 +10,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth, onAuthStateChanged } from "firebase/auth";
 import './App.css';
-import { auth } from './firebase';
 
 const App = () => {
   const [userId, setUserId] = useState("");
