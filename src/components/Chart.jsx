@@ -9,7 +9,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { auth, onAuthStateChanged } from "firebase/auth";
-import './App.css';
+import './App.css'; 
 
 const App = () => {
   const [userId, setUserId] = useState("");
@@ -46,7 +46,7 @@ const LookerStudioChart = ({ user_email }) => {
     alignItems: 'center',
     display: 'inline-flex', 
     width: '100%',
-    height: mobile ? '350px' : '1000px',
+    height: mobile ? '350px' : '1000px', 
   };
   useEffect(() => {
     console.log(`Report URL: ${reportUrl}`);
