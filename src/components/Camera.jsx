@@ -2,7 +2,8 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { AppContext } from "../context/AppContext.jsx";
 import BackButton from "./BackButton.jsx";
 import Transaction from "../models/Transaction.js";
-import { Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
+import { Button } from "@chakra-ui/react";
 import '../App.css';
 import Updating from "./Updating.jsx";
 
@@ -158,7 +159,7 @@ const Camera = () => {
             {device === 'desktop' && !capturedPhoto && (
                 <div>
                     <video ref={videoRef} style={styles.video} />
-                    <button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</button>
+                    <Button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</Button>
                 </div>
             )}
             {capturedPhoto && device !== 'mobile' && (
@@ -167,8 +168,8 @@ const Camera = () => {
                         <p>Captured Photo:</p>
                         <img src={capturedPhoto} alt="Captured" style={styles.image} />
                     </div>
-                    <button className="custom-button" onClick={submitPhoto} style={styles.button}>Submit</button>
-                    <button className="custom-button" onClick={activateDesktopCamera} style={styles.button}>Retake</button>
+                    <Button className="custom-button" onClick={submitPhoto} style={styles.button}>Submit</Button>
+                    <Button className="custom-button" onClick={activateDesktopCamera} style={styles.button}>Retake</Button>
                 </div>
             )}
             <BackButton />

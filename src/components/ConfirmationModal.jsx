@@ -4,6 +4,7 @@ import {AppContext} from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize'
+import { Button } from "@chakra-ui/react";
 
 
 
@@ -61,13 +62,13 @@ const ConfirmationModal = () => {
                     {displayConfirmation(serverResponse)}
                 </ul>
                 <div className="source-type-modal__controls">
-                    <button
+                    <Button
                         value="Okay"
                         className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                         onClick={handleOnClick}
 
                     >Okay
-                    </button>
+                    </Button>
                 </div>
             </Modal>
             {modalOpen && <Confetti width={width} height={height}/>}
