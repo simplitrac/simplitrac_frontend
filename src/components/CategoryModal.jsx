@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { AppContext } from "../context/AppContext.jsx";
 import User from "../models/User.js";
 import Category from "../models/Category.js";
+import { Button } from "@chakra-ui/react";
 // import '../App.css';
 
 const categories = [
@@ -83,13 +84,13 @@ const CategoryModal = () => {
                     ))}
                 </ul>
                 <div className="source-type-modal__controls">
-                    <button
+                    <Button
                         value="apply"
                         className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                         onClick={submitCategories}
                     >
                         Apply
-                    </button>
+                    </Button>
                 </div>
             </Modal>
         </div>

@@ -1,6 +1,8 @@
 // eslint-disable-next-line react/prop-types
 import {useContext} from "react";
-import {AppContext} from "../context/AppContext.jsx";
+import { AppContext } from "../context/AppContext.jsx";
+import { Button } from "@chakra-ui/react";
+
 
 const BackButton = () => {
 
@@ -20,7 +22,7 @@ const BackButton = () => {
     };
 
     return (
-        <button onClick={onBack}>Back</button>
+        <Button onClick={onBack}>Back</Button>
     );
 };
 

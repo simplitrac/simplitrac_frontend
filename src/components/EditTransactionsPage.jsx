@@ -5,6 +5,7 @@ import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 import BackButton from "./BackButton.jsx";
 import '../App.css';
+import { Button } from "@chakra-ui/react";
 
 const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse } = useContext(AppContext);
@@ -127,19 +128,19 @@ const EditTransactionsPage = () => {
                             </select>
                         )}
                     />
-                    <button
+                    <Button
                         type="button"
                         className="custom-button delete-button"
                         onClick={() => handleDelete(transaction.transactionId)}
                     >
                         Delete
-                    </button>
+                    </Button>
                 </div>
             ))}
             <div className="edit-buttons">
-                <button type="submit" className="custom-button">Save Changes</button>
-                <button type="button" className="custom-button" onClick={handleCancel}>Cancel</button>
-                <button type="button" className="custom-button" onClick={handleCancel}>Back</button>
+                <Button type="submit" className="custom-button">Save Changes</Button>
+                <Button type="button" className="custom-button" onClick={handleCancel}>Cancel</Button>
+                <Button type="button" className="custom-button" onClick={handleCancel}>Back</Button>
             </div>
         </form>
     );
