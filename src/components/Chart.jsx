@@ -30,7 +30,7 @@ const App = () => {
     <div className="App">
       <h1>SimpliTrac</h1>
       <LookerStudioChart user_email={userEmail} /> 
-      <BackButton />
+      <BackButton /> 
       {userId && <LookerStudioChart userId={userId} />}
     </div>
   );
