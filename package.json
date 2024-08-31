@@ -21,6 +21,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
+    "auth": "^1.1.1",
     "dotenv": "^16.4.5",
     "esbuild": "^0.23.1",
     "firebase": "^10.12.2",
