@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { auth, onAuthStateChanged } from "firebase/auth";
-import './App.css'; 
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import "..//App.css"
 
-const App = () => {
+function App() {
   const [userId, setUserId] = useState("");
+  const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -19,12 +20,12 @@ const App = () => {
   return (
     <div className="App">
       <h1>SimpliTrac</h1>
-      <LookerStudioChart user_email={userEmail} /> 
-      <BackButton /> 
+      <LookerStudioChart user_email={userEmail} />
+      <BackButton />
       {userId && <LookerStudioChart userId={userId} />}
     </div>
   );
-};
+}
 
 // LookerStudioChart component to display embedded Looker Studio report
 const LookerStudioChart = ({ user_email }) => {
