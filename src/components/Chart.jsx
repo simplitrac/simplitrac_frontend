@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import "..//App.css"
 import BackButton from "./BackButton.jsx";
+import { auth, onAuthStateChanged } from "../config/initializeFirestore.js";
+import '../App.css';
 
 function App() {
   const [userId, setUserId] = useState("");

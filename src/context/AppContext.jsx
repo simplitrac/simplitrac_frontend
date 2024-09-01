@@ -15,6 +15,17 @@ const AppProvider = ({ children }) => {
         return 'mobile'
     }
 
+    const renderNewScreen = (screen) => {
+        if (screen === undefined) {
+            return;
+        }
+        setScreen(screen);
+    };
+
+    const toggleCategoriesList = () => {
+        setShowCategories(!showCategories);
+    };
+
     const [screen, setScreen] = useState();
     const [user, setUser] = useState(new User(JSON.parse(localStorage.getItem('user'))));
     const [modalIsOpen, setModalIsOpen] = useState(true);
@@ -27,6 +38,8 @@ const AppProvider = ({ children }) => {
     const [formData, setFormData] = useState(new FormData());
     const [isUpdating, setIsUpdating] = useState(false)
     const [showHamburger, setShowHamburger] = useState(false)
+    const [categoriesSelected, setCategoriesSelected] = useState(false);
+
 
 
     // updating user data based on state
@@ -95,7 +108,10 @@ const AppProvider = ({ children }) => {
         formData, setFormData,
         resetAppState,
         isUpdating, setIsUpdating,
-        showHamburger, setShowHamburger
+        showHamburger, setShowHamburger,
+        renderNewScreen,
+        toggleCategoriesList,
+        categoriesSelected, setCategoriesSelected,
     };
 
 

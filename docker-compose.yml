@@ -1,0 +1,14 @@
+services:
+  simplitrac-web-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+
+  backend-server:
+    build:
+      context: ../SimpliTrac/functions
+    ports:
+      - "5001:5001"

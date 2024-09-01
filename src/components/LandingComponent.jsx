@@ -28,31 +28,20 @@ import ReactConfetti from "react-confetti";
 import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
-    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating } = useContext(AppContext);
+    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected } = useContext(AppContext);
     const [showCategories, setShowCategories] = useState(false);
     const [runTour, setRunTour] = useState(false);
-    const [categoriesSelected, setCategoriesSelected] = useState(false);
     useEffect(() => {
         if (user.isNewUser && user.isNewUser() && categoriesSelected) {
             setRunTour(true);
         }
     }, [user, categoriesSelected]);
 
-    const renderNewScreen = (screen) => {
-        if (screen === undefined) {
-            return;
-        }
-        setScreen(screen);
-    };
 
     useEffect(() => {
         setUser(user)
         // reactAchievementsEventEmitter.emit("checkAchievements", user.serialize())
     }, [serverResponse]);
-
-    const toggleCategoriesList = () => {
-        setShowCategories(!showCategories);
-    };
 
     const handleDeleteCategory = async (user, categoryId) => {
         if (window.confirm("Are you sure you want to delete this category?")) {
@@ -88,18 +77,18 @@ const LandingComponent = () => {
                     )}
                 </Box>
                 <VStack spacing={8}>
-                    <HStack spacing={4} justify="center">
-                        <Image src={logo} alt="SimpliTrac Logo" boxSize="300px" borderRadius="full" />
+                    <HStack justify="center">
+                        {/*<Image src={logo} alt="SimpliTrac Logo" boxSize="300px" borderRadius="full" />*/}
                     </HStack>
                     <ExpensesTable />
                     <HStack spacing={4}>
-                        <Button onClick={() => setRunTour(true)}>Start Tour</Button>
-                        <Button onClick={() => renderNewScreen("camera")}>Camera</Button>
-                        <Button onClick={() => renderNewScreen("chart")}>Chart</Button>
-                        <Button onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
-                        <Button onClick={toggleCategoriesList}>
-                            {showCategories ? "Hide Categories" : "Show Categories"}
-                        </Button>
+                        <Button
+                            width="100%"
+                            onClick={() => renderNewScreen("camera")}>Camera</Button>
+                        <Button
+                            width="100%"
+                            onClick={() => renderNewScreen("chart")}>Chart</Button>
+
                     </HStack>
                     {showCategories && (
                         <Box w="100%">
@@ -120,7 +109,6 @@ const LandingComponent = () => {
                             </List>
                         </Box>
                     )}
-                    <SignOut />
                 </VStack>
             </Container>
         </AchievementProvider>
