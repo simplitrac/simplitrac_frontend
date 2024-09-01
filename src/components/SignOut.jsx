@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext.jsx";
 import { useContext } from "react";
 import { Button } from "@chakra-ui/react";
 
-const Logout = () => {
+const Logout = (props) => {
 
     const { setScreen, setUser, resetAppState } = useContext(AppContext);
 
@@ -19,7 +19,10 @@ const Logout = () => {
     }
 
     return (
-        <Button onClick={logOut}>Logout</Button>
+        <Button
+            {...props}
+            onClick={logOut}
+        >Logout</Button>
     );
 }
 
