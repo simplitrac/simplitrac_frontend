@@ -96,28 +96,31 @@ const Camera = () => {
                 body: formData,
             };
             const response = await fetch(url, init);
-            setIsUpdating(false);
+            
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            
             const result = await response.json();
-        if (result.error) {
-            // Handle error response
-            console.error('Error from OCR service:', result.message);
-            alert(result.message); // You might want to use a more user-friendly way to display this
-        } else {
-            const transaction = new Transaction(result);
-            setOcrData(transaction);
-            setScreen("landing");
-            setCapturedPhoto(false);
-            setOcrModalOpen(true);
-        }
-    } catch (error) {
-        console.error('Error submitting photo:', error);
-        alert('Text is unreadable, please take the photo again.'); // You might want to use a more user-friendly way to display this
-
+            
+            if (result.error) {
+                // Handle error response from OCR/LLM service
+                throw new Error(result.message || 'Error from OCR service');
+            } else {
+                const transaction = new Transaction(result);
+                setOcrData(transaction);
+                setScreen("landing");
+                setCapturedPhoto(false);
+                setOcrModalOpen(true);
+            }
+        } catch (error) {
+            console.error('Error submitting photo:', error);
+            alert('An error occurred while processing the image. Please try again.');
+        } finally {
+            setIsUpdating(false);
         }
     };
+        
 
     // if (device === 'desktop'){
     //     if(hasPermission && !videoRef.current?.srcObject){
