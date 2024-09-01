@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "..//App.css"
+import BackButton from "./BackButton.jsx";
 
 function App() {
   const [userId, setUserId] = useState("");
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth
+  });
   const auth = getAuth();
 
   useEffect(() => {
@@ -14,42 +19,60 @@ function App() {
         setUserId("");
       }
     });
-    return () => unsubscribe();
-  }, []);
+
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      });
+    }
+
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      unsubscribe();
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [auth]);
 
   return (
     <div className="App">
       <h1>SimpliTrac</h1>
-      <LookerStudioChart user_email={userEmail} />
+      <LookerStudioChart dimensions={dimensions} />
       <BackButton />
-      {userId && <LookerStudioChart userId={userId} />}
     </div>
   );
 }
 
-// LookerStudioChart component to display embedded Looker Studio report
-const LookerStudioChart = ({ user_email }) => {
-  const reportUrl = `https://lookerstudio.google.com/embed/reporting/ae330055-31b8-4e65-a1a9-f0bbd1cda92f/page/87O5D?params=${encodeURIComponent(`{"user_email": "${user_email}","filter": {"user_email": "${user_email}"} }`)}`;
+const LookerStudioChart = ({ dimensions }) => {
+  const reportUrl = `https://lookerstudio.google.com/embed/reporting/ae330055-31b8-4e65-a1a9-f0bbd1cda92f/page/p_7bf8d7cckd`;
 
-  const mobile = window.innerWidth <= 550
-  const iframeStyle = {
-    justifyContent: 'center',
-    position: 'relative',
+  const mobile = dimensions.width <= 550;
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    display: 'inline-flex', 
     width: '100%',
-    height: mobile ? '350px' : '1000px', 
+    maxWidth: mobile ? '50%' : '80%',
+    height: `${dimensions.height - 200}px`,
+    margin: '0 auto',
+    padding: '10px',
+    boxSizing: 'border-box',
   };
-  useEffect(() => {
-    console.log(`Report URL: ${reportUrl}`);
-  }, [reportUrl]);
 
+  const iframeStyle = {
+    width: '100%',
+    height: '80%',
+    border: 'none',
+  };
+  
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%',  }}>
+    <div style={containerStyle}>
       <iframe 
         id="report-frame" 
         src={reportUrl} 
-        style= {iframeStyle}
+        style={iframeStyle}
         allowFullScreen  
       />
     </div>
