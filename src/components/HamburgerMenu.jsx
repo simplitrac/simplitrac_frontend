@@ -21,7 +21,7 @@ const HamburgerMenu = ({setRunTour}) => {
         setShowHamburger,
         renderNewScreen,
         showCategories,
-        toggleCategoriesList
+        toggleCategoriesList, 
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -70,7 +70,7 @@ const HamburgerMenu = ({setRunTour}) => {
                                 <Button
                                     variant="ghost"
                                     w="100%"
-                                    onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
+                                    onClick={() => renderNewScreen("chart")}>Expense Chart</Button>
                                 <Button
                                     variant="ghost"
                                     w="100%"

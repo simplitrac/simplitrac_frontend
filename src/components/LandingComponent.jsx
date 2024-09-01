@@ -84,10 +84,10 @@ const LandingComponent = () => {
                     <HStack spacing={4}>
                         <Button
                             width="100%"
-                            onClick={() => renderNewScreen("camera")}>Camera</Button>
+                            onClick={() => renderNewScreen("camera")}>Scan Receipt</Button>
                         <Button
                             width="100%"
-                            onClick={() => renderNewScreen("chart")}>Chart</Button>
+                            onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
 
                     </HStack>
                     {showCategories && (
