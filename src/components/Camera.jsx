@@ -165,7 +165,7 @@ const Camera = () => {
                     <Button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</Button>
                 </div>
             )}
-            {capturedPhoto && device !== 'mobile' && (
+            {capturedPhoto && device === 'desktop' && (
                 <div>
                     <div style={styles.imageContainer}>
                         <p>Captured Photo:</p>
