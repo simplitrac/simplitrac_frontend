@@ -88,14 +88,14 @@ class User {
 
     async updateFirebase() {
         const init = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
             },
             body: JSON.stringify(this.serialize())
         };
-        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}/?user_id=${this.user_id}`;
+        const endPoint = `${import.meta.env.VITE_PROD_UPDATE_USER_ENDPOINT}?user_id=${this.user_id}`;
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
@@ -115,7 +115,7 @@ class User {
             },
             body: JSON.stringify(this.serialize())
         };
-        const endPoint = `${import.meta.env.VITE_PROD_DELETE_TRANSACTIONS_ENDPOINT}/?user_id=${this.user_id}`;
+        const endPoint = `${import.meta.env.VITE_PROD_DELETE_TRANSACTIONS_ENDPOINT}?user_id=${this.user_id}`;
         const response = await fetch(endPoint, init);
         let result;
         result = await response.text();
