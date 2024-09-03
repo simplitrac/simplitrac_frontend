@@ -1,0 +1,14 @@
+services:
+  frontend-server:
+    image: docker.io/simplitrac/frontend:latest
+    platform: linux/amd64
+    ports:
+      - "80:80"
+    restart: always
+
+  backend-server:
+    image: docker.io/simplitrac/backend:latest
+    platform: linux/amd64
+    ports:
+      - "5001:5001"
+    restart: always
