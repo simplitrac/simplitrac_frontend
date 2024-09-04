@@ -38,7 +38,7 @@ const Updating
     return (
       <UpdatingContainer>
         <div>
-          <LoadingSpinner />
+          {/* <LoadingSpinner /> */}
           <LoadingMessage>{message}</LoadingMessage>
         </div>
       </UpdatingContainer>
