@@ -54,7 +54,7 @@ const LookerStudioChart = ({ dimensions }) => {
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    maxWidth: mobile ? '50%' : '80%',
+    maxWidth: mobile ? '100%' : '80%',
     height: `${dimensions.height - 200}px`,
     margin: '0 auto',
     padding: '10px',
