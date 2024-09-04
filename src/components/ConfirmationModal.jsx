@@ -66,7 +66,11 @@ const ConfirmationModal = () => {
                         value="Okay"
                         className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                         onClick={handleOnClick}
-
+                        style={{
+                            background: "#52524a",
+                            marginRight: "16px",
+                            padding: "12px 20px",
+                        }}
                     >Okay
                     </Button>
                 </div>
