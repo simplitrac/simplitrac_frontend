@@ -9,7 +9,7 @@ function App() {
     height: window.innerHeight,
     width: window.innerWidth
   });
-  const auth = getAuth();
+  // const auth = getAuth(); // this was breaking the page
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

@@ -104,8 +104,12 @@ const Header = () => {
                 </Button>
                 <Button
                     leftIcon={<Icon as={FaGoogle} />}
+                    // colorScheme="red"
+                    bgColor= 'oxfordBlue.400'
                     variant="solid"
+                    textShadow= 'true'
                     fontSize={['sm', 'md', 'lg']}
+                    mr={2}
                     onClick={async () => await newUserSignUp()}
                 >
                     Sign up
@@ -125,11 +129,11 @@ const Header = () => {
                             bg: 'red.400',
                             zIndex: -1,
                         }}>
-                            Track Fiances...
+                            Track Finances
                         </Text>
                         <br />
-                        <Text as="span" color="green">
-                            Simply
+                        <Text as="span" color="#778DA9">
+                            Simpli.
                         </Text>
                     </Heading>
                     <Text color="gray.500" mb={6}>
@@ -143,8 +147,8 @@ const Header = () => {
                 <Box flex={1}>
                     <Image
                         src='../../docs/pictures/simplitrac_logo.png'
-                        backgroundColor='black'
-                        fallbackSrc="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+                        backgroundColor= '#3a506b'
+                        // fallbackSrc="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
                         alt="Hero Image"
                         borderRadius="full"
                         boxShadow="lg"
