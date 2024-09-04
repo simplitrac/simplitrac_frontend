@@ -8,20 +8,25 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Body from "./Body.jsx";
 import { Container, VStack } from "@chakra-ui/react";
+import Updating from "./Updating.jsx";
+
 
 export const Login = () => {
-    const { setScreen, setUser} = useContext(AppContext);
+    const { setScreen, setUser, setIsUpdating, isUpdating} = useContext(AppContext);
 
     let storedUser = new User(JSON.parse(localStorage.getItem('user')))
 
     if (!storedUser.isEmptyUser()) {
+        setIsUpdating(true)
         setUser(storedUser)
         setScreen("landing")
+        setIsUpdating(false)
         return
     }
 
     return (
         <Container maxWidth='container.2xl' padding={0}>
+            {isUpdating && <Updating />}
                     <VStack
                         p={10}
                         bg='gray.50'
