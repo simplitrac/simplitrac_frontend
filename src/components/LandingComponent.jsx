@@ -67,9 +67,6 @@ const LandingComponent = () => {
                     <JoyrideTour run={runTour} setRun={setRunTour} />
                     {user.first_name && (
                         <>
-                            <Text fontSize="xl" fontWeight="bold">
-                                Welcome {user.first_name} {user.last_name}
-                            </Text>
                             {user.isNewUser() && <CategoryModal />}
                             {ocrData && <OCRModal />}
                             {serverResponse && <ConfirmationModal />}
