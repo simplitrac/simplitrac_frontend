@@ -9,7 +9,8 @@ import {
     IconButton,
     VStack,
     useDisclosure,
-    Button
+    Button,
+    Text
 } from "@chakra-ui/react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {AppContext} from '../context/AppContext';
@@ -21,7 +22,8 @@ const HamburgerMenu = ({setRunTour}) => {
         setShowHamburger,
         renderNewScreen,
         showCategories,
-        toggleCategoriesList, 
+        toggleCategoriesList,
+        user,
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -56,9 +58,20 @@ const HamburgerMenu = ({setRunTour}) => {
                 <DrawerOverlay>
                     <DrawerContent>
                         <DrawerCloseButton color='red'/>
-                        <DrawerHeader>Menu</DrawerHeader>
+                        <DrawerHeader
+                            textAlign="center"
+                            color="blue"
+                            fontSize="2xl"
+                            fontWeight="bold"
+                        >Menu</DrawerHeader>
                         <DrawerBody>
-                            <VStack align="start" spacing={4}>
+                            <VStack align="center" spacing={4}>
+                                <Text
+                                    fontSize="xl"
+                                    fontWeight="bold"
+                                >
+                                    Welcome {user.first_name}
+                                </Text>
                                 <Button
                                     onClick={startTour}
                                     variant="ghost"
@@ -77,7 +90,12 @@ const HamburgerMenu = ({setRunTour}) => {
                                     onClick={toggleCategoriesList}>
                                     {showCategories ? "Hide Categories" : "Show Categories"}
                                 </Button>
-                                <SignOut variant="ghost" w="100%" color="red"/>
+                                <SignOut
+                                    variant="outline"
+                                    w="100%"
+                                    color="white"
+                                    backgroundColor="red"
+                                />
 
                             </VStack>
                         </DrawerBody>
