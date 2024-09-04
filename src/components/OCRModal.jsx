@@ -115,6 +115,11 @@ const OCRModal = () => {
                 value="edit"
                 className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                 onClick={handleOnClick}
+                style={{
+                    background: "#52524a", 
+                    marginRight: "16px", 
+                    padding: "12px 20px",
+                }}
             >
                 Edit Info
             </button>
@@ -122,6 +127,11 @@ const OCRModal = () => {
                 value="submit"
                 className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                 onClick={handleOnClick}
+                style={{
+                    background: "#3a506b", 
+                    marginRight: "16px", 
+                    padding: "12px 20px",
+                }}
             >
                 Submit
             </button>
