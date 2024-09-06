@@ -59,6 +59,36 @@ button:hover, .custom-button:hover {
   background-color: var(--primary-hover);
 }
 
+/* buttons on edit page */
+.edit-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 5px; 
+}
+
+.edit-left-button {
+  display: flex;
+  gap: 16px; /* Adds space between Cancel and Back buttons */
+}
+
+.edit-right-button {
+  margin-left: auto;
+}
+
+/* space between columns/rows in table */
+.edit-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 3px; 
+}
+
+/* Column headers */
+.edit-table th {
+  font-weight: bold;
+  font-size: 18px; 
+}
+
 /* Forms */
 form {
   width: 100%;
