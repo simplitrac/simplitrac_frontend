@@ -89,61 +89,86 @@ const EditTransactionsPage = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <h2>Edit Transactions</h2>
-            {transactions.map((transaction, index) => (
-                <div key={transaction.transactionId} className="transaction-edit-row">
-                    <label>Date</label>
-                    <Controller
-                        name={`date-${index}`}
-                        control={control}
-                        defaultValue={transaction.createdAt}
-                        render={({ field }) => <input type="date" {...field} />}
-                    />
-                    <label>Vendor</label>
-                    <Controller
-                        name={`vendor-${index}`}
-                        control={control}
-                        defaultValue={transaction.vendor}
-                        render={({ field }) => <input type="text" {...field} />}
-                    />
-                    <label>Amount</label>
-                    <Controller
-                        name={`amount-${index}`}
-                        control={control}
-                        defaultValue={transaction.amount}
-                        render={({ field }) => <input type="number" step="0.01" {...field} />}
-                    />
-                    <label>Category</label>
-                    <Controller
-                        name={`category-${index}`}
-                        control={control}
-                        defaultValue={transaction.category_name || "Select Category"}
-                        render={({ field }) => (
-                            <select {...field}>
-                                {categories.map(category => (
-                                    <option key={category} value={category}>
-                                        {category}
-                                    </option>
-                                ))}
-                            </select>
-                        )}
-                    />
-                    <Button
-                        type="button"
-                        className="custom-button delete-button"
-                        onClick={() => handleDelete(transaction.transactionId)}
-                    >
-                        Delete
-                    </Button>
-                </div>
-            ))}
-            <div className="edit-buttons">
-                <Button type="submit" className="custom-button">Save Changes</Button>
-                <Button type="button" className="custom-button" onClick={handleCancel}>Cancel</Button>
-                <Button type="button" className="custom-button" onClick={handleCancel}>Back</Button>
+        <div className="edit-buttons">
+            <div className="edit-left-button">
+                <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel}>Cancel</Button>
+                <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel}>Back</Button>
             </div>
-        </form>
-    );
+            <div className="edit-right-button">
+                <Button type="submit" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}}>Save Changes</Button>
+            </div>
+        </div>
+        <h1 style={{textAlign: 'center', margin: '0px 0 30px 0'}}><b>Edit Transactions</b></h1>
+        
+        <table className="edit-table" style={{width: '100%', borderCollapse: 'collapse'}}>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Vendor</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {transactions.map((transaction, index) => (
+                    <tr key={transaction.transactionId}>
+                        <td>
+                            <Controller
+                                name={`date-${index}`}
+                                control={control}
+                                defaultValue={transaction.createdAt}
+                                render={({ field }) => <input type="date" {...field} />}
+                            />
+                        </td>
+                        <td>
+                            <Controller
+                                name={`vendor-${index}`}
+                                control={control}
+                                defaultValue={transaction.vendor}
+                                render={({ field }) => <input type="text" {...field} />}
+                            />
+                        </td>
+                        <td>
+                            <Controller
+                                name={`amount-${index}`}
+                                control={control}
+                                defaultValue={transaction.amount}
+                                render={({ field }) => <input type="number" step="0.01" {...field} />}
+                            />
+                        </td>
+                        <td>
+                            <Controller
+                                name={`category-${index}`}
+                                control={control}
+                                defaultValue={transaction.category_name || "Select Category"}
+                                render={({ field }) => (
+                                    <select {...field}>
+                                        {categories.map(category => (
+                                            <option key={category} value={category}>
+                                                {category}
+                                            </option>
+                                        ))}
+                                    </select>
+                                )}
+                            />
+                        </td>
+                        <td>
+                            <Button
+                                type="button"
+                                className="custom-button delete-button"
+                                onClick={() => handleDelete(transaction.transactionId)}
+                            >
+                                Delete
+                            </Button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </form>
+);
 };
 
 export default EditTransactionsPage;
+
