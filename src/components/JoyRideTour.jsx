@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Joyride, { STATUS } from 'react-joyride';
+import { AppContext } from '../context/AppContext';
+
 const steps = [
   {
     target: 'body',
@@ -41,17 +43,20 @@ const steps = [
     placement: 'center',
   },
 ];
-const JoyrideTour = ({ run, setRun }) => {
+const JoyrideTour = () => {
+ 
+  const { runTour, setRunTour } = useContext(AppContext)
+
   const handleJoyrideCallback = (data) => {
     const { status } = data;
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
-      setRun(false);
+      setRunTour(false);
     }
   };
   return (
     <Joyride
       steps={steps}
-      run={run}
+      run={runTour}
       continuous={true}
       showSkipButton={true}
       showProgress={true}
