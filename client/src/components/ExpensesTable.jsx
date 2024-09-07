@@ -193,7 +193,7 @@ const ExpensesForm = () => {
                 />
             </FormControl>
 
-            <Button type="submit" colorScheme="teal" width="full">
+            <Button type="submit" background="#415a77" width="full">
                 {isUpdating ? <Spinner size="sm" /> : 'Submit'}
             </Button>
         </Box>
