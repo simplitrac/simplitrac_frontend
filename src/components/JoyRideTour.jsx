@@ -29,19 +29,6 @@ const steps = [
     target: '[data-tour="expense-chart"]',
     content: 'View a detailed breakdown of your spending habits with our interactive chart feature.',
   },
-  {
-    target: 'Button:contains("Show Categories")',
-    content: 'Manage your expense categories to better organize your financial data.',
-  },
-  {
-    target: '.react-achievements-button',
-    content: 'Check your achievements and see how you rank among other users while maintaining financial peace of mind!',
-  },
-  {
-    target: 'body',
-    content: 'That concludes our tour. Start tracking your expenses with ease!',
-    placement: 'center',
-  },
 ];
 const JoyrideTour = () => {
  
