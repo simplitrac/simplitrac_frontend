@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+../node_modules
 dist-ssr
 *.local
 
@@ -23,7 +23,11 @@ dist-ssr
 *.sw?
 
 .history
-.env
-dist*
+client/.env
+client/dist
 
 actions-runner
+
+**/node_modules
+
+*.pem
