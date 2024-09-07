@@ -1,7 +1,7 @@
 services:
   simplitrac-web-app:
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile
     ports:
       - "80:80"

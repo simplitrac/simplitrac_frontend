@@ -10,30 +10,38 @@ const __dirname = path.resolve();
 const app = express();
 
 // Serve the static files from the React app
-app.use(express.static(path.join(__dirname, '../client/dist'), ));
+// Adjust the path to point to your built React app
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
-// Serve the React app for all requests
+// Serve the React app for all other requests
 app.get('*', (req, res) => {
-    console.log("WOrking messages")
-    res.send("Working")
-    // res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+    const indexPath = path.join(__dirname, '/client/dist', 'index.html');
+
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        console.error("index.html not found in build directory");
+        res.status(404).send("404: File Not Found");
+    }
 });
 
 // Load SSL certificates (for HTTPS)
 const options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('/app/privkey.pem'),  // Path to your private key
+    cert: fs.readFileSync('/app/fullchain.pem') // Path to your full certificate chain
 };
 
 // Start the HTTPS server
-https.createServer(options, app).listen(8443, () => {
-    console.log('HTTPS Server running on port 8443');
+https.createServer(options, app).listen(443, () => {
+    console.log('HTTPS Server running on port 443');
 });
 
 // Redirect HTTP to HTTPS
 const httpApp = express();
 httpApp.get('*', (req, res) => {
-    res.redirect(`https://${req.hostname}${req.url}`);
+    const url = `https://${req.hostname}${req.url}`;
+    console.log(`Redirecting to: ${url}`);
+    res.redirect(url);
 });
 
 // Start HTTP server to redirect to HTTPS
