@@ -5,18 +5,20 @@ import '../App.css';
 
 function App() {
   const [userId, setUserId] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth
   });
-  // const auth = getAuth(); // this was breaking the page
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserId(user.uid);
+        setUserEmail(user.email); // capture email
       } else {
         setUserId("");
+        setUserEmail("");
       }
     });
 
@@ -33,19 +35,25 @@ function App() {
       unsubscribe();
       window.removeEventListener('resize', handleResize);
     };
-  }, [auth]);
+  }, []);
 
   return (
     <div className="App">
       <h1>SimpliTrac</h1>
-      <LookerStudioChart dimensions={dimensions} />
+      <LookerStudioChart dimensions={dimensions} userEmail={userEmail} />
       <BackButton />
     </div>
   );
 }
 
-const LookerStudioChart = ({ dimensions }) => {
+const LookerStudioChart = ({ dimensions, userEmail }) => {
   const reportUrl = `https://lookerstudio.google.com/embed/reporting/ae330055-31b8-4e65-a1a9-f0bbd1cda92f/page/p_7bf8d7cckd`;
+
+  const adminURL = 'https://lookerstudio.google.com/embed/reporting/d14d5e13-0ab5-4a40-8e70-4af6a00c6825/page/p_w1nuazavkd';
+
+  const admins = import.meta.env.VITE_ADMINS?.split(',') || []; // retrieve admin from .env
+
+  const isAdmin = admins.includes(userEmail); // check if the user is an admin
 
   const mobile = dimensions.width <= 550;
 
@@ -71,12 +79,13 @@ const LookerStudioChart = ({ dimensions }) => {
     <div style={containerStyle}>
       <iframe 
         id="report-frame" 
-        src={reportUrl} 
+        src={isAdmin ? adminURL : reportUrl} // conditional rendering based on admin 
         style={iframeStyle}
         allowFullScreen  
       />
     </div>
   );
 };
+
 
 export default App;
