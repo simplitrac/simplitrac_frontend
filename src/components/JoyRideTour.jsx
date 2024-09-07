@@ -14,7 +14,7 @@ const steps = [
     content: 'This is your main dashboard where you can view and manage your expenses.',
   },
   {
-    target: '.expenses-table',
+    target: '.chakra-container',
     content: 'Here you can manually enter your expenses or view your recent transactions.',
   },
   {
@@ -24,10 +24,6 @@ const steps = [
   {
     target: '[data-tour="edit-transactions"]',
     content: 'Easily modify or correct any of your recorded expenses here.',
-  },
-  {
-    target: '[data-tour="expense-chart"]',
-    content: 'View a detailed breakdown of your spending habits with our interactive chart feature.',
   },
 ];
 const JoyrideTour = () => {
