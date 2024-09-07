@@ -178,10 +178,10 @@ const ExpensesForm = () => {
                     name="amount"
                     control={control}
                     rules={{
-                        required: 'Please enter a valid amount',
+                        required: 'Please enter a valid amount. Enter a number without the "$" sign',
                         validate: value => {
                             const numberChecker = /^-?\d*(\.\d*)?$/;
-                            return numberChecker.test(value) ? true : 'Please enter a valid amount';
+                            return numberChecker.test(value) ? true : 'Please enter a valid amount. Enter a number without the "$" sign';
                         }
                     }}
                     render={({ field, fieldState: { error } }) => (
