@@ -25,6 +25,11 @@ const steps = [
     target: '[data-tour="edit-transactions"]',
     content: 'Easily modify or correct any of your recorded expenses here.',
   },
+  {
+    target: 'body',
+    content: 'Be sure to check your achievements tab to see how you rank among other users and earn badges while maintaining financial peace of mind!',
+    placement: 'center',
+  },
 ];
 const JoyrideTour = () => {
  
