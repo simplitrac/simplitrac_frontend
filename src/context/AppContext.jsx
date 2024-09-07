@@ -9,7 +9,7 @@ const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
 
-    const detectDevice = () => {
+    const detectDevice = () => { 
         if (isDesktop) return 'desktop'
 
         return 'mobile'
@@ -21,7 +21,7 @@ const AppProvider = ({ children }) => {
         }
         setScreen(screen);
     };
-
+ 
     const toggleCategoriesList = () => {
         setShowCategories(!showCategories);
     };
