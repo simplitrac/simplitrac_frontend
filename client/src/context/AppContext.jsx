@@ -39,6 +39,9 @@ const AppProvider = ({ children }) => {
     const [isUpdating, setIsUpdating] = useState(false)
     const [showHamburger, setShowHamburger] = useState(false)
     const [categoriesSelected, setCategoriesSelected] = useState(false);
+    const [showCategories, setShowCategories] = useState(false)
+    const [runTour, setRunTour] = useState(false);
+    const [runEditTransactionsTour, setRunEditTransactionsTour] =useState(false);
 
 
 
@@ -87,6 +90,9 @@ const AppProvider = ({ children }) => {
         setFormData(new FormData());
         setIsUpdating(false)
         setShowHamburger(false)
+        setShowCategories(false)
+        setRunTour(false)
+        setRunEditTransactionsTour(false)
     };
 
     // updating data based on user state
@@ -112,6 +118,8 @@ const AppProvider = ({ children }) => {
         renderNewScreen,
         toggleCategoriesList,
         categoriesSelected, setCategoriesSelected,
+        runTour, setRunTour,
+        runEditTransactionsTour, setRunEditTransactionsTour,
     };
 
 

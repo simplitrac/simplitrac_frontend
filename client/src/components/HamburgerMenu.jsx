@@ -16,14 +16,15 @@ import {HamburgerIcon} from "@chakra-ui/icons";
 import {AppContext} from '../context/AppContext';
 import SignOut from "./SignOut.jsx";
 
-const HamburgerMenu = ({setRunTour}) => {
+// const HamburgerMenu = ({setRunTour}) => {
+const HamburgerMenu = () => {
     const {
         showHamburger,
         setShowHamburger,
         renderNewScreen,
         showCategories,
         toggleCategoriesList,
-        user,
+        user, setRunTour
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -83,6 +84,7 @@ const HamburgerMenu = ({setRunTour}) => {
                                 <Button
                                     variant="ghost"
                                     w="100%"
+                                    data-tour="expense-chart"
                                     onClick={() => renderNewScreen("chart")}>Expense Chart</Button>
                                 <Button
                                     variant="ghost"
