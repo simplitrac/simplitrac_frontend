@@ -4,7 +4,12 @@ services:
     platform: linux/amd64
     ports:
       - "80:80"
+      - "443:443"
     restart: always
+    container_name: frontend-container
+#    volumes:
+#      - /etc/letsencrypt/live/simplitrac.com/privkey.pem:/app/privkey.pem  # Mount private key
+#      - /etc/letsencrypt/live/simplitrac.com/fullchain.pem:/app/fullchain.pem  # Mount full chain cert
 
   backend-server:
     image: docker.io/simplitrac/backend:latest
@@ -12,3 +17,4 @@ services:
     ports:
       - "5001:5001"
     restart: always
+    container_name: backend-container

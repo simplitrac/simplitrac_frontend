@@ -1,4 +1,4 @@
-import badge1 from '../../public/assets/icons/badge_1.png';
+import badge1 from '../../../public/assets/icons/badge_1.png';
 
 const achievementConfig = {
     transactions: [

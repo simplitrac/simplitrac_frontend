@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ../
+cd ../client/ || exit
 # Load environment variables from .env file
 if [ -f .env ]; then
   export DO_ACCESS_TOKEN=$(grep DO_ACCESS_TOKEN .env | cut -d '=' -f2)
@@ -14,7 +14,7 @@ fi
 # Ensure doctl is authenticated
 doctl auth init -t "$DO_ACCESS_TOKEN"
 
-# Docker Hub credentials
+cd ..
 
 # Login to Docker Hub
 echo "Logging into Docker Hub..."
@@ -46,7 +46,7 @@ pwd
 docker build --platform linux/amd64 -t simplitrac/backend:latest .
 docker push simplitrac/backend:latest
 
-cd ../simplitrac_frontend/bin
+cd ../../simplitrac_frontend
 
 # Log out of Docker Hub
 docker logout
@@ -56,7 +56,7 @@ echo "Started ssh-agent"
 
 # Copy docker-compose.yml to DigitalOcean droplet
 echo "Copying docker-compose.yml to DigitalOcean droplet..."
-scp  $SECOND_COMPOSE_FILE root@$DO_DROPLET_IP:/root/
+scp  $SECOND_COMPOSE_FILE root@$DO_DROPLET_IP:/root/ || exit
 
 # SSH into the droplet and pull+run the images
 echo "Pulling and running images on DigitalOcean droplet..."
@@ -88,6 +88,8 @@ ssh  root@$DO_DROPLET_IP << EOF
        echo "Docker login failed inside droplet."
        exit 1
    fi
+
+   yes | docker system prune
 
    # Pull images from Docker Hub
    docker pull simplitrac/backend:latest
