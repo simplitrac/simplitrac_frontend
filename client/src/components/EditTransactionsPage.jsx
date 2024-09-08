@@ -7,6 +7,7 @@ import BackButton from "./BackButton.jsx";
 import '../App.css';
 import { Button } from "@chakra-ui/react";
 import EditTransactionsJoyride from './EditTransactionJoyride.jsx';
+import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse, runEditTransactionsTour, setRunEditTransactionsTour } = useContext(AppContext);
@@ -93,6 +94,7 @@ const EditTransactionsPage = () => {
 
     return (
         <>
+        <HamburgerMenu />
             <EditTransactionsJoyride />
             <form onSubmit={handleSubmit(onSubmit)} data-tour="edit-transactions-form">
                 <div className="edit-buttons">
