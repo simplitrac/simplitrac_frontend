@@ -9,7 +9,7 @@ const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
 
-    const detectDevice = () => {
+    const detectDevice = () => { 
         if (isDesktop) return 'desktop'
 
         return 'mobile'
@@ -21,7 +21,7 @@ const AppProvider = ({ children }) => {
         }
         setScreen(screen);
     };
-
+ 
     const toggleCategoriesList = () => {
         setShowCategories(!showCategories);
     };
@@ -38,8 +38,12 @@ const AppProvider = ({ children }) => {
     const [formData, setFormData] = useState(new FormData());
     const [isUpdating, setIsUpdating] = useState(false)
     const [showHamburger, setShowHamburger] = useState(false)
-    const [categoriesSelected, setCategoriesSelected] = useState(false);
     const [showCategories, setShowCategories] = useState(false)
+    const [categoriesSelected, setCategoriesSelected] = useState(false);
+<<<<<<< HEAD
+=======
+    const [showCategories, setShowCategories] = useState(false)
+>>>>>>> f32e475c1272379146a944614c8e58f36e624a43
     const [runTour, setRunTour] = useState(false);
     const [runEditTransactionsTour, setRunEditTransactionsTour] =useState(false);
 
@@ -115,10 +119,15 @@ const AppProvider = ({ children }) => {
         resetAppState,
         isUpdating, setIsUpdating,
         showHamburger, setShowHamburger,
+        runTour, setRunTour,
+        showCategories, setShowCategories,
         renderNewScreen,
         toggleCategoriesList,
         categoriesSelected, setCategoriesSelected,
+<<<<<<< HEAD
+=======
         runTour, setRunTour,
+>>>>>>> f32e475c1272379146a944614c8e58f36e624a43
         runEditTransactionsTour, setRunEditTransactionsTour,
     };
 

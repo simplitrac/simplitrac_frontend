@@ -5,13 +5,15 @@ import './App.css'
 import {AppProvider} from "./context/AppContext.jsx";
 import {ChakraProvider} from "@chakra-ui/react";
 import theme from "./config/theme.js";
+import {AchievementProvider} from "react-achievements";
+import achievementConfig from "./config/achievementConfig.js";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <AppProvider>
+    <AchievementProvider config={achievementConfig} initialState={{}} badgesButtonPosition={'top-right'}>
+    <AppProvider>
             <ChakraProvider theme={theme}>
                 <App />
             </ChakraProvider>
         </AppProvider>
-    </React.StrictMode>
+    </AchievementProvider>
 );

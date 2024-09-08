@@ -11,6 +11,17 @@ const steps = [
   },
   {
     target: '.chakra-container',
+    content: 'This is your main dashboard where you can view and manage your expenses.',
+  },
+  {
+    target: '.expenses-table',
+    content: 'Here you can manually enter your expenses or view your recent transactions.',
+  },
+  {
+    target: '[data-tour="scan-receipt"]',
+    content: 'Use our intuitive AI-driven camera to snap pictures of your receipts and record expenses instantly.',
+  },
+  {
     content: 'This is your main dashboard where you can view, manage and manually enter your expenses.',
   },
   {
@@ -22,9 +33,8 @@ const steps = [
     content: 'Easily modify or correct any of your recorded expenses here.',
   },
   {
-    target: 'body',
-    content: 'Be sure to check your achievements tab to see how you rank among other users and earn badges while maintaining financial peace of mind!',
-    placement: 'center',
+    target: '[data-tour="expense-chart"]',
+    content: 'View a detailed breakdown of your spending habits with our interactive chart feature.',
   },
 ];
 const JoyrideTour = () => {

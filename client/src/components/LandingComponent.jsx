@@ -18,13 +18,9 @@ import { AppContext } from "../context/AppContext.jsx";
 import OCRModal from "./OCRModal.jsx";
 import User from "../models/User.js";
 import ConfirmationModal from "./ConfirmationModal.jsx";
-import { AchievementProvider } from "react-achievements";
+import {AchievementProvider, useAchievement} from "react-achievements";
 import achievementConfig from "../config/achievementConfig.js";
 import JoyrideTour from "./JoyRideTour.jsx";
-import logo from '../../docs/pictures/simplitrac_logo.png';
-import Confetti from "react-confetti";
-import ReactConfetti from "react-confetti";
-// import { reactAchievementsEventEmitter } from "react-achievements";
 import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
@@ -40,7 +36,10 @@ const LandingComponent = () => {
 
     useEffect(() => {
         setUser(user)
-        // reactAchievementsEventEmitter.emit("checkAchievements", user.serialize())
+        setMetrics({
+            categories: user.categories,
+            transactions: user.transactions
+        })
     }, [serverResponse]);
 
     const handleDeleteCategory = async (user, categoryId) => {
@@ -60,7 +59,7 @@ const LandingComponent = () => {
     }
 
     return (
-        <AchievementProvider config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
+        // <AchievementProvider config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>
             <Container maxW="container.xl" py={4}>
                 <HamburgerMenu setRunTour={setRunTour} />
                 <Box>
@@ -89,7 +88,6 @@ const LandingComponent = () => {
                             data-tour="edit-transactions"
                             background="#415a77"
                             onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
-
                     </HStack>
                     {showCategories && (
                         <Box w="100%">
@@ -112,7 +110,7 @@ const LandingComponent = () => {
                     )}
                 </VStack>
             </Container>
-        </AchievementProvider>
+        // </AchievementProvider>
     );
 };
 
