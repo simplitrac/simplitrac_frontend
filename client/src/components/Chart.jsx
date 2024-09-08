@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BackButton from "./BackButton.jsx";
 import { auth, onAuthStateChanged } from "../config/initializeFirestore.js";
 import '../App.css';
+import HamburgerMenu from "./HamburgerMenu.jsx";
 
 function App() {
   const [userId, setUserId] = useState("");
@@ -40,6 +41,7 @@ function App() {
   return (
     <div className="App">
       <h1>SimpliTrac</h1>
+      <HamburgerMenu />
       <LookerStudioChart dimensions={dimensions} userEmail={userEmail} />
       <BackButton />
     </div>
