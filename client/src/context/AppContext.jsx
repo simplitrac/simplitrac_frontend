@@ -40,10 +40,6 @@ const AppProvider = ({ children }) => {
     const [showHamburger, setShowHamburger] = useState(false)
     const [showCategories, setShowCategories] = useState(false)
     const [categoriesSelected, setCategoriesSelected] = useState(false);
-<<<<<<< HEAD
-=======
-    const [showCategories, setShowCategories] = useState(false)
->>>>>>> f32e475c1272379146a944614c8e58f36e624a43
     const [runTour, setRunTour] = useState(false);
     const [runEditTransactionsTour, setRunEditTransactionsTour] =useState(false);
 
@@ -124,10 +120,6 @@ const AppProvider = ({ children }) => {
         renderNewScreen,
         toggleCategoriesList,
         categoriesSelected, setCategoriesSelected,
-<<<<<<< HEAD
-=======
-        runTour, setRunTour,
->>>>>>> f32e475c1272379146a944614c8e58f36e624a43
         runEditTransactionsTour, setRunEditTransactionsTour,
     };
 
