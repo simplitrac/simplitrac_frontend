@@ -28,7 +28,9 @@ import ReactConfetti from "react-confetti";
 import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
-    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected, showCategories, setShowCategories, runTour, setRunTour } = useContext(AppContext);
+    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser,
+        setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected,
+        showCategories, setShowCategories, runTour, setRunTour } = useContext(AppContext);
     // const [showCategories, setShowCategories] = useState(false);
     // const [runTour, setRunTour] = useState(false);
     useEffect(() => {
@@ -43,21 +45,6 @@ const LandingComponent = () => {
         // reactAchievementsEventEmitter.emit("checkAchievements", user.serialize())
     }, [serverResponse]);
 
-    const handleDeleteCategory = async (user, categoryId) => {
-        if (window.confirm("Are you sure you want to delete this category?")) {
-
-            setIsUpdating(true);
-            const result = await user.deleteCategory(categoryId);
-
-            if (result instanceof User) {
-                setUser(result);
-                setServerResponse('Category Successfully Deleted');
-            } else {
-                setServerResponse('Failed to delete category');
-            }
-            setIsUpdating(false);
-        }
-    }
 
     return (
         <AchievementProvider config={achievementConfig} initialState={user.serialize()} badgesButtonPosition={'top-right'}>

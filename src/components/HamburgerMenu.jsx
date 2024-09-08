@@ -15,6 +15,7 @@ import {
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {AppContext} from '../context/AppContext';
 import SignOut from "./SignOut.jsx";
+import { SettingsBackupRestoreRounded } from '@mui/icons-material';
 
 // const HamburgerMenu = ({setRunTour}) => {
 const HamburgerMenu = () => {
@@ -24,7 +25,7 @@ const HamburgerMenu = () => {
         renderNewScreen,
         showCategories,
         toggleCategoriesList,
-        user, setRunTour
+        user, setRunTour, setScreen
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -89,8 +90,8 @@ const HamburgerMenu = () => {
                                 <Button
                                     variant="ghost"
                                     w="100%"
-                                    onClick={toggleCategoriesList}>
-                                    {showCategories ? "Hide Categories" : "Show Categories"}
+                                    onClick={setScreen('editCategories')}>
+                                    Edit Categories
                                 </Button>
                                 <SignOut
                                     variant="outline"
