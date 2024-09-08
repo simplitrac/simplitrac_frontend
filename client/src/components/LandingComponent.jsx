@@ -82,10 +82,12 @@ const LandingComponent = () => {
                         <Button 
                             width="100%"
                             data-tour="scan-receipt"
+                            background="#415a77"
                             onClick={() => renderNewScreen("camera")}>Scan Receipt</Button>
                         <Button
                             width="100%"
                             data-tour="edit-transactions"
+                            background="#415a77"
                             onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
 
                     </HStack>

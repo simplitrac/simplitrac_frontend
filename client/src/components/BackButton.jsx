@@ -22,7 +22,7 @@ const BackButton = () => {
     };
 
     return (
-        <Button onClick={onBack}>Back</Button>
+        <Button background= "#415a77"onClick={onBack}>Back</Button>
     );
 };
 
