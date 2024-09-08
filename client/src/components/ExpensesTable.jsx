@@ -81,7 +81,8 @@ const ExpensesForm = () => {
             borderColor: '#E2E8F0',
             boxShadow: 'none',
             _hover: {
-                borderColor: '#CBD5E0',
+                borderColor: '#999993',
+                background: '#999993'
             },
             minHeight: '40px',
             fontSize: '1rem',

@@ -59,7 +59,7 @@ const HamburgerMenu = () => {
             <Drawer placement="left" onClose={() => setShowHamburger(false)} isOpen={isOpen}>
                 <DrawerOverlay>
                     <DrawerContent>
-                        <DrawerCloseButton color='red'/>
+                        <DrawerCloseButton color='#bd1f36'/>
                         <DrawerHeader
                             textAlign="center"
                             color="yinmnBlue.500"
@@ -97,7 +97,7 @@ const HamburgerMenu = () => {
                                     variant="outline"
                                     w="100%"
                                     color="white"
-                                    backgroundColor="red"
+                                    backgroundColor="#bd1f36"
                                 />
 
                             </VStack>
