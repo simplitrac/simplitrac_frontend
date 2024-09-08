@@ -49,6 +49,7 @@ const HamburgerMenu = () => {
                 onClick={() => setShowHamburger(true)}
                 display={{base: "block", md: "block"}}
                 position="fixed"
+                background="#415a77"
                 top="20px"
                 left="20px"
                 zIndex="1000"
@@ -61,7 +62,7 @@ const HamburgerMenu = () => {
                         <DrawerCloseButton color='red'/>
                         <DrawerHeader
                             textAlign="center"
-                            color="blue"
+                            color="yinmnBlue.500"
                             fontSize="2xl"
                             fontWeight="bold"
                         >Menu</DrawerHeader>

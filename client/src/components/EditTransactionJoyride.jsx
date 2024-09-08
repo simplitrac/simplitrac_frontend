@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Joyride, { STATUS } from 'react-joyride';
-import { AppContext } from '../context/AppContext.jsx';
+import { AppContext } from '../context/AppContext';
 
 const steps = [
   {

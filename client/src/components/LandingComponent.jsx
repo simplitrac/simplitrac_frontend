@@ -25,7 +25,6 @@ import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected, showCategories, setShowCategories, runTour, setRunTour } = useContext(AppContext);
-    const { setMetrics } = useAchievement();
     // const [showCategories, setShowCategories] = useState(false);
     // const [runTour, setRunTour] = useState(false);
     useEffect(() => {
@@ -82,12 +81,13 @@ const LandingComponent = () => {
                         <Button 
                             width="100%"
                             data-tour="scan-receipt"
+                            background="#415a77"
                             onClick={() => renderNewScreen("camera")}>Scan Receipt</Button>
                         <Button
                             width="100%"
                             data-tour="edit-transactions"
+                            background="#415a77"
                             onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
-
                     </HStack>
                     {showCategories && (
                         <Box w="100%">
