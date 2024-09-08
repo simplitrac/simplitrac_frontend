@@ -25,6 +25,7 @@ import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
     const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected, showCategories, setShowCategories, runTour, setRunTour } = useContext(AppContext);
+    const {setMetrics} = useAchievement();
     // const [showCategories, setShowCategories] = useState(false);
     // const [runTour, setRunTour] = useState(false);
     useEffect(() => {
