@@ -71,6 +71,22 @@ const EditTransactionsPage = () => {
         setScreen('landing');
     };
 
+    const handleDelete = async (transactionId) => {
+        if (window.confirm("Are you sure you want to delete this transaction?")) {
+            const updatedTransactions = transactions.filter(t => t.transactionId !== transactionId);
+            setTransactions(updatedTransactions);
+            setDeletedTransactions()
+
+            const updatedUser = new User(user);
+            updatedUser.transactions = updatedTransactions;
+            const result = await updatedUser.updateFirebase();
+
+            if (result instanceof User) {
+                setUser(result);
+                setServerResponse('Transaction Successfully Deleted');
+            }
+        }
+    };
     const startTour = () => {
         setRunEditTransactionsTour(true);
     }
