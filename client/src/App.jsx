@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { AppContext } from './context/AppContext.jsx';
 import Chart from "./components/Chart.jsx";
 import EditTransactionsPage from './components/EditTransactionsPage';
+import EditCategories from './components/EditCategories.jsx';
 import UserGuide from './components/UserGuide.jsx';
 
 
@@ -32,6 +33,8 @@ function App() {
                 return <Camera />
             case "edit":
                 return <EditTransactionsPage />
+            case "categories":
+                return <EditCategories />
             // case "userguide":
             //     return <UserGuide />
             default:

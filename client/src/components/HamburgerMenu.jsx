@@ -22,7 +22,6 @@ const HamburgerMenu = () => {
         showHamburger,
         setShowHamburger,
         renderNewScreen,
-        showCategories,
         toggleCategoriesList,
         user, setRunTour
     } = useContext(AppContext);
@@ -90,8 +89,9 @@ const HamburgerMenu = () => {
                                 <Button
                                     variant="ghost"
                                     w="100%"
-                                    onClick={toggleCategoriesList}>
-                                    {showCategories ? "Hide Categories" : "Show Categories"}
+                                    onClick={toggleCategoriesList}
+                                >
+                                    Edit Categories
                                 </Button>
                                 <SignOut
                                     variant="outline"

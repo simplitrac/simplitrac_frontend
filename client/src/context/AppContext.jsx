@@ -3,6 +3,7 @@ import { isMobile, isTablet, isDesktop } from 'react-device-detect';
 import Transaction from "../models/Transaction.js";
 import FormData from "../models/FormData.js"
 import User from "../models/User.js"
+import EditCategories from '../components/EditCategories.jsx';
 
 
 const AppContext = createContext({});
@@ -23,6 +24,8 @@ const AppProvider = ({ children }) => {
     };
  
     const toggleCategoriesList = () => {
+        setShowHamburger(false)
+        setScreen('categories')
         setShowCategories(!showCategories);
     };
 
