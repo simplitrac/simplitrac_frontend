@@ -28,9 +28,9 @@ import ReactConfetti from "react-confetti";
 import HamburgerMenu from "./HamburgerMenu.jsx";
 
 const LandingComponent = () => {
-    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected } = useContext(AppContext);
-    const [showCategories, setShowCategories] = useState(false);
-    const [runTour, setRunTour] = useState(false);
+    const { setScreen, ocrData, serverResponse, setServerResponse, user, setUser, setIsUpdating, renderNewScreen, categoriesSelected, setCategoriesSelected, showCategories, setShowCategories, runTour, setRunTour } = useContext(AppContext);
+    // const [showCategories, setShowCategories] = useState(false);
+    // const [runTour, setRunTour] = useState(false);
     useEffect(() => {
         if (user.isNewUser && user.isNewUser() && categoriesSelected) {
             setRunTour(true);
@@ -79,11 +79,13 @@ const LandingComponent = () => {
                     </HStack>
                     <ExpensesTable />
                     <HStack spacing={4}>
-                        <Button
+                        <Button 
                             width="100%"
+                            data-tour="scan-receipt"
                             onClick={() => renderNewScreen("camera")}>Scan Receipt</Button>
                         <Button
                             width="100%"
+                            data-tour="edit-transactions"
                             onClick={() => renderNewScreen("edit")}>Edit Transactions</Button>
 
                     </HStack>
