@@ -3,7 +3,7 @@ import badge1 from '../../../public/assets/icons/badge_1.png';
 const achievementConfig = {
     transactions: [
         {
-            check: (value) => value.length >= 1,
+            check: (value) => value?.length >= 1,
             data: {
                 id: 'first_transaction',
                 title: 'First Transaction',
@@ -12,7 +12,7 @@ const achievementConfig = {
             }
         },
         {
-            check: (value) => value.length >= 10,
+            check: (value) => value?.length >= 10,
             data: {
                 id: 'ten_transactions',
                 title: 'Ten Transactions',
@@ -23,7 +23,7 @@ const achievementConfig = {
     ],
     categories: [
         {
-            check: (value) => value.length >= 1,
+            check: (value) => value?.length >= 1,
             data: {
                 id: 'first_category',
                 title: 'First Category',
@@ -32,7 +32,7 @@ const achievementConfig = {
             }
         },
         {
-            check: (value) => value.length >= 5,
+            check: (value) => value?.length >= 5,
             data: {
                 id: 'five_categories',
                 title: 'Five Categories',
