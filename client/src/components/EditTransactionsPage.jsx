@@ -8,12 +8,14 @@ import '../App.css';
 import { Button } from "@chakra-ui/react";
 import EditTransactionsJoyride from './EditTransactionJoyride.jsx';
 import HamburgerMenu from "./HamburgerMenu.jsx";
+import Updating from "./Updating.jsx"
 
 const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse, runEditTransactionsTour, setRunEditTransactionsTour } = useContext(AppContext);
     const [transactions, setTransactions] = useState([]);
     const [categories, setCategories] = useState([]);
     const [deletedTransactions, setDeletedTransactions] = useState([]);
+    const [isUpdating, setIsUpdating] = useState(false)
 
     useEffect(() => {
         if (user && user.transactions) {
@@ -45,6 +47,7 @@ const EditTransactionsPage = () => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
     const onSubmit = async (data) => {
+        setIsUpdating(true);
         const updatedTransactions = transactions.map((transaction, index) => {
             const updatedTransaction = new Transaction(transaction);
             updatedTransaction.vendor = data[`vendor-${index}`];
@@ -66,6 +69,7 @@ const EditTransactionsPage = () => {
             localStorage.setItem('user', result)
             setScreen('landing');
         }
+        setIsUpdating(false)
     };
 
     const handleCancel = () => {
@@ -76,7 +80,7 @@ const EditTransactionsPage = () => {
         if (window.confirm("Are you sure you want to delete this transaction?")) {
             const updatedTransactions = transactions.filter(t => t.transactionId !== transactionId);
             setTransactions(updatedTransactions);
-            setDeletedTransactions()
+            setDeletedTransations()
 
             const updatedUser = new User(user);
             updatedUser.transactions = updatedTransactions;
@@ -84,7 +88,10 @@ const EditTransactionsPage = () => {
 
             if (result instanceof User) {
                 setUser(result);
-                setServerResponse('Transaction Successfully Deleted');
+                setServerResponse('Transaction Successfully Deleted')
+                localStorage.clear()
+                localStorage.setItem('user', result)
+                setScreen('landing');
             }
         }
     };
@@ -96,20 +103,40 @@ const EditTransactionsPage = () => {
         <>
         <HamburgerMenu />
             <EditTransactionsJoyride />
+            {isUpdating ? (
+                <Updating message="Saving changes..." />
+            ) : 
             <form onSubmit={handleSubmit(onSubmit)} data-tour="edit-transactions-form">
                 <div className="edit-buttons">
                     <div className="edit-left-button">
-                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel} data-tour="cancel-button">Cancel</Button>
-                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel}>Back</Button>
+                        <Button 
+                            type="button" 
+                            className="custom-button" 
+                            style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}}     
+                            onClick={handleCancel} data-tour="cancel-button">Cancel</Button>
+                        <Button 
+                            type="button" 
+                            className="custom-button" 
+                            style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} 
+                            onClick={handleCancel}>Back</Button>
                     </div>
                     <div className="edit-right-button">
-                        <Button type="submit" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} data-tour="save-changes">Save Changes</Button>
-                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} onClick={startTour}>Start Tour</Button>
-
+                        <Button 
+                            type="submit" 
+                            className="custom-button" 
+                            style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} 
+                            data-tour="save-changes">
+                            {isUpdating ? <Updating message="Saving..." /> : 'Save Changes'}
+                        </Button>
+                        <Button 
+                            type="button" 
+                            className="custom-button" 
+                            style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} 
+                            onClick={startTour}>Start Tour
+                        </Button>
                     </div>
                 </div>
                 <h1 style={{textAlign: 'center', margin: '0px 0 30px 0'}}><b>Edit Transactions</b></h1>
-                
                 <table className="edit-table" style={{width: '100%', borderCollapse: 'collapse'}} data-tour="transaction-list">
                     <thead>
                         <tr>
@@ -178,7 +205,7 @@ const EditTransactionsPage = () => {
                     </tbody>
                 </table>
             </form>
-        </>    
+        }</>    
     );
 };
 
