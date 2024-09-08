@@ -1,4 +1,4 @@
-import { extendTheme } from '@chakra-ui/react'
+import { background, extendTheme } from '@chakra-ui/react'
 
 const theme = extendTheme({
     config: {
@@ -7,7 +7,7 @@ const theme = extendTheme({
     },
     colors: {
         primary: {
-            main: '#1B263B', //home page buttons
+            main: '#1b263b', //home page buttons
             hover: '#0056b3',
         },
         text: '#495057',
@@ -101,14 +101,15 @@ const theme = extendTheme({
             },
             variants: {
                 solid: {
-                    bg: 'primary.main',
+                    bg: '#415a77',
                     color: 'white',
                     _hover: {
-                        bg: 'primary.hover',
+                        bg: '#999993',
                     },
                 },
                 delete: {
                     bg: 'error.main',
+                    background: '#999993',
                     color: 'white',
                     _hover: {
                         bg: 'error.hover',

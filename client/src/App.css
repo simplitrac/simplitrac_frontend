@@ -56,7 +56,7 @@ button, .custom-button {
 }
 
 button:hover, .custom-button:hover {
-  background-color: var(--primary-hover);
+  background-color: red;
 }
 
 /* buttons on edit page */
@@ -164,11 +164,11 @@ form input:focus, form select:focus {
 
 /* Delete Button */
 .delete-button {
-  background-color: var(--error-color);
+  background-color: #999993;
 }
 
 .delete-button:hover {
-  background-color: var(--error-hover);
+  background-color: #999993;
 }
 .transaction-edit-row {
   display: flex;
