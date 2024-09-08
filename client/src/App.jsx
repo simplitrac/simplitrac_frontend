@@ -3,7 +3,6 @@ import './App.css'
 import ExpensesTable from './components/ExpensesTable.jsx'
 import Camera from "./components/Camera.jsx";
 import LandingComponent from "./components/LandingComponent.jsx";
-import {useEffect, useState} from "react";
 import Login from "./components/Login.jsx";
 import { useContext } from 'react';
 import { AppContext } from './context/AppContext.jsx';
@@ -11,6 +10,7 @@ import Chart from "./components/Chart.jsx";
 import EditTransactionsPage from './components/EditTransactionsPage';
 import EditCategories from './components/EditCategories.jsx';
 import UserGuide from './components/UserGuide.jsx';
+import EditCategories from './components/EditCategories.jsx';
 
 
 function App() {
@@ -37,6 +37,8 @@ function App() {
                 return <EditCategories />
             // case "userguide":
             //     return <UserGuide />
+            case "editCategories":
+                return <EditCategories />
             default:
                 return <Login />
         }
