@@ -7,6 +7,7 @@ import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 import Updating from "./Updating.jsx";
+import ExpenseChartJoyride from "./ExpenseChartJoyride.jsx";
 
 const ExpensesForm = () => {
     const { user, formData, setFormData, setUser, ocrData, setOcrData, serverResponse, setServerResponse, isUpdating, setIsUpdating } = useContext(AppContext);
@@ -126,6 +127,8 @@ const ExpensesForm = () => {
 
     return (
         <Box as="form" onSubmit={handleSubmit(onSubmit)} maxW="500px" mx="auto">
+          < ExpenseChartJoyride />
+
             {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
             <FormControl mb={4} isInvalid={errors.date}>
                 <FormLabel>Date</FormLabel>

@@ -14,10 +14,6 @@ const steps = [
     content: 'This is your main dashboard where you can view and manage your expenses.',
   },
   {
-    target: '.chakra-container',
-    content: 'Here you can manually enter your expenses or view your recent transactions.',
-  },
-  {
     target: '[data-tour="scan-receipt"]',
     content: 'Use our intuitive AI-driven camera to snap pictures of your receipts and record expenses instantly.',
   },
