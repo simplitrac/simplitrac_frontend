@@ -177,13 +177,35 @@ class User {
             return new User();
         }
     }
-}
+
+    async deleteUser(user_id) {
+        const init = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        };
+        const endPoint = `${import.meta.env.VITE_PROD_DELETE_USER_ENDPOINT}?user_id=${user_id}`;
+
+        try {
+            const res = await fetch(endPoint, init);
+            return res.json();
+        } catch (error) {
+            console.error('Error deleting account:', error);
+            return null;
+        }
+        }
+    }
+
+
+
 
 function toProperCase(name) {
     if (!name) return;
     const lower = name.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);
-};
+}
 
 
 export default User;
