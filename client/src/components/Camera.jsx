@@ -173,9 +173,9 @@ const Camera = () => {
                     </div>
                     <Button className="custom-button" onClick={submitPhoto} style={styles.button}>Submit</Button>
                     <Button className="custom-button" onClick={activateDesktopCamera} style={styles.button}>Retake</Button>
+                    <BackButton />
                 </div>
-            )}
-            <BackButton />
+                )}
 
             <canvas ref={canvasRef} style={styles.hiddenCanvas}></canvas>
         </div>
