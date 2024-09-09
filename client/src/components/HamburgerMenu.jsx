@@ -1,4 +1,5 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
+import User from '../models/User.js';
 import {
     Drawer,
     DrawerBody,
@@ -15,6 +16,7 @@ import {
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {AppContext} from '../context/AppContext.jsx';
 import SignOut from "./SignOut.jsx";
+import { set } from 'react-hook-form';
 
 // const HamburgerMenu = ({setRunTour}) => {
 const HamburgerMenu = () => {
@@ -24,7 +26,8 @@ const HamburgerMenu = () => {
         renderNewScreen,
         showCategories,
         toggleCategoriesList,
-        user, setRunTour
+        user, setRunTour, setIsUpdating,
+        setServerResponse, setScreen, resetAppState
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -40,6 +43,19 @@ const HamburgerMenu = () => {
         setShowHamburger(false);
         setRunTour(true);
     };
+
+    const handleDeleteAccount = async () => {
+        if (window.confirm("Are you sure you want to delete your account?")) {
+            setIsUpdating(true)
+            console.log(user.user_id)
+            const userToDelete = new User(user)
+            localStorage.removeItem('user')
+            // const result = await userToDelete.deleteUser(user.user_id)
+            userToDelete.deleteUser(user.user_id)
+            // setServerResponse(result)
+            resetAppState()
+        }
+    }
 
     return (
         <>
@@ -92,6 +108,12 @@ const HamburgerMenu = () => {
                                     w="100%"
                                     onClick={toggleCategoriesList}>
                                     {showCategories ? "Hide Categories" : "Show Categories"}
+                                </Button>
+                                <Button
+                                    variant="ghost"
+                                    w="100%"
+                                    onClick={handleDeleteAccount}>
+                                    Delete Account
                                 </Button>
                                 <SignOut
                                     variant="outline"
