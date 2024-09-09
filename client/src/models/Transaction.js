@@ -19,8 +19,8 @@ class Transaction {
         } else {
             this.transactionId = data.transaction_id || this.#generateUUID();
             this.createdAt = data.created_at || null;
-            this.amount = data.amount || null;
-            this.vendor = data.vendor || null;
+            this.amount = (data instanceof Object ? data?.value : data.amount) || null;
+            this.vendor = (data instanceof Object ? data?.value : data.vendor) || null;
             this.category_id = data.category_id || null;
             this.category_name = data.category_name || null;
             this.pictureId = data.pictureId || null;
