@@ -24,7 +24,9 @@ const HamburgerMenu = () => {
         renderNewScreen,
         showCategories,
         toggleCategoriesList,
-        user, setRunTour
+        user, 
+        setRunTour,
+        setRunChartTour
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -86,7 +88,14 @@ const HamburgerMenu = () => {
                                     variant="ghost"
                                     w="100%"
                                     data-tour="expense-chart"
-                                    onClick={() => renderNewScreen("chart")}>Expense Chart</Button>
+                                    onClick={() => {
+                                        renderNewScreen("chart");
+                                        setRunChartTour(true);
+                                        setShowHamburger(false);
+                                    }}
+                                    >
+                                    Expense Chart
+                                </Button>
                                 <Button
                                     variant="ghost"
                                     w="100%"
