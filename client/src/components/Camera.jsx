@@ -88,10 +88,16 @@ const Camera = () => {
     };
 
     const submitPhoto = async (capturedMobileImage) => {
+        let imageData;
+        if(device === "desktop"){
+            imageData = capturedPhoto;
+        } else if (device === "mobile"){
+            imageData = capturedMobileImage
+        }
         try {
             setIsUpdating(true);
             const url = import.meta.env.VITE_PROD_OCR_ENDPOINT;
-            const formData = imageToFormData(capturedMobileImage || capturedPhoto);
+            const formData = imageToFormData(imageData);
             const init = {
                 method: 'POST',
                 body: formData,
