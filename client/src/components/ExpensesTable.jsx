@@ -70,9 +70,9 @@ const ExpensesForm = () => {
 
         const transaction = new Transaction(ocrData);
         transaction.createdAt = data.date;
-        transaction.vendor = data.vendor;
+        transaction.vendor = data.vendor.value;
         transaction.amount = data.amount;
-        transaction.category_name = data.category;
+        transaction.category_name = data.category.value;
 
         const updatedUser = new User(user);
         updatedUser.transactions.push(transaction);
