@@ -18,8 +18,14 @@ class FormData {
     }
 
     returnNonEmptyValues() {
-        return Object.entries(this).filter((entry, index) => entry[index] !== null && entry[index] !== undefined)
+        // return Object.entries(this).filter((entry, index) => {
+        //     if(entry[index] !== null && entry[index] !== undefined && entry[index] !== ""){
+        //         console.log(entry[index])
+        //     }
+        // })
+        return Object.entries(this).filter((entry, index) => entry[index - 1] !== null && entry[index - 1] !== undefined && entry[index - 1] !== "")
     }
+
 }
 
 export default FormData

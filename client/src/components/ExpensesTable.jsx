@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm, Controller } from 'react-hook-form';
 import { FormControl, FormLabel, Input, Button, Box, Text, Spinner } from "@chakra-ui/react";
 import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
 import { AppContext } from "../context/AppContext.jsx";
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
@@ -9,7 +10,7 @@ import Updating from "./Updating.jsx";
 import ExpenseChartJoyride from "./ExpenseChartJoyride.jsx";
 
 const ExpensesForm = () => {
-    const { user, formData, setFormData, setUser, ocrData, setOcrData, setServerResponse, isUpdating, setIsUpdating } = useContext(AppContext);
+    const { user, formData, setFormData, setUser, ocrData, setOcrData, serverResponse, setServerResponse, isUpdating, setIsUpdating } = useContext(AppContext);
     const [vendors, setVendors] = useState([]);
     const [categories, setCategories] = useState([]);
 
@@ -28,18 +29,36 @@ const ExpensesForm = () => {
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     };
 
+    const createOption = (label) => ({
+        label,
+        value: label.toLowerCase(),
+    });
+
+
     useEffect(() => {
         setVendors(user.returnVendorList().map(vendor => ({ value: vendor, label: vendor })));
         setCategories(user.categories.map(cat => ({ value: toProperCase(cat.category_name), label: toProperCase(cat.category_name) })));
+    }, [user]);
 
-        if (formData) {
+    useEffect(() => {
+        if(formData){
             const listOfValues = formData.returnNonEmptyValues();
+
             listOfValues.forEach(([key, value]) => {
                 setValue(key, value);
+                if(key.toLowerCase().includes("category")) {
+                    const valueFromOCR = createOption(value)
+                    setCategories(categories => [...categories, valueFromOCR])
+                    setValue('category', valueFromOCR);
+                } else if(key.toLowerCase().includes("vendor")) {
+                    const valueFromOCR = createOption(value)
+                    setVendors(vendors => [...vendors, valueFromOCR])
+                    setValue('vendor', valueFromOCR);
+                }
             });
             setFormData(null);
         }
-    }, [user, formData, setValue]);
+    }, [formData, setFormData]);
 
     const onSubmit = async (data) => {
         if (Object.keys(errors).length > 0) {
@@ -107,101 +126,119 @@ const ExpensesForm = () => {
     };
 
     return (
-        <>
-            < ExpenseChartJoyride />
-            <Box as="form" onSubmit={handleSubmit(onSubmit)} maxW="500px" mx="auto">
-                {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
-                <FormControl mb={4} isInvalid={errors.date}>
-                    <FormLabel>Date</FormLabel>
-                    <Controller
-                        name="date"
-                        control={control}
-                        render={({ field }) => <Input type="date" {...field} />}
-                    />
-                </FormControl>
+        <Box as="form" onSubmit={handleSubmit(onSubmit)} maxW="500px" mx="auto">
+          < ExpenseChartJoyride />
 
-                <FormControl mb={4} isInvalid={errors.vendor}>
-                    <FormLabel>Vendor</FormLabel>
-                    <Controller
-                        name="vendor"
-                        control={control}
-                        rules={{ required: 'Please select a vendor' }}
-                        render={({ field }) => (
-                            <CreatableSelect
-                                {...field}
-                                options={vendors}
-                                placeholder="Select or type a vendor..."
-                                isClearable
-                                isSearchable
-                                styles={customSelectStyles}
-                                onChange={(selectedOption) => {
-                                    const newValue = selectedOption?.value || '';
-                                    field.onChange(newValue);
-                                    if (newValue && !vendors.some(v => v.value === newValue)) {
-                                        setVendors([...vendors, { value: newValue, label: newValue }]);
-                                    }
-                                }}
-                                value={vendors.find(v => v.value === field.value) || null}
-                            />
-                        )}
-                    />
-                    {errors.vendor && <Text color="red.500">{errors.vendor.message}</Text>}
-                </FormControl>
+            {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
+            <FormControl mb={4} isInvalid={errors.date}>
+                <FormLabel>Date</FormLabel>
+                <Controller
+                    name="date"
+                    control={control}
+                    render={({ field }) => <Input type="date" {...field} />}
+                />
+            </FormControl>
 
-                <FormControl mb={4} isInvalid={errors.category}>
-                    <FormLabel>Category</FormLabel>
-                    <Controller
-                        name="category"
-                        control={control}
-                        rules={{ required: 'Please select a category' }}
-                        render={({ field }) => (
-                            <CreatableSelect
-                                {...field}
-                                options={categories}
-                                placeholder="Select or type a category..."
-                                isClearable
-                                isSearchable
-                                styles={customSelectStyles}
-                                onChange={(selectedOption) => {
-                                    const newValue = selectedOption?.value || '';
-                                    field.onChange(newValue);
-                                    if (newValue && !categories.some(c => c.value === newValue)) {
-                                        setCategories([...categories, { value: newValue, label: newValue }]);
-                                    }
-                                }}
-                                value={categories.find(c => c.value === field.value) || null}
-                            />
-                        )}
-                    />
-                    {errors.category && <Text color="red.500">{errors.category.message}</Text>}
-                </FormControl>
+            <FormControl mb={4} isInvalid={errors.vendor}>
+                <FormLabel>Vendor</FormLabel>
+                <Controller
+                    name="vendor"
+                    control={control}
+                    defaultValue={null}  // This prevents react-hook-form from initializing with an empty string
+                    rules={{ required: 'Please select a vendor' }}
+                    render={({ field }) => (
+                        <CreatableSelect
+                            {...field}  // Apply all form controls from react-hook-form to the select
+                            options={vendors}
+                            placeholder="Select or type a vendor..."
+                            isClearable
+                            isSearchable
+                            styles={customSelectStyles}
 
-                <FormControl mb={4} isInvalid={errors.amount}>
-                    <FormLabel htmlFor="amount">Amount</FormLabel>
-                    <Controller
-                        name="amount"
-                        control={control}
-                        rules={{
-                            required: 'Please enter a valid amount. Enter a number without the "$" sign',
-                            validate: value => {
-                                const numberChecker = /^-?\d*(\.\d*)?$/;
-                                return numberChecker.test(value) ? true : 'Please enter a valid amount. Enter a number without the "$" sign';
-                            }
-                        }}
-                        render={({ field, fieldState: { error } }) => (
-                            <>
-                                <Input type="text" {...field} />
-                                {error && <Text color="red.500">{error.message}</Text>}
-                            </>
-                        )}
-                    />
-                </FormControl>
+                            // Handle creating a new vendor option
+                            onCreateOption={(inputValue) => {
+                                const newOption = { value: inputValue.toLowerCase(), label: inputValue };
 
-                <Button type="submit" background="#415a77" width="full">
-                    {isUpdating ? <Spinner size="sm" /> : 'Submit'}
-                </Button>
-            </Box>
-        </>    
+                                // Add the new vendor to the list
+                                setVendors(prevVendors => [...prevVendors, newOption]);
+
+                                // Update the form state with the new vendor
+                                field.onChange(newOption);
+                                setValue('vendor', newOption);  // Sync the form state
+                            }}
+
+                            // Handle selecting an existing vendor
+                            onChange={(selectedOption) => {
+                                field.onChange(selectedOption);  // Set the whole option
+                                setValue('vendor', selectedOption);  // Sync with react-hook-form
+                            }}
+
+                            // Ensure the correct value format is being passed
+                            value={field.value && field.value.value ? field.value : null}
+                        />
+                    )}
+                />
+                {errors.vendor && <Text color="red.500">{errors.vendor.message}</Text>}
+            </FormControl>
+
+
+            <FormControl mb={4} isInvalid={errors.category}>
+                <FormLabel>Category</FormLabel>
+                <Controller
+                    name="category"
+                    control={control}
+                    defaultValue={null}  // This prevents react-hook-form from initializing with an empty string
+                    rules={{ required: 'Please select a category' }}
+                    render={({ field }) => (
+                        <CreatableSelect
+                            {...field}  // Apply all form controls from react-hook-form to the select
+                            options={categories}
+                            placeholder="Select or type a category..."
+                            isClearable
+                            isSearchable
+                            styles={customSelectStyles}
+                            onCreateOption={(inputValue) => {
+                                const newOption = { value: inputValue, label: inputValue };
+                                setCategories(prevCategories => [...prevCategories, newOption]);
+                                field.onChange(newOption);
+                                setValue('category', newOption);
+                            }}
+                            onChange={(selectedOption) => {
+                                field.onChange(selectedOption);  // Set the whole option
+                                setValue('category', selectedOption);  // Sync with react-hook-form
+                            }}
+                            value={field.value && field.value.value ? field.value : null}  // Ensure that field.value is properly formatted as an object
+                        />
+                    )}
+                />
+                {errors.category && <Text color="red.500">{errors.category.message}</Text>}
+            </FormControl>
+
+            <FormControl mb={4} isInvalid={errors.amount}>
+                <FormLabel htmlFor="amount">Amount</FormLabel>
+                <Controller
+                    name="amount"
+                    control={control}
+                    rules={{
+                        required: 'Please enter a valid amount. Enter a number without the "$" sign',
+                        validate: value => {
+                            const numberChecker = /^-?\d*(\.\d*)?$/;
+                            return numberChecker.test(value) ? true : 'Please enter a valid amount. Enter a number without the "$" sign';
+                        }
+                    }}
+                    render={({ field, fieldState: { error } }) => (
+                        <>
+                            <Input type="text" {...field} />
+                            {error && <Text color="red.500">{error.message}</Text>}
+                        </>
+                    )}
+                />
+            </FormControl>
+
+            <Button type="submit" background="#415a77" width="full">
+                {isUpdating ? <Spinner size="sm" /> : 'Submit'}
+            </Button>
+        </Box>
     );
 };
 
