@@ -74,9 +74,10 @@ const Camera = () => {
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                setCapturedPhoto(e.target.result);
+                const capturedImage = e.target.result;
+                setCapturedPhoto(capturedImage);
                 if (device === 'mobile'){
-                    submitPhoto().then(() => {
+                    submitPhoto(capturedImage).then(() => {
                         setCapturedPhoto(null);
                         setIsUpdating(false);
                     });
@@ -86,11 +87,11 @@ const Camera = () => {
         }
     };
 
-    const submitPhoto = async () => {
+    const submitPhoto = async (capturedMobileImage) => {
         try {
             setIsUpdating(true);
             const url = import.meta.env.VITE_PROD_OCR_ENDPOINT;
-            const formData = imageToFormData(capturedPhoto);
+            const formData = imageToFormData(capturedMobileImage || capturedPhoto);
             const init = {
                 method: 'POST',
                 body: formData,
@@ -115,7 +116,7 @@ const Camera = () => {
             }
         } catch (error) {
             console.error('Error submitting photo:', error);
-            alert('An error occurred while processing the image. Please try again.');
+            alert(`An error occurred while processing the image. Please try again ${error}`);
         } finally {
             setIsUpdating(false);
         }
@@ -176,7 +177,6 @@ const Camera = () => {
                     <BackButton />
                 </div>
                 )}
-
             <canvas ref={canvasRef} style={styles.hiddenCanvas}></canvas>
         </div>
     );
