@@ -42,6 +42,7 @@ const AppProvider = ({ children }) => {
     const [categoriesSelected, setCategoriesSelected] = useState(false);
     const [runTour, setRunTour] = useState(false);
     const [runEditTransactionsTour, setRunEditTransactionsTour] =useState(false);
+    const [runChartTour, setRunChartTour] =useState(false);
 
 
 
@@ -93,6 +94,7 @@ const AppProvider = ({ children }) => {
         setShowCategories(false)
         setRunTour(false)
         setRunEditTransactionsTour(false)
+        setRunChartTour(false)
     };
 
     // updating data based on user state
@@ -121,6 +123,7 @@ const AppProvider = ({ children }) => {
         toggleCategoriesList,
         categoriesSelected, setCategoriesSelected,
         runEditTransactionsTour, setRunEditTransactionsTour,
+        runChartTour, setRunChartTour,
     };
 
 

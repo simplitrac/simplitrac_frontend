@@ -10,6 +10,8 @@ import { AppContext } from './context/AppContext.jsx';
 import Chart from "./components/Chart.jsx";
 import EditTransactionsPage from './components/EditTransactionsPage';
 import UserGuide from './components/UserGuide.jsx';
+import {AchievementProvider} from "react-achievements";
+import achievementConfig from "./config/achievementConfig.js";
 
 
 function App() {
@@ -25,7 +27,11 @@ function App() {
     const renderComponent = () => {
         switch(screen) {
             case "landing":
-                return <LandingComponent />
+                return (
+                        <AchievementProvider config={achievementConfig} initialState={{}} badgesButtonPosition={'top-right'}>
+                            <LandingComponent />
+                        </AchievementProvider>
+                )
             case "chart":
                 return <Chart />
             case "camera":

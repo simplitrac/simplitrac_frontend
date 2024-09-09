@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import BackButton from "./BackButton.jsx";
 import { auth, onAuthStateChanged } from "../config/initializeFirestore.js";
 import '../App.css';
-import HamburgerMenu from "./HamburgerMenu.jsx";
+import HamburgerMenuEdit from "./HamburgerMenuEdit.jsx";
+import { AppContext } from '../context/AppContext.jsx';
+import ExpenseChartJoyride from './ExpenseChartJoyride.jsx';
+
+
 
 function App() {
+  const {runChartTour, setRunChartTour} = useContext(AppContext);
   const [userId, setUserId] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [dimensions, setDimensions] = useState({
@@ -40,8 +45,9 @@ function App() {
 
   return (
     <div className="App">
+      < ExpenseChartJoyride />
       <h1>SimpliTrac</h1>
-      <HamburgerMenu />
+      <HamburgerMenuEdit />
       <LookerStudioChart dimensions={dimensions} userEmail={userEmail} />
       <BackButton />
     </div>

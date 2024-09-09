@@ -9,11 +9,11 @@ import {AchievementProvider} from "react-achievements";
 import achievementConfig from "./config/achievementConfig.js";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <AchievementProvider config={achievementConfig} initialState={{}} badgesButtonPosition={'top-right'}>
+    // <AchievementProvider config={achievementConfig} initialState={{}} badgesButtonPosition={'top-right'}>
     <AppProvider>
             <ChakraProvider theme={theme}>
                 <App />
             </ChakraProvider>
         </AppProvider>
-    </AchievementProvider>
+    // </AchievementProvider>
 );
