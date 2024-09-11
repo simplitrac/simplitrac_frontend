@@ -11,7 +11,7 @@ import {
     VStack,
     useDisclosure,
     Button,
-    Text
+    Text, DrawerFooter
 } from "@chakra-ui/react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {AppContext} from '../context/AppContext.jsx';
@@ -27,7 +27,9 @@ const HamburgerMenu = () => {
         showCategories,
         toggleCategoriesList,
         user, setRunTour, setRunChartTour, setIsUpdating,
-        setServerResponse, setScreen, resetAppState
+        setServerResponse,
+        setScreen,
+        resetAppState
     } = useContext(AppContext);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -49,9 +51,10 @@ const HamburgerMenu = () => {
             setIsUpdating(true)
             console.log(user.user_id)
             const userToDelete = new User(user)
-            localStorage.removeItem('user')
             // const result = await userToDelete.deleteUser(user.user_id)
-            userToDelete.deleteUser(user.user_id)
+            await userToDelete.deleteUser(user.user_id)
+            localStorage.removeItem('user')
+
             // setServerResponse(result)
             resetAppState()
         }
@@ -116,21 +119,24 @@ const HamburgerMenu = () => {
                                     onClick={toggleCategoriesList}>
                                     {showCategories ? "Hide Categories" : "Show Categories"}
                                 </Button>
-                                <Button
-                                    variant="ghost"
-                                    w="100%"
-                                    onClick={handleDeleteAccount}>
-                                    Delete Account
-                                </Button>
-                                <SignOut
-                                    variant="outline"
-                                    w="100%"
-                                    color="white"
-                                    backgroundColor="#bd1f36"
-                                />
-
                             </VStack>
+                            <Button
+                                variant="ghost"
+                                w="100%"
+                                onClick={handleDeleteAccount}
+                                backgroundColor="#bd1f36"
+                            >
+                                Delete Account
+                            </Button>
                         </DrawerBody>
+                        <DrawerFooter>
+
+                            <SignOut
+                                variant="outline"
+                                w="100%"
+                                color="white"
+                            />
+                        </DrawerFooter>
                     </DrawerContent>
                 </DrawerOverlay>
             </Drawer>
