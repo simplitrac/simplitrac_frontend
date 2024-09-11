@@ -11,8 +11,8 @@ const Logout = (props) => {
         try {
             await signOut(auth);
             // localStorage.clear() // removing so that game state is preserved.
+            await resetAppState()
             localStorage.removeItem('user');
-            resetAppState()
         } catch (err) {
             console.error('Error signing out: ', err);
         }
