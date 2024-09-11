@@ -134,7 +134,7 @@ const HamburgerMenu = () => {
                             <SignOut
                                 variant="outline"
                                 w="100%"
-                                color="white"
+                                color="black"
                             />
                         </DrawerFooter>
                     </DrawerContent>
