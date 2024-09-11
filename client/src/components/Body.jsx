@@ -31,7 +31,7 @@ const Body = () => {
         },
         {
             title: 'Great User Experience',
-            text: 'Be able to see your spending in real time with our state of the art tracking metrics.',
+            text: 'Our application is easy to learn and will be a valuable tool to anyones daily routine.',
         },
         {
             title: 'Built to Last',
