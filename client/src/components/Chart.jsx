@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import BackButton from "./BackButton.jsx";
 import { auth, onAuthStateChanged } from "../config/initializeFirestore.js";
 import '../App.css';
-import HamburgerMenuEdit from "./HamburgerMenuEdit.jsx";
+import HamburgerMenu from './HamburgerMenu.jsx';
 import { AppContext } from '../context/AppContext.jsx';
 import ExpenseChartJoyride from './ExpenseChartJoyride.jsx';
 import HomeButton from './HomeButton.jsx';
@@ -48,7 +48,7 @@ function App() {
     <div className="App" style={{ marginTop: '2rem' }}>
       <HomeButton/>
       <ExpenseChartJoyride />
-      <HamburgerMenuEdit />
+      <HamburgerMenu/>
       <LookerStudioChart dimensions={dimensions} userEmail={userEmail} />
       <BackButton />
     </div>
