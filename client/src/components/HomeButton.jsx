@@ -40,7 +40,7 @@ const HomeButton = () => {
             border='none'
 
         >
-            <h2 style={{ margin: 0, fontWeight: 'bold' }}>Simplitrac</h2>
+            <h2 style={{ margin: 0, fontWeight: 'bold' }}>SimpliTrac</h2>
             {/* <Image
                 src="../simplitrac_frontend/public/assets/pictures/background_logo.png"
                 alt="Home"
