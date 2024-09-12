@@ -61,7 +61,11 @@ const CategoryModal = () => {
                     setTimeout(() => firstInputRef.current?.focus(), 0);
                 }}
             >
-            <h2 id="source-type-dialog-label">Account Created Successfully! Please Select Your Standard Expense Categories: </h2>  <header></header>
+            <h1 id="source-type-dialog-label" align="center">Account Created Successfully!</h1>
+                <br />
+                <h2> Please Select Your Standard Expense Categories: </h2>
+                <br />
+
 
                 <ul
                     className="source-type-modal__list"

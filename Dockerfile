@@ -20,6 +20,8 @@ RUN rm -rf docs node_modules src
 
 WORKDIR /app
 
+RUN rm -rf public
+
 # Stage 2: Set up the Express server
 FROM node:18 AS server
 
