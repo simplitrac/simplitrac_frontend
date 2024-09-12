@@ -1,18 +1,25 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { AppContext } from "../context/AppContext.jsx";
-import { useForm, Controller } from 'react-hook-form';
+import React, {useContext, useState, useEffect} from 'react';
+import {AppContext} from "../context/AppContext.jsx";
+import {useForm, Controller} from 'react-hook-form';
 import Transaction from "../models/Transaction.js";
 import User from "../models/User.js";
 import BackButton from "./BackButton.jsx";
 import '../App.css';
-import { Button } from "@chakra-ui/react";
+import {Button} from "@chakra-ui/react";
 import EditTransactionsJoyride from './EditTransactionJoyride.jsx';
 import HamburgerMenuEdit from "./HamburgerMenuEdit.jsx";
-import { Spinner } from "react-bootstrap";
+import {Spinner} from "react-bootstrap";
 import HomeButton from './HomeButton.jsx';
 
 const EditTransactionsPage = () => {
-    const { user, setUser, setScreen, setServerResponse, runEditTransactionsTour, setRunEditTransactionsTour } = useContext(AppContext);
+    const {
+        user,
+        setUser,
+        setScreen,
+        setServerResponse,
+        runEditTransactionsTour,
+        setRunEditTransactionsTour
+    } = useContext(AppContext);
     const [transactions, setTransactions] = useState([]);
     const [categories, setCategories] = useState([]);
     const [deletedTransactions, setDeletedTransactions] = useState([]);
@@ -27,7 +34,13 @@ const EditTransactionsPage = () => {
         }
     }, [user])
 
-    const { control, handleSubmit, watch } = useForm(
+    useEffect(() => {
+        transactions.forEach(transaction => {
+            setValue()
+        })
+    }, [transactions])
+
+    const {control, handleSubmit, watch, setValue} = useForm(
         // {
         //     defaultValues: {
         //         vendor: 'Select Vendor',
@@ -51,7 +64,7 @@ const EditTransactionsPage = () => {
             const updatedTransaction = new Transaction(transaction);
             updatedTransaction.vendor = data[`vendor-${index}`];
             updatedTransaction.amount = parseFloat(data[`amount-${index}`]);
-            updatedTransaction.category = { name: data[`category-${index}`] };
+            updatedTransaction.category = {name: data[`category-${index}`]};
             updatedTransaction.createdAt = data[`date-${index}`];
             return updatedTransaction;
         });
@@ -96,27 +109,36 @@ const EditTransactionsPage = () => {
 
     return (
         <>
-        <HamburgerMenuEdit />
-        <EditTransactionsJoyride />
-        <Spinner />
-        <HomeButton onClick={() => setScreen('home')} />
-          <div style={{ marginTop: '3rem' }}> 
-            <form onSubmit={handleSubmit(onSubmit)} data-tour="edit-transactions-form">
-                <div className="edit-buttons">
-                    <div className="edit-left-button">
-                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel} data-tour="cancel-button">Cancel</Button>
-                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel}>Back</Button>
-                    </div>
-                    <div className="edit-right-button">
-                        <Button type="submit" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} data-tour="save-changes">Save Changes</Button>
-                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} onClick={startTour}>Start Tour</Button>
+            <HamburgerMenuEdit/>
+            <EditTransactionsJoyride/>
+            <Spinner/>
+            <HomeButton onClick={() => setScreen('home')}/>
+            <div style={{marginTop: '3rem'}}>
+                <form onSubmit={handleSubmit(onSubmit)} data-tour="edit-transactions-form">
+                    <div className="edit-buttons">
+                        <div className="edit-left-button">
+                            <Button type="button" className="custom-button"
+                                    style={{backgroundColor: '#415a77', width: "80px", padding: "12px 20px"}}
+                                    onClick={handleCancel} data-tour="cancel-button">Cancel</Button>
+                            <Button type="button" className="custom-button"
+                                    style={{backgroundColor: '#415a77', width: "80px", padding: "12px 20px"}}
+                                    onClick={handleCancel}>Back</Button>
+                        </div>
+                        <div className="edit-right-button">
+                            <Button type="submit" className="custom-button"
+                                    style={{backgroundColor: '#415a77', width: "130px", padding: "12px 20px"}}
+                                    data-tour="save-changes">Save Changes</Button>
+                            <Button type="button" className="custom-button"
+                                    style={{backgroundColor: '#415a77', width: "130px", padding: "12px 20px"}}
+                                    onClick={startTour}>Start Tour</Button>
 
+                        </div>
                     </div>
-                </div>
-                <h1 style={{textAlign: 'center', margin: '0px 0 30px 0'}}><b>Edit Transactions</b></h1>
-                
-                <table className="edit-table" style={{width: '100%', borderCollapse: 'collapse'}} data-tour="transaction-list">
-                    <thead>
+                    <h1 style={{textAlign: 'center', margin: '0px 0 30px 0'}}><b>Edit Transactions</b></h1>
+
+                    <table className="edit-table" style={{width: '100%', borderCollapse: 'collapse'}}
+                           data-tour="transaction-list">
+                        <thead>
                         <tr>
                             <th>Date</th>
                             <th>Vendor</th>
@@ -124,8 +146,8 @@ const EditTransactionsPage = () => {
                             <th>Category</th>
                             <th></th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         {transactions.map((transaction, index) => (
                             <tr key={transaction.transactionId}>
                                 <td>
@@ -133,7 +155,7 @@ const EditTransactionsPage = () => {
                                         name={`date-${index}`}
                                         control={control}
                                         defaultValue={transaction.createdAt}
-                                        render={({ field }) => <input type="date" {...field} data-tour="date-field" />}
+                                        render={({field}) => <input type="date" {...field} data-tour="date-field"/>}
                                     />
                                 </td>
                                 <td>
@@ -141,7 +163,7 @@ const EditTransactionsPage = () => {
                                         name={`vendor-${index}`}
                                         control={control}
                                         defaultValue={transaction.vendor}
-                                        render={({ field }) => <input type="text" {...field} data-tour="vendor-field" />}
+                                        render={({field}) => <input type="text" {...field} data-tour="vendor-field"/>}
                                     />
                                 </td>
                                 <td>
@@ -149,7 +171,8 @@ const EditTransactionsPage = () => {
                                         name={`amount-${index}`}
                                         control={control}
                                         defaultValue={transaction.amount}
-                                        render={({ field }) => <input type="number" step="0.01" {...field} data-tour="amount-field" />}
+                                        render={({field}) => <input type="number" step="0.01" {...field}
+                                                                    data-tour="amount-field"/>}
                                     />
                                 </td>
                                 <td>
@@ -157,7 +180,7 @@ const EditTransactionsPage = () => {
                                         name={`category-${index}`}
                                         control={control}
                                         defaultValue={transaction.category_name || "Select Category"}
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <select {...field} data-tour="category-field">
                                                 {categories.map(category => (
                                                     <option key={category} value={category}>
@@ -180,11 +203,11 @@ const EditTransactionsPage = () => {
                                 </td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
-            </form>
+                        </tbody>
+                    </table>
+                </form>
             </div>
-        </>    
+        </>
     );
 };
 

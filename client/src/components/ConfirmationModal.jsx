@@ -34,7 +34,7 @@ const ConfirmationModal = () => {
             // .filter(entry => entry[1] !== null && entry[1] !== undefined)
             .map((entry, index) => (
                 <li key={index} className="source-type-modal__list-item">
-                    <label>
+                    <label al>
                         {entry}
                     </label>
                 </li>
@@ -53,22 +53,23 @@ const ConfirmationModal = () => {
                 onAfterOpen={() => {
                     setTimeout(() => firstInputRef.current?.focus(), 0);
                 }}
+                align="center"
             >
                 <ul
                     className="source-type-modal__list"
                     role="group"
                     aria-labelledby="source-type-dialog-label"
+                    align="center"
                 >
                     {displayConfirmation(serverResponse)}
                 </ul>
-                <div className="source-type-modal__controls">
+                <div className="source-type-modal__controls" style={{display: 'flex', justifyContent: 'center'}}>
                     <Button
                         value="Okay"
                         className="source-type-modal__control-btn source-type-modal__control-btn--apply"
                         onClick={handleOnClick}
                         style={{
                             background: "#52524a",
-                            marginRight: "16px",
                             padding: "12px 20px",
                         }}
                     >Okay

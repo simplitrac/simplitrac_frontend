@@ -54,6 +54,7 @@ const HamburgerMenu = () => {
             // const result = await userToDelete.deleteUser(user.user_id)
             await userToDelete.deleteUser(user.user_id)
             localStorage.removeItem('user')
+            localStorage.clear()
 
             // setServerResponse(result)
             resetAppState()

@@ -45,7 +45,6 @@ const ExpensesForm = () => {
             const listOfValues = formData.returnNonEmptyValues();
 
             listOfValues.forEach(([key, value]) => {
-                setValue(key, value);
                 if(key.toLowerCase().includes("category")) {
                     const valueFromOCR = createOption(value)
                     setCategories(categories => [...categories, valueFromOCR])
@@ -54,6 +53,10 @@ const ExpensesForm = () => {
                     const valueFromOCR = createOption(value)
                     setVendors(vendors => [...vendors, valueFromOCR])
                     setValue('vendor', valueFromOCR);
+                } else if (key.toLowerCase().includes("date")){
+                    setValue("date", value)
+                } else {
+                    setValue(key, value);
                 }
             });
             setFormData(null);

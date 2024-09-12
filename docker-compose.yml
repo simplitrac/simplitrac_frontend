@@ -9,6 +9,6 @@ services:
 
   backend-server:
     build:
-      context: ../../SimpliTrac/functions
+      context: ../SimpliTrac/functions
     ports:
       - "5001:5001"
