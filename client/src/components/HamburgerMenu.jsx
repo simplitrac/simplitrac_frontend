@@ -119,23 +119,25 @@ const HamburgerMenu = () => {
                                     onClick={toggleCategoriesList}>
                                     {showCategories ? "Hide Categories" : "Show Categories"}
                                 </Button>
+                                <p></p>
                             </VStack>
+                            <SignOut
+                                variant="outline"
+                                w="100%"
+                                color="white"
+                                background="#415a77"
+                            />
+                        </DrawerBody>
+                        <DrawerFooter>
                             <Button
                                 variant="ghost"
+                                color="white"
                                 w="100%"
                                 onClick={handleDeleteAccount}
                                 backgroundColor="#bd1f36"
                             >
                                 Delete Account
                             </Button>
-                        </DrawerBody>
-                        <DrawerFooter>
-
-                            <SignOut
-                                variant="outline"
-                                w="100%"
-                                color="black"
-                            />
                         </DrawerFooter>
                     </DrawerContent>
                 </DrawerOverlay>
