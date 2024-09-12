@@ -5,6 +5,7 @@ import '../App.css';
 import HamburgerMenuEdit from "./HamburgerMenuEdit.jsx";
 import { AppContext } from '../context/AppContext.jsx';
 import ExpenseChartJoyride from './ExpenseChartJoyride.jsx';
+import HomeButton from './HomeButton.jsx';
 
 
 
@@ -44,9 +45,9 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      < ExpenseChartJoyride />
-      <h1>SimpliTrac</h1>
+    <div className="App" style={{ marginTop: '2rem' }}>
+      <HomeButton/>
+      <ExpenseChartJoyride />
       <HamburgerMenuEdit />
       <LookerStudioChart dimensions={dimensions} userEmail={userEmail} />
       <BackButton />
