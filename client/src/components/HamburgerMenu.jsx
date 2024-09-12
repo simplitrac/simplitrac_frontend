@@ -72,18 +72,21 @@ const HamburgerMenu = () => {
                 top="20px"
                 left="20px"
                 zIndex="1000"
-                colorScheme="teal"
+            // colorScheme="teal"
             />
 
             <Drawer placement="left" onClose={() => setShowHamburger(false)} isOpen={isOpen}>
                 <DrawerOverlay>
                     <DrawerContent>
-                        <DrawerCloseButton color='#bd1f36'/>
+                        <DrawerCloseButton 
+                            color='#bd1f36'
+                            background="white"/>
                         <DrawerHeader
                             textAlign="center"
                             color="yinmnBlue.500"
                             fontSize="2xl"
                             fontWeight="bold"
+                            bg="back"
                         >Menu</DrawerHeader>
                         <DrawerBody>
                             <VStack align="center" spacing={4}>
@@ -120,21 +123,21 @@ const HamburgerMenu = () => {
                                     {showCategories ? "Hide Categories" : "Show Categories"}
                                 </Button>
                                 <p></p>
+                                <SignOut
+                                    variant="outline"
+                                    w="100%"
+                                    color="white"
+                                    backgroundColor="#415a77"
+                                />
                             </VStack>
-                            <SignOut
-                                variant="outline"
-                                w="100%"
-                                color="white"
-                                background="#415a77"
-                            />
                         </DrawerBody>
                         <DrawerFooter>
-                            <Button
+                        <Button
                                 variant="ghost"
-                                color="white"
                                 w="100%"
                                 onClick={handleDeleteAccount}
                                 backgroundColor="#bd1f36"
+                                color='white'
                             >
                                 Delete Account
                             </Button>
