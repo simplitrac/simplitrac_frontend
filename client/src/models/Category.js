@@ -4,7 +4,11 @@ class Category{
     constructor(data){
         if(data instanceof Object){
             this.category_id = data.category_id;
-            this.category_name = data.category_name;
+            if(data.value) {
+                this.category_name = data.value.toLowerCase();
+            } else {
+                this.category_name = data.category_name.toLowerCase();
+            }
         } else if(data instanceof Category){
             Object.assign(this, data);
         } else {
@@ -16,7 +20,7 @@ class Category{
     serialize(){
         return {
             category_id: this.category_id,
-            category_name: this.category_name
+            category_name: this.category_name.toLowerCase()
         };
     }
 

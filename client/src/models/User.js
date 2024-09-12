@@ -204,7 +204,8 @@ class User {
 function toProperCase(name) {
     if (!name) return;
     const lower = name.toLowerCase();
-    return lower.charAt(0).toUpperCase() + lower.slice(1);
+    // return lower.charAt(0).toUpperCase() + lower.slice(1);
+    return lower
 }
 
 

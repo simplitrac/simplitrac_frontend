@@ -10,7 +10,7 @@ import Updating from "./Updating.jsx";
 import ExpenseChartJoyride from "./ExpenseChartJoyride.jsx";
 
 const ExpensesForm = () => {
-    const { user, formData, setFormData, setUser, ocrData, setOcrData, serverResponse, setServerResponse, isUpdating, setIsUpdating } = useContext(AppContext);
+    const { user, formData, setFormData, setUser, ocrData, setOcrData, serverResponse, setServerResponse, isUpdating, setIsUpdating  } = useContext(AppContext);
     const [vendors, setVendors] = useState([]);
     const [categories, setCategories] = useState([]);
 
@@ -26,7 +26,8 @@ const ExpensesForm = () => {
     const toProperCase = (name) => {
         if (!name) return '';
         const lower = name.toLowerCase();
-        return lower.charAt(0).toUpperCase() + lower.slice(1);
+        // return lower.charAt(0).toUpperCase() + lower.slice(1);
+        return lower
     };
 
     const createOption = (label) => ({
@@ -72,11 +73,16 @@ const ExpensesForm = () => {
         transaction.createdAt = data.date;
         transaction.vendor = data.vendor.value;
         transaction.amount = data.amount;
-        transaction.category_name = data.category.value;
-
+        transaction.category_name = data.category.value.toLowerCase()
+        // transaction.category_id = user.categories.map(cat => cat).filter(cat => cat.category_name == transaction.category_name)[0]?.category_id
+        const matchingCategory = user.categories.find(cat => cat.category_name == transaction.category_name)
+        transaction.category_id = matchingCategory?.category_id 
+        
         const updatedUser = new User(user);
         updatedUser.transactions.push(transaction);
-        updatedUser.addCategory(data.category);
+        if (transaction.category_id == null) {
+            updatedUser.addCategory(data.category);
+        }
 
         const result = await updatedUser.updateFirebase();
 
@@ -92,6 +98,7 @@ const ExpensesForm = () => {
             setOcrData(new Transaction());
         }
         setIsUpdating(false);
+        localStorage.setItem('user', result)
     };
 
     const customSelectStyles = {
