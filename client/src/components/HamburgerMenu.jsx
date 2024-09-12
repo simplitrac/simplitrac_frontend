@@ -123,13 +123,13 @@ const HamburgerMenu = () => {
                                     {showCategories ? "Hide Categories" : "Show Categories"}
                                 </Button>
                                 <p></p>
-                            </VStack>
                                 <SignOut
                                     variant="outline"
                                     w="100%"
                                     color="white"
                                     backgroundColor="#415a77"
                                 />
+                            </VStack>
                         </DrawerBody>
                         <DrawerFooter>
                         <Button
