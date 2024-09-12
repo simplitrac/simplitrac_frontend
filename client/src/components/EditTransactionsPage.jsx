@@ -8,7 +8,12 @@ import '../App.css';
 import {Button} from "@chakra-ui/react";
 import EditTransactionsJoyride from './EditTransactionJoyride.jsx';
 import HamburgerMenuEdit from "./HamburgerMenuEdit.jsx";
+<<<<<<< HEAD
 import {Spinner} from "react-bootstrap";
+=======
+import HamburgerMenu from './HamburgerMenu.jsx';
+import { Spinner } from "react-bootstrap";
+>>>>>>> bfe7ccff7d6479095698cec9640f24be6bd0a674
 import HomeButton from './HomeButton.jsx';
 
 const EditTransactionsPage = () => {
@@ -109,6 +114,7 @@ const EditTransactionsPage = () => {
 
     return (
         <>
+<<<<<<< HEAD
             <HamburgerMenuEdit/>
             <EditTransactionsJoyride/>
             <Spinner/>
@@ -133,6 +139,22 @@ const EditTransactionsPage = () => {
                                     onClick={startTour}>Start Tour</Button>
 
                         </div>
+=======
+        <HamburgerMenu/>
+        <EditTransactionsJoyride />
+        <Spinner />
+        <HomeButton onClick={() => setScreen('home')} />
+          <div style={{ marginTop: '3rem' }}> 
+            <form onSubmit={handleSubmit(onSubmit)} data-tour="edit-transactions-form">
+                <div className="edit-buttons">
+                    <div className="edit-left-button">
+                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel} data-tour="cancel-button">Cancel</Button>
+                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"80px", padding: "12px 20px"}} onClick={handleCancel}>Back</Button>
+                    </div>
+                    <div className="edit-right-button">
+                        <Button type="submit" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} data-tour="save-changes">Save Changes</Button>
+                        <Button type="button" className="custom-button" style={{backgroundColor: '#415a77',width:"130px", padding: "12px 20px"}} onClick={startTour}>Start Tour</Button>
+>>>>>>> bfe7ccff7d6479095698cec9640f24be6bd0a674
                     </div>
                     <h1 style={{textAlign: 'center', margin: '0px 0 30px 0'}}><b>Edit Transactions</b></h1>
 

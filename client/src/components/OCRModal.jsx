@@ -7,7 +7,7 @@ import FormData from "../models/FormData.js"
 const OCRModal = () => {
     Modal.setAppElement("#root");
     const firstInputRef = useRef();
-    const {ocrData, user, setUser, setFormData, ocrModalOpen, setOcrModalOpen, setServerResponse} = useContext(AppContext);
+    const {ocrData, user, setUser, setScreen, setFormData, ocrModalOpen, setOcrModalOpen, setServerResponse} = useContext(AppContext);
 
     const toggleModalOpenState = (state) => {
         setOcrModalOpen(!state);
@@ -57,13 +57,14 @@ const OCRModal = () => {
             case "tryAgain":
                 // Add this case to handle "try again" for error scenarios
                 setScreen("camera");
-
                 break;
         }
         toggleModalOpenState(ocrModalOpen);
     };
 
     const displayConfirmation = (transaction) => {
+        console.log("Transaction data in OCRModal:", transaction);
+        
         if (transaction.error) {
             return (
                 <li className="source-type-modal__list-item">
@@ -73,24 +74,19 @@ const OCRModal = () => {
             );
         }
         
-        return Object.entries(transaction)
-            .filter(entry => entry[1] !== null && entry[1] !== undefined)
-            .map((entry, index) => {
-
-                if(entry[0] === "transactionId") return;
-
-                return (
-                    <li key={index} className="source-type-modal__list-item">
-                        <label>
-                            {entry[0]}
-                        </label>
-                        <div>
-                            {entry[1]}
-                        </div>
-                    </li>
-                )
-
-            });
+        const fields = [
+            { key: 'createdAt', label: 'Date' },
+            { key: 'vendor', label: 'Vendor' },
+            { key: 'amount', label: 'Amount' },
+            { key: 'category_name', label: 'Category' }
+        ];
+        
+        return fields.map((field, index) => (
+            <li key={index} className="source-type-modal__list-item">
+                <label>{field.label}</label>
+                <div>{transaction[field.key] !== undefined && transaction[field.key] !== null ? transaction[field.key] : 'Not available'}</div>
+            </li>
+        ));
     }
 
     // Copied this from: https://stackblitz.com/edit/modal-dialog-with-checkbox?file=src%2FApp.js
