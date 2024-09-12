@@ -6,6 +6,7 @@ import { Spinner } from "react-bootstrap";
 import { Button } from "@chakra-ui/react";
 import '../App.css';
 import Updating from "./Updating.jsx";
+import HomeButton from './HomeButton.jsx';
 
 const Camera = () => {
     const { capturedPhoto, setCapturedPhoto, screen, setScreen, ocrData, setOcrData, device, setOcrModalOpen, isUpdating, setIsUpdating } = useContext(AppContext);
@@ -152,38 +153,42 @@ const Camera = () => {
     // }
 
     return (
-        <div style={styles.container}>
-            {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
-            {device === 'mobile' && !capturedPhoto && (
-                <div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        capture="environment"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                        style={styles.fileInput}
-                    />
-                </div>
-            )}
-            {device === 'desktop' && !capturedPhoto && (
-                <div>
-                    <video ref={videoRef} style={styles.video} />
-                    <Button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</Button>
-                </div>
-            )}
-            {capturedPhoto && device === 'desktop' && (
-                <div>
-                    <div style={styles.imageContainer}>
-                        <p>Captured Photo:</p>
-                        <img src={capturedPhoto} alt="Captured" style={styles.image} />
+        <div style={{ marginTop: '1rem' }}>
+            <HomeButton/>
+            <div style={styles.container}>
+                {isUpdating && <Updating />} {/* Show overlay when isUpdating is true */}
+                {device === 'mobile' && !capturedPhoto && (
+                    <div>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            capture="environment"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            style={styles.fileInput}
+                        />
                     </div>
-                    <Button className="custom-button" onClick={submitPhoto} style={styles.button}>Submit</Button>
-                    <Button className="custom-button" onClick={activateDesktopCamera} style={styles.button}>Retake</Button>
-                    <BackButton />
-                </div>
                 )}
-            <canvas ref={canvasRef} style={styles.hiddenCanvas}></canvas>
+                {device === 'desktop' && !capturedPhoto && (
+                    <div>
+                        <video ref={videoRef} style={styles.video} />
+                        <Button className="custom-button" onClick={capturePhoto} style={styles.button}>Capture Photo</Button>
+                    </div>
+                )}
+                {capturedPhoto && device === 'desktop' && (
+                    <div>
+                        {/* <HomeButton/> */}
+                        <div style={styles.imageContainer}>
+                            <p>Captured Photo:</p>
+                            <img src={capturedPhoto} alt="Captured" style={styles.image} />
+                        </div>
+                        <Button className="custom-button" onClick={submitPhoto} style={styles.button}>Submit</Button>
+                        <Button className="custom-button" onClick={activateDesktopCamera} style={styles.button}>Retake</Button>
+                        {/* <BackButton/> */}
+                    </div>
+                    )}
+                <canvas ref={canvasRef} style={styles.hiddenCanvas}></canvas>
+            </div>
         </div>
     );
 };

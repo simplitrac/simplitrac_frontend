@@ -9,6 +9,7 @@ import { Button } from "@chakra-ui/react";
 import EditTransactionsJoyride from './EditTransactionJoyride.jsx';
 import HamburgerMenuEdit from "./HamburgerMenuEdit.jsx";
 import { Spinner } from "react-bootstrap";
+import HomeButton from './HomeButton.jsx';
 
 const EditTransactionsPage = () => {
     const { user, setUser, setScreen, setServerResponse, runEditTransactionsTour, setRunEditTransactionsTour } = useContext(AppContext);
@@ -96,8 +97,10 @@ const EditTransactionsPage = () => {
     return (
         <>
         <HamburgerMenuEdit />
-            <EditTransactionsJoyride />
-            <Spinner />
+        <EditTransactionsJoyride />
+        <Spinner />
+        <HomeButton onClick={() => setScreen('home')} />
+          <div style={{ marginTop: '3rem' }}> 
             <form onSubmit={handleSubmit(onSubmit)} data-tour="edit-transactions-form">
                 <div className="edit-buttons">
                     <div className="edit-left-button">
@@ -180,6 +183,7 @@ const EditTransactionsPage = () => {
                     </tbody>
                 </table>
             </form>
+            </div>
         </>    
     );
 };
