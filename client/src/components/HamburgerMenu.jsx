@@ -72,18 +72,21 @@ const HamburgerMenu = () => {
                 top="20px"
                 left="20px"
                 zIndex="1000"
-                colorScheme="teal"
+            // colorScheme="teal"
             />
 
             <Drawer placement="left" onClose={() => setShowHamburger(false)} isOpen={isOpen}>
                 <DrawerOverlay>
                     <DrawerContent>
-                        <DrawerCloseButton color='#bd1f36'/>
+                        <DrawerCloseButton 
+                            color='#bd1f36'
+                            background="white"/>
                         <DrawerHeader
                             textAlign="center"
                             color="yinmnBlue.500"
                             fontSize="2xl"
                             fontWeight="bold"
+                            bg="back"
                         >Menu</DrawerHeader>
                         <DrawerBody>
                             <VStack align="center" spacing={4}>
@@ -119,23 +122,25 @@ const HamburgerMenu = () => {
                                     onClick={toggleCategoriesList}>
                                     {showCategories ? "Hide Categories" : "Show Categories"}
                                 </Button>
+                                <p></p>
                             </VStack>
-                            <Button
+                                <SignOut
+                                    variant="outline"
+                                    w="100%"
+                                    color="white"
+                                    backgroundColor="#415a77"
+                                />
+                        </DrawerBody>
+                        <DrawerFooter>
+                        <Button
                                 variant="ghost"
                                 w="100%"
                                 onClick={handleDeleteAccount}
                                 backgroundColor="#bd1f36"
+                                color='white'
                             >
                                 Delete Account
                             </Button>
-                        </DrawerBody>
-                        <DrawerFooter>
-
-                            <SignOut
-                                variant="outline"
-                                w="100%"
-                                color="black"
-                            />
                         </DrawerFooter>
                     </DrawerContent>
                 </DrawerOverlay>

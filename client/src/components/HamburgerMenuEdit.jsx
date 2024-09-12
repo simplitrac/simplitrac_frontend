@@ -55,7 +55,7 @@ const HamburgerMenuEdit = () => {
                 top="20px"
                 left="20px"
                 zIndex="1000"
-                colorScheme="teal"
+                // colorScheme="teal"
             />
 
             <Drawer placement="left" onClose={() => setShowHamburger(false)} isOpen={isOpen}>
