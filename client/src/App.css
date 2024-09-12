@@ -74,7 +74,9 @@ button:hover, .custom-button:hover {
 }
 
 .edit-right-button {
+  display: flex;
   margin-left: auto;
+  gap: 16px
 }
 
 /* space between columns/rows in table */
